@@ -1,5 +1,6 @@
 // Page.tsx
 import Banner from '@/components/HomePage/Banner';
+import Featured from '@/components/HomePage/Featured';
 import PopularEvents from '@/components/HomePage/PopularEvents';
 import TodaysEvent from '@/components/HomePage/TodaysEvent';
 import TopEvents from '@/components/HomePage/TopEvents';
@@ -17,6 +18,7 @@ const Page = async () => {
             <TodaysEvent />
             <TopEvents />
             <PopularEvents />
+            <Featured />
         </div>
     );
 };

@@ -13,7 +13,7 @@
   --color-red-500: #F80408;
 }
 
-:root::-webkit-scrollbar {
+::-webkit-scrollbar {
   display: block;
   background: var(--text);
   height: 4px;
@@ -124,7 +124,7 @@ body {
   left: -24px;
 }
 
-:where(.css-dev-only-do-not-override-apn68).ant-popover .ant-popover-inner {
+.ant-popover .ant-popover-inner {
   padding: 0;
 }
 
