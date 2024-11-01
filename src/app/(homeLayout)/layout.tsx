@@ -10,7 +10,7 @@ const homeLayout = ({
     return (
         <>
             <Navbar />
-            <div className='min-h-[4vh]'>
+            <div className='min-h-[55vh]'>
                 {children}
             </div>
             <Footer />

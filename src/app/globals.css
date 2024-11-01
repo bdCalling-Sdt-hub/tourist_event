@@ -13,11 +13,8 @@
   --color-red-500: #F80408;
 }
 
-::-webkit-scrollbar {
-  display: block;
-  background: var(--text);
-  height: 4px;
-  border-radius: 3px;
+*::-webkit-scrollbar {
+  display: none;
 }
 
 body {

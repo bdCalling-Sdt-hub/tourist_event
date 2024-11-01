@@ -1,11 +1,11 @@
 "use client"
+import useUpdateSearchParams from '@/Utils/SetParams';
 import { Popover } from 'antd';
-import { useRouter } from 'next/navigation';
 import React from 'react';
 import { FaFilter } from 'react-icons/fa';
 
 const TodaysEvent = () => {
-    const router = useRouter()
+    const updateSearchParams = useUpdateSearchParams();
     const Options = [
         { name: "LIVE MUSIC", value: 'LIVE MUSIC' },
         { name: "COMEDY", value: 'COMEDY' },
@@ -13,11 +13,6 @@ const TodaysEvent = () => {
         { name: "Arts &Culture", value: 'Arts &Culture' },
         { name: "RESTAURANT", value: 'RESTAURANT' },
     ]
-    const updateSearchParams = (key: string, value: string) => {
-        const currentParams = new URLSearchParams(window.location.search);
-        currentParams.set(key, value);
-        router.replace(`?${currentParams.toString()}`, { scroll: false });
-    };
     const content = (
         <div className='bg-blue-900 p-2 rounded-sm flex flex-col gap-1'>
             {

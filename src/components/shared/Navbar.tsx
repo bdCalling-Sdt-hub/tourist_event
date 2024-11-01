@@ -17,16 +17,18 @@ import { FaList, FaSearch } from 'react-icons/fa'
 import { RiMenuUnfold2Fill } from 'react-icons/ri'
 import { Drawer } from 'antd'
 import Headroom from "react-headroom";
+import { useRouter } from 'next/navigation'
 const Navbar = () => {
     const [date, setDate] = React.useState<Date>()
     const [open, setOpen] = React.useState<boolean | undefined>(false);
+    const router = useRouter()
     return (
         <Headroom>
             <div className='bg-blue-900 px-2 md:py-6 py-4'>
                 <div className='container mx-auto between-center'>
                     <div className='start-center  gap-6 '>
-                        <Image className='md:block hidden' src={logo} height={200} width={200} alt='logo' />
-                        <Image className='md:hidden block w-10 h-10' src={shortLogo} height={400} width={600} alt='logo' />
+                        <Image onClick={() => router.push('/')} className='md:block hidden cursor-pointer' src={logo} height={200} width={200} alt='logo' />
+                        <Image onClick={() => router.push('/')} className='md:hidden block w-10 h-10 cursor-pointer' src={shortLogo} height={400} width={600} alt='logo' />
                         <Popover>
                             <PopoverTrigger asChild>
                                 <button
@@ -49,7 +51,7 @@ const Navbar = () => {
                         <Link href={`/search`}>
                             <FaSearch size={24} />
                         </Link>
-                        <Link href={`/pastEvents`}>
+                        <Link href={`/past-event`}>
                             <FaList size={24} />
                         </Link>
                         <div className='md:block hidden'>
