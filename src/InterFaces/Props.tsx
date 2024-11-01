@@ -18,12 +18,23 @@ interface FavoriteButtonProps {
 interface TopEventsProps {
     data: EventCardData[];
 }
+
 interface HomePageProps {
     data: EventCardData[];
+}
+
+interface EventCardProps {
+    item: EventCardData;
+}
+
+interface MoreButtonProps {
+    _id?: string | null
 }
 export type {
     Button,
     HomePageProps,
     TopEventsProps,
-    FavoriteButtonProps
+    FavoriteButtonProps,
+    EventCardProps,
+    MoreButtonProps
 };

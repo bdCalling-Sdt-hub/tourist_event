@@ -20,13 +20,6 @@ import Headroom from "react-headroom";
 const Navbar = () => {
     const [date, setDate] = React.useState<Date>()
     const [open, setOpen] = React.useState<boolean | undefined>(false);
-    {/* <ButtonBlue
-                        handler={() => setOpenDatePicker(true)}
-                        text={`Event`}
-                        classNames={null}
-                        icon={<MdDateRange />}
-                        styles={null}
-                    /> */}
     return (
         <Headroom>
             <div className='bg-blue-900 px-2 md:py-6 py-4'>

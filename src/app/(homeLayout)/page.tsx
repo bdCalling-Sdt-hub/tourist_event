@@ -13,13 +13,15 @@ export const metadata: Metadata = {
 
 const Page = async () => {
     return (
-        <div className='start-center flex-col gap-24'>
+        <>
             <Banner />
-            <TodaysEvent />
-            <TopEvents />
-            <PopularEvents />
-            <Featured />
-        </div>
+            <div className='start-center flex-col gap-24'>
+                <TodaysEvent />
+                <TopEvents />
+                <PopularEvents />
+                <Featured />
+            </div>
+        </>
     );
 };
 

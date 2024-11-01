@@ -1,11 +1,6 @@
-// TopEvents.tsx
-import Image from 'next/image';
 import React from 'react';
-import { FaLayerGroup } from 'react-icons/fa';
-import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
-import FavoriteButton from './Client/FavoriteButton';
-import { FaLocationDot } from 'react-icons/fa6';
 import Link from 'next/link';
+import EventCard from '../shared/EventCard';
 
 const TopEvents = () => {
     const data = [
@@ -111,28 +106,10 @@ const TopEvents = () => {
             <h2 className='h2-black mb-5'>Top Event</h2>
             <div className='grid-4'>
                 {data?.map((item, i) => (
-                    <Link href={`/details/${item?.name}`} className='w-full h-full bg-[var(--color-white)] card-shadow rounded-md' key={i}>
-                        <div className='w-full h-[300px] rounded-md overflow-hidden'>
-                            <Image src={item?.image} alt='image' height={600} width={600} className='img-cover' unoptimized />
-                        </div>
-                        <div className='p-3 relative text-gray'>
-                            <FavoriteButton
-                                icon={item?.favorite ? <MdFavorite /> : <MdFavoriteBorder />}
-                                favorite={item?.favorite}
-                                _id={null}
-                            />
-                            <span className='start-center gap-3 '>
-                                <FaLayerGroup />
-                                {item?.category}
-                            </span>
-                            <p className='mt-1'>{item?.name}</p>
-                            <hr className='w-full h-[1px] my-2' />
-                            <span className='start-center gap-3 '>
-                                <FaLocationDot className='text-[var(--color-blue-500)]' />
-                                {item?.location}
-                            </span>
-                        </div>
-                    </Link>
+                    <EventCard
+                        item={item}
+                        key={i}
+                    />
                 ))}
             </div>
             <Link href={'/'} className='button-blue whitespace-nowrap mx-auto mt-6'>

@@ -1,10 +1,11 @@
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+
 interface EventCardData {
-    map(arg0: (item: any) => any): import("react").ReactNode;
-    image?: string;
-    category?: string;
-    location?: string;
-    favorite?: boolean;
-    description?: string;
-    country?: string;
+    name: any;
+    image: string | StaticImport;
+    category: string | undefined;
+    location: string | undefined;
+    favorite: boolean;
+    description: string | undefined;
 };
 export type { EventCardData }

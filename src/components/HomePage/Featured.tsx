@@ -3,6 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 import { FaLayerGroup } from 'react-icons/fa'
 import { FaLocationDot } from 'react-icons/fa6'
+import MoreButton from './Client/MoreButton'
 
 const Featured = () => {
     const images = [
@@ -127,17 +128,17 @@ const Featured = () => {
                 <div className='start-start gap-2 flex-col w-full h-[600px] overflow-y-scroll'>
                     {
 
-                        data?.map(item => <div className='start-start gap-2 bg-[var(--color-blue-200)] rounded-md w-full' key={item?.name}>
+                        data?.map(item => <div className='start-start p-2 gap-2 bg-[var(--color-blue-200)] rounded-md w-full' key={item?.name}>
                             <Image src={item?.image} className='h-20 w-20 rounded' alt='featured' unoptimized height={300} width={300} />
-                            <div className='p-3 relative text-gray'>
+                            <div className='p-3 text w-full'>
                                 <p className='mb-1'>{item?.name}</p>
                                 <span className='start-center gap-1 '>
                                     <FaLocationDot className='text-[var(--color-blue-500)]' />
                                     {item?.location}
                                 </span>
+                            <MoreButton _id={''} />
                             </div>
                         </div>)
-
                     }
                 </div>
             </div>
