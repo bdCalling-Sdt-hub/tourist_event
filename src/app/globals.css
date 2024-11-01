@@ -45,20 +45,24 @@ body {
     @apply text-[var(--color-white)] text-[24px] md:text-[40px] xl:text-[60px] font-bold
   }
 
+  .h2-white {
+    @apply text-[var(--color-white)] text-[16px] md:text-[28px] xl:text-[42px] font-bold
+  }
+
   .h2-black {
-    @apply text-[var(--color-blue-900)] text-[20px] md:text-[35px] xl:text-[48px] font-bold ml-6 relative after
+    @apply text-[var(--color-blue-900)] text-[16px] md:text-[28px] xl:text-[42px] font-bold ml-6 relative after
   }
 
   .h3-black {
-    @apply text-[var(--color-blue-900)] text-[16px] md:text-[24px] xl:text-[35px] font-bold
+    @apply text-[var(--color-blue-900)] text-[14px] md:text-[20px] xl:text-[30px] font-bold
   }
 
   .text {
-    @apply text-[var(--color-blue-900)] text-[14px] md:text-[15px]
+    @apply text-[var(--color-blue-900)] text-[12px] md:text-[14px]
   }
 
   .text-gray {
-    @apply text-[var(--color-gray-500)] text-[14px] md:text-[15px]
+    @apply text-[var(--color-gray-500)] text-[12px] md:text-[14px]
   }
 
   .start-start {
@@ -114,10 +118,14 @@ body {
   position: absolute;
   content: '';
   background: var(--color-blue-500);
-  width: 4px;
+  width: 10px;
   height: 100%;
   top: 0;
-  left: 24 px;
+  left: -24px;
+}
+
+:where(.css-dev-only-do-not-override-apn68).ant-popover .ant-popover-inner {
+  padding: 0;
 }
 
 /* .navbar :where(.css-dev-only-do-not-override-apn68).ant-picker-outlined {

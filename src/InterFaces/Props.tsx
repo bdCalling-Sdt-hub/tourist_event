@@ -1,12 +1,29 @@
 import { ReactNode } from 'react';
+import { EventCardData } from './Data';
 // navbar
 interface Button {
     classNames: string | null;
     text: string | null;
     icon: ReactNode | null;
-    handler?: (() => void) | null;
+    onClick?: any
     styles: Record<string, string | number> | null;
     // [key: string]: string | number;
 }
+interface FavoriteButtonProps {
+    icon: ReactNode | null;
+    _id?: string | null
+    favorite: boolean;
+}
 
-export type { Button };
+interface TopEventsProps {
+    data: EventCardData[];
+}
+interface HomePageProps {
+    data: EventCardData[];
+}
+export type {
+    Button,
+    HomePageProps,
+    TopEventsProps,
+    FavoriteButtonProps
+};
