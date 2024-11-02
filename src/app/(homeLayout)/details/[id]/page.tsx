@@ -1,5 +1,7 @@
 import Banner from '@/components/DetailsPage/client/Banner'
 import Map from '@/components/shared/Client/Map'
+import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const DetailsPage = () => {
@@ -7,6 +9,13 @@ const DetailsPage = () => {
         <div className='container mx-auto'>
             <Banner />
             <div>
+                <Link href={`/details/author`} className='start-center gap-2 mt-4 cursor-pointer'>
+                    <Image src={'https://i.ibb.co.com/bHTrR2R/blank-profile-picture-973460-1280.webp'} alt='image' height={600} width={600} className='h-14 w-14 rounded-full' unoptimized />
+                    <div>
+                        <p className='uppercase text-gray font-bold'>siyam</p>
+                        <p className='uppercase text-gray'>siyamoffice0073@gmail.com</p>
+                    </div>
+                </Link>
                 <p className='text-3xl mt-4'>Description:</p>
                 <div className='text-gray'>
                     <strong>   Live Music at 5:00 PM</strong>

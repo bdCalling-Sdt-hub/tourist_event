@@ -7,6 +7,7 @@
   --color-white-200: #f8f8f9;
   --color-black: #000000;
   --color-blue-900: #002233;
+  --color-blue-700: #0454B5;
   --color-blue-500: #00AAFF;
   --color-blue-200: #C6E2F0;
   --color-gray-500: #767E94;
@@ -27,7 +28,7 @@ body {
 
 @layer utilities {
   .bg-blue-900 {
-    @apply bg-[var(--color-blue-900)] text-[var(--color-white)]
+    @apply bg-[var(--color-blue-700)] text-[var(--color-white)]
   }
 
   .bg-white-200 {

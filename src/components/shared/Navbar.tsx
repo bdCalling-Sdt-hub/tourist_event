@@ -54,6 +54,9 @@ const Navbar = () => {
                         <Link href={`/past-event`}>
                             <FaList size={24} />
                         </Link>
+                        <Link href={`/profile`}>
+                            <Image src={`https://i.ibb.co.com/bHTrR2R/blank-profile-picture-973460-1280.webp`} height={40} width={40} className='h-10 w-10 rounded-full' unoptimized alt='profile' />
+                        </Link>
                         <div className='md:block hidden'>
                             <DowerLinks />
                         </div>

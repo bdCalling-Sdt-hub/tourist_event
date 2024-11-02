@@ -5,34 +5,26 @@ import Image from 'next/image'
 import { Checkbox, Form, FormProps, Input } from 'antd'
 import Link from 'next/link'
 type FieldType = {
-    email?: string;
     password?: string;
-    remember?: string;
+    confirmPassword?: string;
 };
-const loginPage = () => {
+const ResetPassword = () => {
     const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
         console.log('Success:', values);
     };
     return (
         <div className='mx-auto center-center h-screen w-full'>
             <div className='w-full h-full grid-2'>
-                <Image src={loginImage} height={600} width={1000} alt='login image' className='img-contain hidden md:block' />
+                <Image src={loginImage} height={600} width={1000} alt='login image' className='img-contain  ' />
                 <div className='flex justify-center items-start h-full w-full flex-col bg-[var(--color-blue-200)] p-4'>
                     <div className='max-w-[600px] w-full mx-auto'>
-                        <p className='text-3xl font-bold mb-2'>Login</p>
-                        <p className='text-gray'>Login to access your Globe account</p>
+                        <p className='text-3xl font-bold mb-2'>Set a new password</p>
+                        <p className='text-gray'>Your previous password has been reseted. Please set a new password for your account.</p>
                         <Form
                             layout='vertical'
                             initialValues={{ remember: true }}
                             onFinish={onFinish}
                             autoComplete="off">
-                            <Form.Item<FieldType>
-                                label="Email"
-                                name="email"
-                                rules={[{ required: true, message: 'Please input your Email!' }]}
-                            >
-                                <Input className='h-[42px]' />
-                            </Form.Item>
                             <Form.Item<FieldType>
                                 label="Password"
                                 name="password"
@@ -41,25 +33,16 @@ const loginPage = () => {
                                 <Input.Password className='h-[42px]' />
                             </Form.Item>
                             <Form.Item<FieldType>
-                                name="remember"
-                                valuePropName="checked"
+                                label="Confirm Password"
+                                name="confirmPassword"
+                                rules={[{ required: true, message: 'Please input your Confirm Password!' }]}
                             >
-                                <div className='between-center gap-2'>
-                                    <Checkbox>Remember me</Checkbox>
-                                    <Link href={`/forget-password`} className='text-[var(--color-red-500)] hover:text-[var(--color-blue-500)]'>
-                                        Forget Password
-                                    </Link>
-                                </div>
+                                <Input.Password className='h-[42px]' />
                             </Form.Item>
                             <button className='button-blue'>
-                                Sign In
+                                Reset Password
                             </button>
                         </Form>
-                        <p className='text-end text-sm mt-4'>
-                            Don’t have an account? <Link href={`/register`} className='text-[var(--color-red-500)] hover:text-[var(--color-blue-500)]'>
-                                Sign up
-                            </Link>
-                        </p>
                     </div>
                 </div>
             </div>
@@ -67,4 +50,4 @@ const loginPage = () => {
     )
 }
 
-export default loginPage
+export default ResetPassword

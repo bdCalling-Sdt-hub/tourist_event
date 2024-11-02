@@ -1,10 +1,10 @@
-
-import Banner from '@/components/PastEventsPage/Client/Banner'
-import InfiniteScrollS from '@/components/SearchPage/Client/InfiniteScrollS';
+import Banner from '@/components/AuthorPage/Client/Banner'
+import SeeMoreButton from '@/components/AuthorPage/Client/SeeMoreButton';
+import Featured from '@/components/HomePage/Featured';
 import EventCard from '@/components/shared/EventCard';
 import React from 'react'
 
-const PastEventsPage = () => {
+const AuthorPage = () => {
     const data = [
         {
             "image": "https://i.ibb.co/gZnsjn6/Block-Back-3.png",
@@ -106,7 +106,13 @@ const PastEventsPage = () => {
     return (
         <div className='container mx-auto'>
             <Banner />
-            <h2 className='h2-black mb-5 mt-10'>Past Events</h2>
+            <p className='text-3xl mt-4'>Description:</p>
+            <div className='text-gray'>
+                <strong>   Live Music at 5:00 PM</strong>
+                <br />
+                We would like to invite you to taste, discover, and learn about more than 60 premium whiskey brands and cocktails–the best of Bourbon, American, Irish, Scotch, Rye, Single Malt, and more as part of our WhiskyX event in Austin! We’ve curated an unprecedented selection of innovative and world-class whiskies.
+            </div>
+            <h2 className='h2-black mb-5 mt-10'>This Author Events</h2>
             <div className='grid-4 mt-4'>
                 {data?.map((item, i) => (
                     <EventCard
@@ -115,9 +121,12 @@ const PastEventsPage = () => {
                     />
                 ))}
             </div>
-            <InfiniteScrollS />
+            <SeeMoreButton />
+            <div className='mt-10'>
+                <Featured />
+            </div>
         </div>
     )
 }
 
-export default PastEventsPage
+export default AuthorPage
