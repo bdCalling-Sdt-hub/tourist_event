@@ -75,7 +75,7 @@ const SearchPage = () => {
             "location": "Rome",
             "favorite": true,
             "description": "Visit historic landmarks in Rome.",
-            "name": "Italy"
+            "name": "Italy2"
         },
         {
             "image": "https://i.ibb.co/9pmdtnt/Block-Back.png",
@@ -83,7 +83,7 @@ const SearchPage = () => {
             "location": "Queenstown",
             "favorite": false,
             "description": "Engage in thrilling sports in Queenstown.",
-            "name": "New Zealand"
+            "name": "New Zealand2"
         },
         {
             "image": "https://i.ibb.co/CVYtSkk/Block.png",

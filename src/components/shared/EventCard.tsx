@@ -31,7 +31,7 @@ const EventCard = ({ item }: EventCardProps) => {
                     {item?.location}
                 </span>
             </div>
-            <MoreButton _id={''} />
+            <MoreButton _id={'52448241'} />
         </div>
     )
 
