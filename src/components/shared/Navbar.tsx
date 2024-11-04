@@ -84,9 +84,9 @@ const Navbar = () => {
                                         <Link href={`/subscription`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
                                             <MdOutlinePlaylistAddCheck size={20} />My subscription
                                         </Link>
-                                        <button className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md w-full'>
+                                        <Link href={`/join-us`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md w-full'>
                                             <MdOutlineStorefront size={20} />Become a vendor
-                                        </button>
+                                        </Link>
                                         <button className='start-center gap-2 hover:bg-[var(--color-red-500)] hover:text-[var(--color-white)] p-2 rounded-md w-full'>
                                             <IoIosLogOut size={20} /> Sign Out
                                         </button>
