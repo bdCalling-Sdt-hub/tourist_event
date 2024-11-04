@@ -58,6 +58,7 @@ body {
   .text {
     @apply text-[var(--color-blue-900)] text-[12px] md:text-[14px]
   }
+
   .text-white {
     @apply text-[var(--color-white)] text-[12px] md:text-[14px]
   }
@@ -127,6 +128,10 @@ body {
 
 .ant-popover .ant-popover-inner {
   padding: 0;
+}
+
+.ant-modal-content {
+  padding: 0 !important;
 }
 
 /* .navbar :where(.css-dev-only-do-not-override-apn68).ant-picker-outlined {
