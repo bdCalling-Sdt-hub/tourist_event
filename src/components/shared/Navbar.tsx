@@ -75,13 +75,13 @@ const Navbar = () => {
                                         <Link href={`/profile`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
                                             <CiUser size={20} /> Profile
                                         </Link>
-                                        <Link href={`#`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
+                                        <Link href={`my-event`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
                                             <CiCalendar size={20} /> My Event
                                         </Link>
-                                        <Link href={`#`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
+                                        <Link href={`/favorite`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
                                             <MdFavoriteBorder size={20} />Favorites
                                         </Link>
-                                        <Link href={`#`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
+                                        <Link href={`/subscription`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
                                             <MdOutlinePlaylistAddCheck size={20} />My subscription
                                         </Link>
                                         <button className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md w-full'>
