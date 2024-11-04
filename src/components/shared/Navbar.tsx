@@ -72,7 +72,7 @@ const Navbar = () => {
                                         <Image src={`https://i.ibb.co.com/bHTrR2R/blank-profile-picture-973460-1280.webp`} height={140} width={140} className='h-24 w-24 absolute left-[50%] translate-x-[-50%] -bottom-6 rounded-full' unoptimized alt='profile' />
                                     </div>
                                     <div className='mt-4 p-4'>
-                                        <Link href={`#`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
+                                        <Link href={`/profile`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
                                             <CiUser size={20} /> Profile
                                         </Link>
                                         <Link href={`#`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
