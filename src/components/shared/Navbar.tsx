@@ -10,7 +10,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { MdDateRange } from 'react-icons/md'
+import { MdDateRange, MdFavoriteBorder, MdOutlinePlaylistAddCheck, MdOutlineStorefront } from 'react-icons/md'
 import { RxCross2 } from 'react-icons/rx'
 import Link from 'next/link'
 import { FaList, FaSearch } from 'react-icons/fa'
@@ -18,10 +18,13 @@ import { RiMenuUnfold2Fill } from 'react-icons/ri'
 import { Drawer } from 'antd'
 import Headroom from "react-headroom";
 import { useRouter } from 'next/navigation'
+import { CiCalendar, CiUser } from 'react-icons/ci'
+import { IoIosLogOut } from 'react-icons/io'
 const Navbar = () => {
     const [date, setDate] = React.useState<Date>()
     const [open, setOpen] = React.useState<boolean | undefined>(false);
     const router = useRouter()
+
     return (
         <Headroom>
             <div className='bg-blue-900 px-2 md:py-6 py-4'>
@@ -54,9 +57,44 @@ const Navbar = () => {
                         <Link href={`/past-event`}>
                             <FaList size={24} />
                         </Link>
-                        <Link href={`/profile`}>
-                            <Image src={`https://i.ibb.co.com/bHTrR2R/blank-profile-picture-973460-1280.webp`} height={40} width={40} className='h-10 w-10 rounded-full' unoptimized alt='profile' />
-                        </Link>
+                        {/* @ts-ignore */}
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <button>
+                                    <Image src={`https://i.ibb.co.com/bHTrR2R/blank-profile-picture-973460-1280.webp`} height={40} width={40} className='h-10 w-10 rounded-full' unoptimized alt='profile' />
+                                </button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                                <div className='rounded-md p-2 bg-[var(--color-white)] min-w-[300px] max-w-[500px] w-full'>
+                                    <div style={{
+                                        background: 'url(https://i.ibb.co.com/MVcwBWm/1600w-1-NYTq34-QR6-I.webp)'
+                                    }} className='w-full h-[100px] bg-cover bg-no-repeat rounded-md relative'>
+                                        <Image src={`https://i.ibb.co.com/bHTrR2R/blank-profile-picture-973460-1280.webp`} height={140} width={140} className='h-24 w-24 absolute left-[50%] translate-x-[-50%] -bottom-6 rounded-full' unoptimized alt='profile' />
+                                    </div>
+                                    <div className='mt-4 p-4'>
+                                        <Link href={`#`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
+                                            <CiUser size={20} /> Profile
+                                        </Link>
+                                        <Link href={`#`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
+                                            <CiCalendar size={20} /> My Event
+                                        </Link>
+                                        <Link href={`#`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
+                                            <MdFavoriteBorder size={20} />Favorites
+                                        </Link>
+                                        <Link href={`#`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
+                                            <MdOutlinePlaylistAddCheck size={20} />My subscription
+                                        </Link>
+                                        <button className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md w-full'>
+                                            <MdOutlineStorefront size={20} />Become a vendor
+                                        </button>
+                                        <button className='start-center gap-2 hover:bg-[var(--color-red-500)] hover:text-[var(--color-white)] p-2 rounded-md w-full'>
+                                            <IoIosLogOut size={20} /> Sign Out
+                                        </button>
+                                    </div>
+                                </div>
+                            </PopoverContent>
+                        </Popover>
+
                         <div className='md:block hidden'>
                             <DowerLinks />
                         </div>

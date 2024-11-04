@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ContactPage = () => {
+const AboutPage = () => {
     return (
         <div className='container mx-auto mt-10'>
             <p>
@@ -119,4 +119,4 @@ const ContactPage = () => {
     )
 }
 
-export default ContactPage
+export default AboutPage
