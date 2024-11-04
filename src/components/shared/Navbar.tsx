@@ -132,7 +132,7 @@ const DowerLinks = () => {
             <Link className='button-blue card-shadow whitespace-nowrap' href={`/register`}>
                 Sign Up
             </Link>
-            <Link className='button-blue card-shadow whitespace-nowrap' href={`/joinUs`}>
+            <Link className='button-blue card-shadow whitespace-nowrap' href={`/join-us`}>
                 Advertise With Us
             </Link>
         </div>

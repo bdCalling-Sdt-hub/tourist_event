@@ -5,9 +5,11 @@ const useUpdateSearchParams = () => {
     const router = useRouter();
 
     const updateSearchParams = (key: string, value: string) => {
-        const currentParams = new URLSearchParams(window.location.search);
-        currentParams.set(key, value);
-        router.replace(`?${currentParams.toString()}`, { scroll: false });
+        if (typeof window !== "undefined") {
+            const currentParams = new URLSearchParams(window.location.search);
+            currentParams.set(key, value);
+            router.replace(`?${currentParams.toString()}`, { scroll: false });
+        }
     };
 
     return updateSearchParams;

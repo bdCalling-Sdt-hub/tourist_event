@@ -1,6 +1,5 @@
 'use client'
 
-import GetCoordinateMap from "@/components/shared/Client/GetCoordinateMap";
 import { Form, FormProps, Input, Modal, Select } from "antd"
 import TextArea from "antd/es/input/TextArea";
 import Image from "next/image";

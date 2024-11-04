@@ -1,7 +1,6 @@
 import EventCard from '@/components/shared/EventCard'
 import { Pagination } from 'antd';
 import React from 'react'
-import { FaPlus } from 'react-icons/fa';
 
 
 const page = () => {

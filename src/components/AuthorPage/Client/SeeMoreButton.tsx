@@ -5,8 +5,10 @@ import React from 'react'
 const SeeMoreButton = () => {
     const updateSearchParams = useUpdateSearchParams()
     return <button onClick={() => {
-        const currentParams = new URLSearchParams(window.location.search);
-        updateSearchParams('limit', currentParams.get('limit') ? `${Number(currentParams.get('limit')) + 10}` : '10')
+        if (typeof window !== "undefined") {
+            const currentParams = new URLSearchParams(window.location.search);
+            updateSearchParams('limit', currentParams.get('limit') ? `${Number(currentParams.get('limit')) + 10}` : '10')
+        }
     }} className='button-blue whitespace-nowrap mx-auto mt-6'>
         See More
     </button>

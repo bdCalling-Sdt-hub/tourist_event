@@ -1,6 +1,10 @@
-import GetCoordinateMap from '@/components/shared/Client/GetCoordinateMap';
+'use client'
+const GetCoordinateMap = dynamic(() => import('@/components/shared/Client/GetCoordinateMap'), {
+    ssr: false,
+});
 import { Form, FormProps, Input, Modal, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React, { useState } from 'react'
 import { CiEdit, CiImageOn } from 'react-icons/ci';

@@ -1,4 +1,5 @@
 
+'use client'
 import Profile from '@/components/ProfilePage/Client/Profile'
 import React from 'react'
 
