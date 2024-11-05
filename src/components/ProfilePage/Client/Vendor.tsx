@@ -20,6 +20,7 @@ type FieldType = {
     address?: string;
     location?: string;
     desc?: string;
+    name?: string;
 };
 const Vendor = () => {
     const [profileImage, setProfileImage] = useState<File | null>(null)
@@ -67,6 +68,13 @@ const Vendor = () => {
         </div>
 
         <div className=" mt-12">
+            <Form.Item<FieldType>
+                name={`name`}
+                label={`Business Name`}
+                rules={[{ required: true, message: 'Business Name is required' }]}
+            >
+                <Input placeholder="location" className="h-[42px]" />
+            </Form.Item>
             <div className="relative">
                 <Form.Item<FieldType>
                     name={`location`}

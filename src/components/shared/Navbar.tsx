@@ -1,6 +1,5 @@
 'use client'
 import logo from '@/Asset/logo.png'
-import shortLogo from '@/Asset/shortLogo.png'
 import Image from 'next/image'
 import * as React from "react"
 import { format } from "date-fns"
@@ -30,8 +29,8 @@ const Navbar = () => {
             <div className='bg-blue-900 px-2 md:py-6 py-4'>
                 <div className='container mx-auto between-center'>
                     <div className='start-center  gap-6 '>
-                        <Image onClick={() => router.push('/')} className='md:block hidden cursor-pointer' src={logo} height={200} width={200} alt='logo' />
-                        <Image onClick={() => router.push('/')} className='md:hidden block w-10 h-10 cursor-pointer' src={shortLogo} height={400} width={600} alt='logo' />
+                        <Image onClick={() => router.push('/')} className='md:block hidden cursor-pointer w-16' src={logo} height={200} width={200} alt='logo' />
+                        <Image onClick={() => router.push('/')} className='md:hidden block w-16 cursor-pointer' src={logo} height={400} width={600} alt='logo' />
                         <Popover>
                             <PopoverTrigger asChild>
                                 <button
