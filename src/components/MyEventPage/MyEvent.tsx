@@ -8,6 +8,7 @@ import { FaLocationDot } from 'react-icons/fa6'
 import { EventCardProps } from '@/InterFaces/Props'
 import MoreButton from '../HomePage/Client/MoreButton'
 import EditButton from './Client/EditButton'
+import DeleteButton from './Client/DeleteButton'
 
 const MyEvent = ({ item }: EventCardProps) => {
     return (
@@ -33,6 +34,7 @@ const MyEvent = ({ item }: EventCardProps) => {
                 </span>
             </div>
             <EditButton item={item} />
+            <DeleteButton _id={`id`}/>
             {/* <MoreButton _id={'52448241'} /> */}
         </div>
     )

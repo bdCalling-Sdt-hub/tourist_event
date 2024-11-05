@@ -1,3 +1,4 @@
+import BillingHistory from '@/components/Subscription/Client/BillingHistory'
 import React from 'react'
 import { FaCheck } from 'react-icons/fa'
 
@@ -50,6 +51,7 @@ const SubscriptionPage = () => {
     ]
     return (
         <div className='container mx-auto mt-6'>
+            <BillingHistory />
             <h2 className='h3-black'>Subscription Packages</h2>
             <div className='grid-4 gap-4 mt-6'>
                 {
