@@ -2,6 +2,9 @@
 const GetCoordinateMap = dynamic(() => import('@/components/shared/Client/GetCoordinateMap'), {
     ssr: false,
 });
+const Jodit = dynamic(() => import("@/components/shared/Client/Jodit"), {
+    ssr: false,
+})
 import { Form, FormProps, Input, Modal, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import dynamic from 'next/dynamic';
@@ -81,12 +84,9 @@ const Vendor = () => {
             <Form.Item<FieldType>
                 name={`desc`}
                 label={`Description`}
-                rules={[{ required: true, message: 'Description is required' }]}
+            // rules={[{ required: true, message: 'Description is required' }]}
             >
-                <TextArea placeholder="Description" style={{
-                    height: '200px',
-                    resize: 'none'
-                }} />
+                <Jodit />
             </Form.Item>
             <Form.List name="social_link">
                 {(fields, { add, remove }) => (

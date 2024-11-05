@@ -1,4 +1,4 @@
-import EventCard from '@/components/shared/EventCard'
+import MyEvent from '@/components/MyEventPage/MyEvent';
 import { Pagination } from 'antd';
 import React from 'react'
 import { FaPlus } from 'react-icons/fa';
@@ -112,7 +112,7 @@ const MyEventPage = () => {
             </div>
             <div className='grid-4'>
                 {data?.map((item, i) => (
-                    <EventCard
+                    <MyEvent
                         item={item}
                         key={i}
                     />

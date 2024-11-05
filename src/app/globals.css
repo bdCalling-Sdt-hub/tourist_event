@@ -115,7 +115,9 @@ body {
     @apply px-6 py-2 rounded-sm flex justify-center items-center w-fit gap-2 bg-[var(--color-white)] text-[var(--color-blue-500)] hover:scale-105 transition-all active:scale-95 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:active:scale-100 card-shadow
   }
 }
-
+.jodit-workplace+.jodit-status-bar:not(:empty){
+  display: none;
+}
 .after::after {
   position: absolute;
   content: '';

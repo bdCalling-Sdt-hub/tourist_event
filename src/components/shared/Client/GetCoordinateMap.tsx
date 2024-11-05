@@ -76,11 +76,11 @@ const GetCoordinateMap = ({ setLocationData, close_modal, setLoading }: PropsTyp
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         }).addTo(map);
 
-        let initialMarker = L.marker([51.505, -0.09]).addTo(map);
+        // let initialMarker = L.marker([51.505, -0.09]).addTo(map);
         if (coordinates) {
             L.marker([coordinates.lat.toFixed(5), coordinates.lng.toFixed(5)]).addTo(map);
         }
-        initialMarker.bindPopup('Event Location').openPopup();
+        // initialMarker.bindPopup('Event Location').openPopup();
 
         map.on('click', async (e) => {
             setLoading(true)
