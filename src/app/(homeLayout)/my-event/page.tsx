@@ -1,3 +1,4 @@
+import AddEventButton from '@/components/MyEventPage/Client/AddEventButton';
 import MyEvent from '@/components/MyEventPage/MyEvent';
 import { Pagination } from 'antd';
 import React from 'react'
@@ -106,9 +107,7 @@ const MyEventPage = () => {
         <div className='container mx-auto mt-6'>
             <div className='between-center'>
                 <h2 className='h2-black mb-5'>My Event</h2>
-                <button className='button-blue'>
-                    <FaPlus /> Add Event
-                </button>
+                <AddEventButton />
             </div>
             <div className='grid-4'>
                 {data?.map((item, i) => (

@@ -104,7 +104,7 @@ const PopularEvents = () => {
     ];
     return (
         <div className='container mx-auto'>
-            <h2 className='h2-black mb-5'>Top Event</h2>
+            <h2 className='h2-black mb-5'>Popular Event</h2>
             <div className='grid-4'>
                 {data?.map((item, i) => (
                     <EventCard

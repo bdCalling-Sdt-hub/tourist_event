@@ -23,7 +23,7 @@ const RegisterPage = () => {
         <Image src={loginImage} height={600} width={1000} alt='login image' className='img-contain  ' />
         <div className='flex justify-center items-start h-full w-full flex-col bg-[var(--color-blue-200)] p-4'>
           <div className='max-w-[600px] w-full mx-auto'>
-            <p className='text-3xl font-bold mb-2'>Login</p>
+            <p className='text-3xl font-bold mb-2'>Sign Up</p>
             <p className='text-gray'>Let’s get you all st up so you can access your personal account.</p>
             <Form
               layout='vertical'

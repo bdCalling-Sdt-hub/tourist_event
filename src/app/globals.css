@@ -115,9 +115,11 @@ body {
     @apply px-6 py-2 rounded-sm flex justify-center items-center w-fit gap-2 bg-[var(--color-white)] text-[var(--color-blue-500)] hover:scale-105 transition-all active:scale-95 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:active:scale-100 card-shadow
   }
 }
-.jodit-workplace+.jodit-status-bar:not(:empty){
+
+.jodit-workplace+.jodit-status-bar:not(:empty) {
   display: none;
 }
+
 .after::after {
   position: absolute;
   content: '';
@@ -136,6 +138,24 @@ body {
   padding: 0 !important;
 }
 
+.jodit-toolbar-button.jodit-toolbar-button_size_middle.jodit-toolbar-button_variant_initial.jodit-toolbar-button_font.jodit-toolbar-button_with-trigger_true.jodit-ui-group__font {
+  display: none;
+}
+.jodit-ui-group.jodit-ui-group_separated_true.jodit-ui-group_group_list.jodit-ui-group_size_middle{
+  display: none;
+}
+.jodit-ui-spacer{
+  display: none;
+}
+.jodit-ui-group.jodit-ui-group_separated_true.jodit-ui-group_group_media.jodit-ui-group_size_middle{
+  display: none;
+}
+.jodit-ui-group:last-child {
+  display: none;
+}
+/* .jodit-ui-group.jodit-ui-group_line_true.jodit-ui-group_size_middle{
+  display: none;
+} */
 /* .navbar :where(.css-dev-only-do-not-override-apn68).ant-picker-outlined {
   background: transparent;
   border: none;

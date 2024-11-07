@@ -26,11 +26,11 @@ const Navbar = () => {
 
     return (
         <Headroom>
-            <div className='bg-blue-900 px-2 md:py-6 py-4'>
+            <div className='bg-blue-900 px-2 md:py-2'>
                 <div className='container mx-auto between-center'>
                     <div className='start-center  gap-6 '>
-                        <Image onClick={() => router.push('/')} className='md:block hidden cursor-pointer w-16' src={logo} height={200} width={200} alt='logo' />
-                        <Image onClick={() => router.push('/')} className='md:hidden block w-16 cursor-pointer' src={logo} height={400} width={600} alt='logo' />
+                        <Image onClick={() => router.push('/')} className='md:block hidden cursor-pointer w-28' src={logo} height={200} width={200} alt='logo' />
+                        <Image onClick={() => router.push('/')} className='md:hidden block w-12 cursor-pointer' src={logo} height={400} width={600} alt='logo' />
                         <Popover>
                             <PopoverTrigger asChild>
                                 <button
@@ -50,10 +50,10 @@ const Navbar = () => {
                         </Popover>
                     </div>
                     <div className='end-center gap-2 '>
-                        <Link href={`/search`}>
+                        <Link className='md:block hidden' href={`/search`}>
                             <FaSearch size={24} />
                         </Link>
-                        <Link href={`/past-event`}>
+                        <Link className='md:block hidden' href={`/past-event`}>
                             <FaList size={24} />
                         </Link>
                         {/* @ts-ignore */}
@@ -108,11 +108,18 @@ const Navbar = () => {
                 }} title={
                     <div className='start-center gap-2'>
                         <RxCross2 onClick={() => setOpen(false)} size={24} className='text-[var(--color-white)] cursor-pointer' />
-                        <Image className='' src={logo} height={200} width={200} alt='logo' />
+                        <Image className='w-16' src={logo} height={200} width={200} alt='logo' />
                     </div>
                 }
                     onClose={() => setOpen(false)} open={open}>
+                    <Link className='block md:hidden text-white m-1' href={`/search`}>
+                        <FaSearch size={24} />
+                    </Link>
+                    <Link className='block md:hidden text-white m-1' href={`/past-event`}>
+                        <FaList size={24} />
+                    </Link>
                     <DowerLinks />
+
                 </Drawer>
             </div >
         </Headroom>

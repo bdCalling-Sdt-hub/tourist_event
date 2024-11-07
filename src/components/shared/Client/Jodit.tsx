@@ -11,24 +11,28 @@ const Jodit: React.FC = () => {
         placeholder: 'Start typing...',
         toolbar: true,
         buttons: [
-            'font', 'fontsize', '|', 'bold', 'italic', 'underline', '|',
-            'align', '|', 'ul', 'ol', '|', 'link', 'image', '|', 'undo', 'redo'
+            'fontsize', '|', 'bold', 'italic', 'underline', '|',
+            'alignleft', 'aligncenter', 'alignright', '|', 'undo', 'redo'
         ],
         toolbarSticky: false,
-        height: 300, // Set the height to 400px or adjust as needed
+        height: 200, // Adjust height to a compact size
     }), []);
 
     return (
-        <JoditEditor
-            ref={editor}
-            value={content}
-            config={config}
-            //@ts-ignore
-            tabIndex={1}
-            onBlur={(newContent) => setContent(newContent)}
-            onChange={() => { }}
-        />
+        <div className="jodit-container">
+            <JoditEditor
+                ref={editor}
+                value={content}
+                config={config}
+                //@ts-ignore
+                tabIndex={1}
+                onBlur={(newContent) => setContent(newContent)}
+                onChange={() => { }}
+            />
+        </div>
     );
 };
 
 export default Jodit;
+
+// Custom CSS to match the image style
