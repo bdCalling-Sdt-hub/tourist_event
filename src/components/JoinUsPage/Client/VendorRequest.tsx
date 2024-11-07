@@ -24,6 +24,7 @@ type FieldType = {
     password?: string;
     confirmPassword?: string;
     sendMail?: string;
+    questions: string[];
 };
 const VendorRequest = () => {
     const [profileImage, setProfileImage] = useState<File | null>(null)
@@ -138,6 +139,24 @@ const VendorRequest = () => {
             >
                 <Jodit />
             </Form.Item>
+            <Form.List name="questions">
+                {() => (
+                    <>
+                        {[1, 2, 3, 4, 5].map((i) => (
+                            <Form.Item
+                                key={`question_${i}`}
+                                name={`question_${i}`}
+                                label={`Question ${i}`}
+                                rules={[{ required: true, message: `Please input Question ${i}!` }]}
+                            >
+                                <TextArea style={{
+                                    resize: 'none'
+                                }} className="h-[42px]" placeholder={`Enter Question ${i}`} />
+                            </Form.Item>
+                        ))}
+                    </>
+                )}
+            </Form.List>
             <Form.Item<FieldType>
                 name="sendMail"
                 valuePropName="checked"
