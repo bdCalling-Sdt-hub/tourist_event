@@ -35,6 +35,12 @@ const Vendor = () => {
         onFinish={onFinish}
         layout="vertical"
         className="max-w-[700px] w-full mx-auto mt-6"
+        initialValues={{
+            social_link: [{
+                medea: '',
+                link: ''
+            }]
+        }}
     >
         <div style={{
             background: coverImage ? `url(${URL.createObjectURL(coverImage)})` : 'url(https://i.ibb.co.com/MVcwBWm/1600w-1-NYTq34-QR6-I.webp)'
@@ -110,7 +116,9 @@ const Vendor = () => {
                                     >
                                         <Select className="h-[42px]" placeholder="Social Media Link" options={[
                                             { label: 'Facebook', value: 'Facebook' },
-                                            { label: 'Instagram', value: 'Instagram' }
+                                            { label: 'Instagram', value: 'Instagram' },
+                                            { label: 'TikTok', value: 'TikTok' },
+                                            { label: 'Website', value: 'Website' },
                                         ]} />
                                     </Form.Item>
                                     <Form.Item
@@ -125,10 +133,15 @@ const Vendor = () => {
                             </div>
                         ))}
                         <Form.Item>
-                            <button type="button" className="button-blue ml-auto" style={{
+                            <button disabled={fields?.length >= 4} type="button" className="button-blue ml-auto disabled:cursor-not-allowed disabled:bg-gray-300" style={{
                                 padding: '5px 10px'
-                            }} onClick={() => add()}>
-                                <FaPlus /> Add
+                            }} onClick={() => {
+                                if (fields?.length >= 4) {
+                                    return
+                                }
+                                add()
+                            }}>
+                                <FaPlus /> Add Social Links
                             </button>
                         </Form.Item>
                     </>

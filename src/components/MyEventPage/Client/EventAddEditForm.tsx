@@ -2,7 +2,7 @@ const GetCoordinateMap = dynamic(() => import('@/components/shared/Client/GetCoo
     ssr: false,
 });
 const Jodit = dynamic(() => import("@/components/shared/Client/Jodit"))
-import { Form, FormProps, Input, DatePicker, TimePicker, Select, Button, Upload, Modal } from 'antd';
+import { Form, FormProps, Input, DatePicker, TimePicker, Select, Button, Upload, Modal, Checkbox } from 'antd';
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 import { FaUpload } from 'react-icons/fa';
@@ -14,12 +14,15 @@ type FieldType = {
     category?: string;
     date?: string;
     time?: string;
-    duration?: string;
+    endDate?: string;
     option?: string;
     socialMediaLink?: string;
     location?: string;
     description?: string;
     image?: any;
+    featured: string;
+    featuredDate: string;
+    tag: string[];
 };
 
 const EventAddEditForm = () => {
@@ -29,11 +32,14 @@ const EventAddEditForm = () => {
     const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
         console.log('Success:', values);
     };
-
+    const [isFeatured, setIsFeatured] = useState<boolean>(false);
+    const handleFeaturedChange = (e: any) => {
+        setIsFeatured(e.target.checked);
+    };
     return (
-        <div className='p-4 '>
+        <div className='p-4'>
             <p className='text-2xl text-center mb-2'>Add Event</p>
-            <Form className=' grid-2' layout="vertical" onFinish={onFinish}>
+            <Form className='grid-2' layout="vertical" onFinish={onFinish}>
 
                 <Form.Item<FieldType>
                     label="Event Name"
@@ -55,7 +61,6 @@ const EventAddEditForm = () => {
                         {/* Add more options as needed */}
                     </Select>
                 </Form.Item>
-
                 <Form.Item<FieldType>
                     label="Date"
                     name="date"
@@ -73,20 +78,28 @@ const EventAddEditForm = () => {
                 </Form.Item>
 
                 <Form.Item<FieldType>
+                    label="End Date"
+                    name="endDate"
+                    rules={[{ required: true, message: 'Please select the End date!' }]}
+                >
+                    <DatePicker style={{ width: '100%' }} />
+                </Form.Item>
+                {/* 
+                <Form.Item<FieldType>
                     label="Duration"
                     name="duration"
                 >
                     <Input placeholder="e.g., 3h 45m" />
-                </Form.Item>
+                </Form.Item> */}
 
-                <Form.Item<FieldType>
-                    label="Option"
-                    name="option"
+                <Form.Item<FieldType> className={``}
+                    label="Tag"
+                    name="tag"
+                    rules={[{ required: false, message: 'Please select a Tag!' }]}
                 >
-                    <Select placeholder="Select your option">
-                        <Select.Option value="Option 1">Option 1</Select.Option>
-                        <Select.Option value="Option 2">Option 2</Select.Option>
-                        {/* Add more options as needed */}
+                    <Select mode="multiple" placeholder="Select Tag">
+                        <Select.Option value="Family Friendly">Family Friendly</Select.Option>
+                        <Select.Option value="Free">Free</Select.Option>
                     </Select>
                 </Form.Item>
 
@@ -119,7 +132,20 @@ const EventAddEditForm = () => {
                 >
                     <Jodit />
                 </Form.Item>
+                <Form.Item<FieldType>
+                    name="featured"
+                    valuePropName="checked"
+                >
+                    <Checkbox onChange={handleFeaturedChange}>Make this Featured </Checkbox>
+                </Form.Item>
 
+                <Form.Item<FieldType>
+                    label="Featured End Date"
+                    name="featuredDate"
+                    rules={[{ required: isFeatured, message: 'Please select a featured date!' }]}
+                >
+                    <DatePicker style={{ width: '100%' }} disabled={!isFeatured} />
+                </Form.Item>
                 <Form.Item<FieldType> className={`col-span-2`}
                     label="Image"
                     name="image"
@@ -139,7 +165,7 @@ const EventAddEditForm = () => {
                         Save
                     </button>
                     <button style={{
-                        background:'var(--color-blue-900)'
+                        background: 'var(--color-blue-900)'
                     }} className='button-blue'>
                         Duplicate
                     </button>

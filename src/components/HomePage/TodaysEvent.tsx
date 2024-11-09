@@ -13,10 +13,24 @@ const TodaysEvent = () => {
         { name: "Arts &Culture", value: 'Arts &Culture' },
         { name: "RESTAURANT", value: 'RESTAURANT' },
     ]
+    const Options2 = [
+        { name: "Family Friendly", value: 'Family Friendly' },
+        { name: "Free", value: 'Free' },
+        { name: "All", value: 'All' },
+    ]
     const content = (
         <div className='bg-blue-900 p-2 rounded-sm flex flex-col gap-1'>
             {
                 Options?.map(item => <button onClick={() => updateSearchParams('test', item?.name)} className='hover:bg-[var(--color-blue-500)]' key={item?.name}>
+                    {item?.name}
+                </button>)
+            }
+        </div>
+    );
+    const content2 = (
+        <div className='bg-blue-900 p-2 rounded-sm flex flex-col gap-1'>
+            {
+                Options2?.map(item => <button onClick={() => updateSearchParams('test', item?.name)} className='hover:bg-[var(--color-blue-500)]' key={item?.name}>
                     {item?.name}
                 </button>)
             }
@@ -27,11 +41,18 @@ const TodaysEvent = () => {
         <div className="bg-blue-900 px-2 md:py-6 py-4 mt-5 w-full">
             <div className="between-center gap-2 container mx-auto">
                 <p className="h2-white">Today's EVENT IN Costa Rica</p>
-                <Popover placement="bottom" title="" content={content}>
-                    <button className='button-blue whitespace-nowrap'>
-                        <FaFilter />  All Event
-                    </button>
-                </Popover>
+                <div className='end-center gap-2'>
+                    <Popover placement="bottom" title="" content={content}>
+                        <button className='button-blue whitespace-nowrap'>
+                            <FaFilter />  All Event
+                        </button>
+                    </Popover>
+                    <Popover placement="bottom" title="" content={content2}>
+                        <button className='button-blue whitespace-nowrap'>
+                            <FaFilter />  Tags
+                        </button>
+                    </Popover>
+                </div>
             </div>
         </div>
     );

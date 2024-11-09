@@ -17,11 +17,11 @@ const MyEvent = ({ item }: EventCardProps) => {
                 <Image src={item?.image} alt='image' height={600} width={600} className='img-cover' unoptimized />
             </div>
             <div className='p-3 relative text-gray'>
-                <FavoriteButton
+                {/* <FavoriteButton
                     icon={item?.favorite ? <MdFavorite /> : <MdFavoriteBorder />}
                     favorite={item?.favorite}
                     _id={null}
-                />
+                /> */}
                 <span className='start-center gap-3 '>
                     <FaLayerGroup />
                     {item?.category}

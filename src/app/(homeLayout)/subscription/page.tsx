@@ -6,56 +6,56 @@ const SubscriptionPage = () => {
     const data = [
         {
             name: 'Free',
-            price: '0',
+            price: '$0',
             benefits: [
-                'Free Business Profile',
-                'Business Profile with description',
-                'This Includes all features of Basic',
-                'Unlimited event uploads/month.',
-                'Business Profile with description'
+                'Business Name & Image',
             ]
         },
         {
             name: 'Basic',
-            price: '20',
+            price: '$15',
             benefits: [
-                'Free Business Profile',
-                'Business Profile with description',
-                'This Includes all features of Basic',
-                'Unlimited event uploads/month.',
-                'Business Profile with description'
+                'Business Name & Image',
+                '3 Events/Specials',
+                'Contact Info & Location',
+                'Social Media & Website Link',
             ]
         },
         {
             name: 'Value',
-            price: '50',
+            price: '$45',
             benefits: [
-                'Free Business Profile',
-                'Business Profile with description',
-                'This Includes all features of Basic',
-                'Unlimited event uploads/month.',
-                'Business Profile with description'
+                'Business Name & Image',
+                '10 Monthly Events/Specials',
+                '2 Featured Events',
+                'Contact Info & Location',
+                'Social Media & Website Link',
             ]
         },
         {
             name: 'Premium',
-            price: '60',
+            price: '$100',
             benefits: [
-                'Free Business Profile',
-                'Business Profile with description',
-                'This Includes all features of Basic',
-                'Unlimited event uploads/month.',
-                'Business Profile with description'
+                'Business Name & Image',
+                'Unlimited Events',
+                '5 Featured Events',
+                'Contact Info & Location',
+                'Social Media & Website Links',
             ]
         },
-    ]
+    ];
+
     return (
         <div className='container mx-auto mt-6'>
             <BillingHistory />
             <h2 className='h3-black'>Subscription Packages</h2>
             <div className='grid-4 gap-4 mt-6'>
                 {
-                    data?.map(item => <div className='w-full h-full between-center gap-4 flex-col p-4 py-8 card-shadow bg-[var(--color-blue-200)] rounded-md' key={item?.name}>
+                    data?.map(item => <div
+                        style={{
+                            background: item?.name == 'Basic' ? 'var(--color-blue-300)' : 'var(--color-blue-200)'
+                        }}
+                        className='w-full h-full between-center gap-4 flex-col p-4 py-8 card-shadow rounded-md' key={item?.name}>
                         <div className='text-center'>
                             <h3 className='h3-black'>{item?.name}</h3>
                             <p className='text-lg'>{item?.price}</p>
@@ -66,7 +66,9 @@ const SubscriptionPage = () => {
                         <button className='button-blue' style={{
                             width: '100%'
                         }}>
-                            Buy
+                            {
+                                item?.name == 'Basic' ? 'Current Package' : 'Buy'
+                            }
                         </button>
                     </div>)
                 }

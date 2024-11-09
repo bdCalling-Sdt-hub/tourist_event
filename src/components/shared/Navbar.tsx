@@ -19,6 +19,7 @@ import Headroom from "react-headroom";
 import { useRouter } from 'next/navigation'
 import { CiCalendar, CiUser } from 'react-icons/ci'
 import { IoIosLogOut } from 'react-icons/io'
+import { CgWebsite } from 'react-icons/cg'
 const Navbar = () => {
     const [date, setDate] = React.useState<Date>()
     const [open, setOpen] = React.useState<boolean | undefined>(false);
@@ -74,12 +75,15 @@ const Navbar = () => {
                                         <Link href={`/profile`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
                                             <CiUser size={20} /> Profile
                                         </Link>
-                                        <Link href={`my-event`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
+                                        <Link href={`/details/author`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
+                                            <CgWebsite size={20} />My Landing Page
+                                        </Link>
+                                        <Link href={`/my-event`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
                                             <CiCalendar size={20} /> My Event
                                         </Link>
-                                        <Link href={`/favorite`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
+                                        {/* <Link href={`/favorite`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
                                             <MdFavoriteBorder size={20} />Favorites
-                                        </Link>
+                                        </Link> */}
                                         <Link href={`/subscription`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
                                             <MdOutlinePlaylistAddCheck size={20} />My subscription
                                         </Link>

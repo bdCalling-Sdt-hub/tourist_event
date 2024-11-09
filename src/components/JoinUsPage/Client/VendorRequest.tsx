@@ -25,6 +25,7 @@ type FieldType = {
     confirmPassword?: string;
     sendMail?: string;
     questions: string[];
+    category: string;
 };
 const VendorRequest = () => {
     const [profileImage, setProfileImage] = useState<File | null>(null)
@@ -39,6 +40,12 @@ const VendorRequest = () => {
         onFinish={onFinish}
         layout="vertical"
         className="max-w-[800px] w-full mx-auto mt-6"
+        initialValues={{
+            social_link: [{
+                medea: '',
+                link: ''
+            }]
+        }}
     >
         <div style={{
             background: coverImage ? `url(${URL.createObjectURL(coverImage)})` : 'url(https://i.ibb.co.com/MVcwBWm/1600w-1-NYTq34-QR6-I.webp)'
@@ -93,6 +100,25 @@ const VendorRequest = () => {
                     <FaLocationPin />
                 </button>
             </div>
+            <Form.Item<FieldType>
+                name={`category`}
+                rules={[{ required: true, message: 'Please select a category' }]}
+            >
+                <Select
+                    className="h-[42px]"
+                    placeholder="Select Category"
+                    options={[
+                        { label: 'Shopping', value: 'Shopping' },
+                        { label: 'Grocery', value: 'Grocery' },
+                        { label: 'Restaurant/Bar', value: 'Restaurant/Bar' },
+                        { label: 'Event Center', value: 'Event Center' },
+                        { label: 'Community Center', value: 'Community Center' },
+                        { label: 'Hotel/Casino', value: 'Hotel/Casino' },
+                        { label: 'Salon/Barber', value: 'Salon/Barber' },
+                        { label: 'Other', value: 'Other' },
+                    ]}
+                />
+            </Form.Item>
             <Form.Item<FieldType>
                 label="Username"
                 name="username"
@@ -157,12 +183,6 @@ const VendorRequest = () => {
                     </>
                 )}
             </Form.List>
-            <Form.Item<FieldType>
-                name="sendMail"
-                valuePropName="checked"
-            >
-                <Checkbox>Send emails featuring the best event in Tourist  Platform. </Checkbox>
-            </Form.Item>
             <Form.List name="social_link">
                 {(fields, { add, remove }) => (
                     <>
@@ -177,7 +197,9 @@ const VendorRequest = () => {
                                     >
                                         <Select className="h-[42px]" placeholder="Social Media Link" options={[
                                             { label: 'Facebook', value: 'Facebook' },
-                                            { label: 'Instagram', value: 'Instagram' }
+                                            { label: 'Instagram', value: 'Instagram' },
+                                            { label: 'TikTok', value: 'TikTok' },
+                                            { label: 'Website', value: 'Website' },
                                         ]} />
                                     </Form.Item>
                                     <Form.Item
@@ -192,15 +214,26 @@ const VendorRequest = () => {
                             </div>
                         ))}
                         <Form.Item>
-                            <button type="button" className="button-blue ml-auto" style={{
+                            <button disabled={fields?.length >= 4} type="button" className="button-blue ml-auto disabled:cursor-not-allowed disabled:bg-gray-300" style={{
                                 padding: '5px 10px'
-                            }} onClick={() => add()}>
-                                <FaPlus /> Add
+                            }} onClick={() => {
+                                if (fields?.length >= 4) {
+                                    return
+                                }
+                                add()
+                            }}>
+                                <FaPlus /> Add Social Links
                             </button>
                         </Form.Item>
                     </>
                 )}
             </Form.List>
+            {/* <Form.Item<FieldType>
+                name="sendMail"
+                valuePropName="checked"
+            >
+                <Checkbox>Send emails featuring the best event in Tourist  Platform. </Checkbox>
+            </Form.Item> */}
         </div>
         <button className="button-blue mx-auto">
             Update Vendor Profile
@@ -218,7 +251,7 @@ const VendorRequest = () => {
                 close_modal={() => setOpen(false)}
             />
         </Modal>
-    </Form>
+    </Form >
 }
 
 export default VendorRequest

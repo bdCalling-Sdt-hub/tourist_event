@@ -9,6 +9,7 @@
   --color-blue-900: #002233;
   --color-blue-700: #0454B5;
   --color-blue-500: #00AAFF;
+  --color-blue-300: #51b5e7;
   --color-blue-200: #C6E2F0;
   --color-gray-500: #767E94;
   --color-red-500: #F80408;
@@ -138,21 +139,45 @@ body {
   padding: 0 !important;
 }
 
-.jodit-toolbar-button.jodit-toolbar-button_size_middle.jodit-toolbar-button_variant_initial.jodit-toolbar-button_font.jodit-toolbar-button_with-trigger_true.jodit-ui-group__font {
+ .jodit-toolbar-button.jodit-toolbar-button_size_middle.jodit-toolbar-button_variant_initial.jodit-toolbar-button_font.jodit-toolbar-button_with-trigger_true.jodit-ui-group__font {
   display: none;
 }
-.jodit-ui-group.jodit-ui-group_separated_true.jodit-ui-group_group_list.jodit-ui-group_size_middle{
+
+.jodit-ui-group.jodit-ui-group_separated_true.jodit-ui-group_group_list.jodit-ui-group_size_middle {
   display: none;
 }
-.jodit-ui-spacer{
+
+.jodit-ui-spacer {
   display: none;
 }
-.jodit-ui-group.jodit-ui-group_separated_true.jodit-ui-group_group_media.jodit-ui-group_size_middle{
+
+.jodit-ui-group.jodit-ui-group_separated_true.jodit-ui-group_group_media.jodit-ui-group_size_middle {
   display: none;
 }
+.jodit-ui-group.jodit-ui-group_separated_true.jodit-ui-group_group_state.jodit-ui-group_size_middle{
+display: none;
+}
+.jodit-ui-group.jodit-ui-group_separated_true.jodit-ui-group_group_insert.jodit-ui-group_size_middle{
+display: none;
+}
+.jodit-ui-group.jodit-ui-group_separated_true.jodit-ui-group_group_indent.jodit-ui-group_size_middle{
+display: none;
+}
+.jodit-ui-group.jodit-ui-group_separated_true.jodit-ui-group_group_color.jodit-ui-group_before-spacer_true.jodit-ui-group_size_middle{
+display: none;
+}
+.jodit-ui-group.jodit-ui-group_separated_true.jodit-ui-group_group_history.jodit-ui-group_size_middle{
+  display: none;
+}
+.jodit-ui-group.jodit-ui-group_separated_true.jodit-ui-group_group_other.jodit-ui-group_size_middle{
+display: none;
+}
+/*
 .jodit-ui-group:last-child {
   display: none;
-}
+} */
+
+
 /* .jodit-ui-group.jodit-ui-group_line_true.jodit-ui-group_size_middle{
   display: none;
 } */
