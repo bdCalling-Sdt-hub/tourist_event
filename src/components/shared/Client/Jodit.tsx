@@ -1,8 +1,11 @@
 'use client'
-import React, { useRef, useState, useMemo } from 'react';
+import React, { useRef, useState, useMemo, useEffect } from 'react';
 import JoditEditor from 'jodit-react';
-
-const Jodit: React.FC = () => {
+interface Props {
+    text: string,
+    setText: (value: string) => void;
+}
+const Jodit = ({ text, setText }: Props) => {
     const editor = useRef(null);
     const [content, setContent] = useState<string>('');
 
@@ -17,7 +20,11 @@ const Jodit: React.FC = () => {
         toolbarSticky: false,
         height: 200, // Adjust height to a compact size
     }), []);
-
+    useEffect(() => {
+        if (text) {
+            setContent(text)
+        }
+    }, [text])
     return (
         <div className="jodit-container">
             <JoditEditor
@@ -26,7 +33,10 @@ const Jodit: React.FC = () => {
                 config={config}
                 //@ts-ignore
                 tabIndex={1}
-                onBlur={(newContent) => setContent(newContent)}
+                onBlur={(newContent) => {
+                    setContent(newContent)
+                    setText(newContent)
+                }}
                 onChange={() => { }}
             />
         </div>

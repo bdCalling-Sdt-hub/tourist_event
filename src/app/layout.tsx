@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import ContextProvider from "@/Provider/ContextProvider";
+import UserContext from "@/Provider/UserContext";
 
 
 export const metadata: Metadata = {
@@ -20,7 +21,9 @@ export default function RootLayout({
         className={` antialiased`}
       >
         <ContextProvider>
-          {children}
+          <UserContext>
+            {children}
+          </UserContext>
         </ContextProvider>
       </body>
     </html>

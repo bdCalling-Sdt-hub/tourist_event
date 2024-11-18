@@ -5,11 +5,13 @@ const GetCoordinateMap = dynamic(() => import('@/components/shared/Client/GetCoo
 const Jodit = dynamic(() => import("@/components/shared/Client/Jodit"), {
     ssr: false,
 })
-import { Checkbox, Form, FormProps, Input, Modal, Select } from 'antd';
+import { useUser } from '@/Provider/UserContext';
+import { useGetCategoryQuery } from '@/Redux/Apis/categoryApis';
+import { Form, FormProps, Input, Modal, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CiEdit, CiImageOn } from 'react-icons/ci';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import { FaLocationPin } from 'react-icons/fa6';
@@ -27,16 +29,56 @@ type FieldType = {
     questions: string[];
     category: string;
 };
+interface CategoryType {
+    name: string,
+    _id: string,
+}
+const predefinedQuestions = [
+    { question: "What is the name of your organization?", placeholder: "Enter your organization's name" },
+    { question: "What type of events does your organization host?", placeholder: "Describe the types of events you organize" },
+    { question: "Where is your organization located?", placeholder: "Enter your organization's location" },
+    { question: "How can attendees contact your organization?", placeholder: "Provide contact information (email, phone)" },
+    { question: "What is the mission or vision of your organization?", placeholder: "Enter your organization's mission or vision statement" },
+];
 const VendorRequest = () => {
+    const [form] = Form.useForm()
+    const { user: data, } = useUser()
     const [profileImage, setProfileImage] = useState<File | null>(null)
     const [coverImage, setCoverImage] = useState<File | null>(null)
     const [Loading, setLoading] = useState<boolean>(false)
     const [locationData, setLocationData] = useState<any>()
     const [open, setOpen] = useState<boolean>(false)
+    const { data: category, isLoading } = useGetCategoryQuery(undefined)
+    const [social, setSocial] = useState<Array<string>>([]);
+    const [text, setText] = useState<string>('')
+
     const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-        console.log('Success:', values);
+        const { desc, questions, ...otherValues } = values;
+        const qu: Array<{ question: string; answer: string | number }> = [];
+        Object.keys(questions).forEach((key) => {
+            //@ts-ignore
+            qu.push({ question: key, answer: questions[key] });
+        });
+        const data = {
+            ...otherValues,
+            question: qu,
+            description: text,
+            coverImage,
+            profileImage,
+            latitude: locationData?.lat,
+            longitude:locationData?.lng
+        }
+        console.log('formateData:', data);
     };
+
+    useEffect(() => {
+        if (locationData) {
+            form.setFieldsValue({ location: locationData?.display_name })
+        }
+
+    }, [form, locationData])
     return <Form
+        form={form}
         onFinish={onFinish}
         layout="vertical"
         className="max-w-[800px] w-full mx-auto mt-6"
@@ -88,11 +130,11 @@ const VendorRequest = () => {
             </Form.Item>
             <div className="relative">
                 <Form.Item<FieldType>
-                    name={`location`}
+                    name={`address`}
                     label={`Location`}
                     rules={[{ required: true, message: 'Location is required' }]}
                 >
-                    <Input placeholder="location" className="h-[42px]" />
+                    <Input disabled placeholder="location" className="h-[42px]" />
                 </Form.Item>
                 <button type="button" className="button-blue ml-auto absolute top-10 right-2" style={{
                     padding: '5px 5px'
@@ -107,83 +149,81 @@ const VendorRequest = () => {
                 <Select
                     className="h-[42px]"
                     placeholder="Select Category"
-                    options={[
-                        { label: 'Shopping', value: 'Shopping' },
-                        { label: 'Grocery', value: 'Grocery' },
-                        { label: 'Restaurant/Bar', value: 'Restaurant/Bar' },
-                        { label: 'Event Center', value: 'Event Center' },
-                        { label: 'Community Center', value: 'Community Center' },
-                        { label: 'Hotel/Casino', value: 'Hotel/Casino' },
-                        { label: 'Salon/Barber', value: 'Salon/Barber' },
-                        { label: 'Other', value: 'Other' },
-                    ]}
+                    options={category?.data?.map((item: CategoryType) => ({ label: item?.name, value: item?._id })) || []}
                 />
             </Form.Item>
-            <Form.Item<FieldType>
-                label="Username"
-                name="username"
-                rules={[{ required: true, message: 'Please input your username!' }]}
-            >
-                <Input className='h-[42px]' />
-            </Form.Item>
-            <div className='grid-2'>
-                <Form.Item<FieldType>
-                    label="Email"
-                    name="email"
-                    className='w-full'
-                    rules={[{ required: true, message: 'Please input your Email!' }]}
-                >
-                    <Input className='h-[42px]' />
-                </Form.Item>
-                <Form.Item<FieldType>
-                    label="Phone Number"
-                    name="phone"
-                    className='w-full'
-                    rules={[{ required: true, message: 'Please input your Phone Number!' }]}
-                >
-                    <Input className='h-[42px]' />
-                </Form.Item>
-            </div>
-            <Form.Item<FieldType>
-                label="Password"
-                name="password"
-                rules={[{ required: true, message: 'Please input your password!' }]}
-            >
-                <Input.Password className='h-[42px]' />
-            </Form.Item>
-            <Form.Item<FieldType>
-                label="Confirm Password"
-                name="confirmPassword"
-                rules={[{ required: true, message: 'Please input your Confirm Password!' }]}
-            >
-                <Input.Password className='h-[42px]' />
-            </Form.Item>
+            {
+                !data?.data?.authId?.email && <>
+
+                    <Form.Item<FieldType>
+                        label="Username"
+                        name="username"
+                        rules={[{ required: true, message: 'Please input your username!' }]}
+                    >
+                        <Input className='h-[42px]' />
+                    </Form.Item>
+                    <div className='grid-2'>
+                        <Form.Item<FieldType>
+                            label="Email"
+                            name="email"
+                            className='w-full'
+                            rules={[{ required: true, message: 'Please input your Email!' }]}
+                        >
+                            <Input className='h-[42px]' />
+                        </Form.Item>
+                        <Form.Item<FieldType>
+                            label="Phone Number"
+                            name="phone"
+                            className='w-full'
+                            rules={[{ required: true, message: 'Please input your Phone Number!' }]}
+                        >
+                            <Input className='h-[42px]' />
+                        </Form.Item>
+                    </div>
+                    <Form.Item<FieldType>
+                        label="Password"
+                        name="password"
+                        rules={[{ required: true, message: 'Please input your password!' }]}
+                    >
+                        <Input.Password className='h-[42px]' />
+                    </Form.Item>
+                    <Form.Item<FieldType>
+                        label="Confirm Password"
+                        name="confirmPassword"
+                        rules={[{ required: true, message: 'Please input your Confirm Password!' }]}
+                    >
+                        <Input.Password className='h-[42px]' />
+                    </Form.Item>
+                </>
+            }
             <Form.Item<FieldType>
                 name={`desc`}
                 label={`Description`}
             // rules={[{ required: true, message: 'Description is required' }]}
             >
-                <Jodit />
+                <Jodit
+                    text={text} setText={setText}
+                />
             </Form.Item>
             <Form.List name="questions">
                 {() => (
                     <>
-                        {[1, 2, 3, 4, 5].map((i) => (
+                        {predefinedQuestions.map((item, i) => (
                             <Form.Item
-                                key={`question_${i}`}
-                                name={`question_${i}`}
-                                label={`Question ${i}`}
-                                rules={[{ required: true, message: `Please input Question ${i}!` }]}
+                                key={item?.question}
+                                name={item?.question}
+                                label={item?.question}
+                                rules={[{ required: true, message: `Please Answer This Question !` }]}
                             >
                                 <TextArea style={{
                                     resize: 'none'
-                                }} className="h-[42px]" placeholder={`Enter Question ${i}`} />
+                                }} className="h-[42px]" placeholder={item?.placeholder} />
                             </Form.Item>
                         ))}
                     </>
                 )}
             </Form.List>
-            <Form.List name="social_link">
+            <Form.List name="social_media">
                 {(fields, { add, remove }) => (
                     <>
                         {fields.map(({ key, name, ...restField }) => (
@@ -192,15 +232,15 @@ const VendorRequest = () => {
                                 <div className="grid-2 relative">
                                     <Form.Item
                                         {...restField}
-                                        name={[name, 'medea']}
+                                        name={[name, 'name']}
                                         rules={[{ required: true, message: 'Missing Medea Name' }]}
                                     >
-                                        <Select className="h-[42px]" placeholder="Social Media Link" options={[
+                                        <Select onChange={(value: string) => setSocial([...social, value])} className="h-[42px]" placeholder="Social Media Link" options={[
                                             { label: 'Facebook', value: 'Facebook' },
                                             { label: 'Instagram', value: 'Instagram' },
                                             { label: 'TikTok', value: 'TikTok' },
                                             { label: 'Website', value: 'Website' },
-                                        ]} />
+                                        ].filter(item => !social.includes(item?.value))} />
                                     </Form.Item>
                                     <Form.Item
                                         {...restField}

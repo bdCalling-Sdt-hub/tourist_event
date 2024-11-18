@@ -5,9 +5,9 @@ import Image from 'next/image'
 import { Checkbox, Form, FormProps, Input } from 'antd'
 import Link from 'next/link'
 import { useLoginMutation } from '@/Redux/Apis/authapis'
-import { toast } from '@/hooks/use-toast'
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
 type FieldType = {
     email?: string;
     password?: string;
@@ -17,6 +17,7 @@ const loginPage = () => {
     const router = useRouter()
     const [login] = useLoginMutation()
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+        toast.dismiss()
         const { remember, ...otherData } = values
         const data = {
             ...otherData,
@@ -24,21 +25,14 @@ const loginPage = () => {
         login(data).unwrap()
             .then(result => {
                 Cookies.set('_token', result?.data?.accessToken)
+                localStorage.setItem('_token', result?.data?.accessToken)
                 if (!Cookies.get('_token')) {
-                    return toast({
-                        variant: 'destructive',
-                        title: "Please enable cookie to login this website"
-                    })
+                    return toast.error("Please enable cookie to login this website")
                 }
-                toast({
-                    description: result?.message || "Login successfully"
-                })
+                toast.success(result?.message || "Login successfully")
                 router.push('/')
             }).catch(err => {
-                toast({
-                    variant: 'destructive',
-                    title: err?.data?.message || "something went wrong"
-                })
+                toast.error(err?.data?.message || "something went wrong")
             });
     }
     return (

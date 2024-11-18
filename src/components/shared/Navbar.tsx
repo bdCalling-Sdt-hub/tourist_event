@@ -20,7 +20,9 @@ import { useRouter } from 'next/navigation'
 import { CiCalendar, CiUser } from 'react-icons/ci'
 import { IoIosLogOut } from 'react-icons/io'
 import { CgWebsite } from 'react-icons/cg'
+import { useUser } from '@/Provider/UserContext'
 const Navbar = () => {
+    const { user: data, } = useUser()
     const [date, setDate] = React.useState<Date>()
     const [open, setOpen] = React.useState<boolean | undefined>(false);
     const router = useRouter()
@@ -57,45 +59,56 @@ const Navbar = () => {
                             <FaList size={24} />
                         </Link>
                         {/* @ts-ignore */}
-                        <Popover>
-                            <PopoverTrigger asChild>
-                                <button>
-                                    <Image src={`https://i.ibb.co.com/bHTrR2R/blank-profile-picture-973460-1280.webp`} height={40} width={40} className='h-10 w-10 rounded-full' unoptimized alt='profile' />
-                                </button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0">
-                                <div className='rounded-md p-2 bg-[var(--color-white)] min-w-[300px] max-w-[500px] w-full'>
-                                    <div style={{
-                                        background: 'url(https://i.ibb.co.com/MVcwBWm/1600w-1-NYTq34-QR6-I.webp)'
-                                    }} className='w-full h-[100px] bg-cover bg-no-repeat rounded-md relative'>
-                                        <Image src={`https://i.ibb.co.com/bHTrR2R/blank-profile-picture-973460-1280.webp`} height={140} width={140} className='h-24 w-24 absolute left-[50%] translate-x-[-50%] -bottom-6 rounded-full' unoptimized alt='profile' />
-                                    </div>
-                                    <div className='mt-4 p-4'>
-                                        <Link href={`/profile`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
-                                            <CiUser size={20} /> Profile
-                                        </Link>
-                                        <Link href={`/details/author`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
-                                            <CgWebsite size={20} />My Landing Page
-                                        </Link>
-                                        <Link href={`/my-event`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
-                                            <CiCalendar size={20} /> My Event
-                                        </Link>
-                                        {/* <Link href={`/favorite`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
+                        {
+                            data?.data?.authId?.email && <Popover>
+                                <PopoverTrigger asChild>
+                                    <button>
+                                        <Image src={`https://i.ibb.co.com/bHTrR2R/blank-profile-picture-973460-1280.webp`} height={40} width={40} className='h-10 w-10 rounded-full' unoptimized alt='profile' />
+                                    </button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0">
+                                    <div className='rounded-md p-2 bg-[var(--color-white)] min-w-[300px] max-w-[500px] w-full'>
+                                        <div style={{
+                                            background: 'url(https://i.ibb.co.com/MVcwBWm/1600w-1-NYTq34-QR6-I.webp)'
+                                        }} className='w-full h-[100px] bg-cover bg-no-repeat rounded-md relative'>
+                                            <Image src={`https://i.ibb.co.com/bHTrR2R/blank-profile-picture-973460-1280.webp`} height={140} width={140} className='h-24 w-24 absolute left-[50%] translate-x-[-50%] -bottom-6 rounded-full' unoptimized alt='profile' />
+                                        </div>
+                                        <div className='mt-4 p-4'>
+                                            <Link href={`/profile`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
+                                                <CiUser size={20} /> Profile
+                                            </Link>
+                                            {/* <Link href={`/favorite`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
                                             <MdFavoriteBorder size={20} />Favorites
                                         </Link> */}
-                                        <Link href={`/subscription`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
-                                            <MdOutlinePlaylistAddCheck size={20} />My subscription
-                                        </Link>
-                                        <Link href={`/join-us`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md w-full'>
-                                            <MdOutlineStorefront size={20} />Become a vendor
-                                        </Link>
-                                        <button className='start-center gap-2 hover:bg-[var(--color-red-500)] hover:text-[var(--color-white)] p-2 rounded-md w-full'>
-                                            <IoIosLogOut size={20} /> Sign Out
-                                        </button>
+                                            {
+                                                data?.data?.authId?.role !== 'USER' && <>
+                                                    <Link href={`/details/author`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
+                                                        <CgWebsite size={20} />My Landing Page
+                                                    </Link>
+                                                    <Link href={`/my-event`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
+                                                        <CiCalendar size={20} /> My Event
+                                                    </Link>
+                                                    <Link href={`/subscription`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
+                                                        <MdOutlinePlaylistAddCheck size={20} />My subscription
+                                                    </Link>
+                                                </>
+                                            }
+
+                                            {
+                                                data?.data?.authId?.role === 'USER' && <Link href={`/join-us`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md w-full'>
+                                                    <MdOutlineStorefront size={20} />Become a vendor
+                                                </Link>
+                                            }
+
+                                            <button className='start-center gap-2 hover:bg-[var(--color-red-500)] hover:text-[var(--color-white)] p-2 rounded-md w-full'>
+                                                <IoIosLogOut size={20} /> Sign Out
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            </PopoverContent>
-                        </Popover>
+                                </PopoverContent>
+                            </Popover>
+                        }
+
 
                         <div className='md:block hidden'>
                             <DowerLinks />

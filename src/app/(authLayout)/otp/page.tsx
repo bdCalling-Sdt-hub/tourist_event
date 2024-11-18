@@ -3,13 +3,35 @@ import React from 'react'
 import loginImage from '@/Asset/login.png'
 import Image from 'next/image'
 import { Form, FormProps, Input } from 'antd'
+import { useActivateUserMutation } from '@/Redux/Apis/authapis'
+import toast from 'react-hot-toast'
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation'
 type FieldType = {
     otp?: string;
 };
 
 const OtpPage = () => {
+    const router = useRouter()
+    const [activeUser] = useActivateUserMutation()
     const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-        console.log('Success:', values);
+        toast.dismiss()
+        const data = {
+            activation_code: values?.otp,
+            userEmail: localStorage.getItem('email')
+        }
+        activeUser(data).unwrap()
+            .then(result => {
+                Cookies.set('_token', result?.data?.accessToken)
+                localStorage.setItem('_token', result?.data?.accessToken)
+                if (!Cookies.get('_token')) {
+                    return toast.error("Please enable cookie to login this website")
+                }
+                toast.success(result?.message || "Account Active Successfully")
+                router.push('/')
+            }).catch(err => {
+                toast.error(err?.data?.message || "something went wrong")
+            });
     };
     const onChange = (text: string) => {
 

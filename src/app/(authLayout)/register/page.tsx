@@ -5,8 +5,8 @@ import Image from 'next/image'
 import { Checkbox, Form, FormProps, Input } from 'antd'
 import Link from 'next/link'
 import { useRegisterMutation } from '@/Redux/Apis/authapis'
-import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
 type FieldType = {
   name?: string;
   email?: string;
@@ -17,10 +17,10 @@ type FieldType = {
 };
 
 const RegisterPage = () => {
-  const { toast } = useToast()
   const router = useRouter()
   const [register, { isLoading }] = useRegisterMutation()
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+    toast.dismiss()
     const { sendMail, ...otherData } = values
     const data = {
       ...otherData,
@@ -28,15 +28,11 @@ const RegisterPage = () => {
     }
     register(data).unwrap()
       .then(result => {
-        toast({
-          description: result?.message || "Registered successfully please check your email"
-        })
+        localStorage.setItem('email', values?.email ?? "")
+        toast.success(result?.message || "Registered successfully please check your email")
         router.push('/otp')
       }).catch(err => {
-        toast({
-          variant: 'destructive',
-          title: err?.data?.message || "something went wrong"
-        })
+        toast.error(err?.data?.message || "something went wrong")
       });
   }
   return (
