@@ -1,4 +1,5 @@
 
+'use client'
 import * as React from "react"
 import {
     Carousel,
@@ -8,17 +9,21 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel"
 import Image from "next/image"
-const images = [
-    'https://i.ibb.co.com/T4970fn/How-to-Start-Event-Management-Business-in-Bangladesh.jpg', 'https://i.ibb.co.com/h7H9hSY/istockphoto-499517325-612x612.jpg', 'https://i.ibb.co.com/6WJ80HT/Encore-Event-Type-Theatre-Concertand-Special-Events-4.jpg'
-]
+import { useGetBannerQuery } from "@/Redux/Apis/bannerApis"
+import { imageUrl } from "@/Utils/serverUrl"
+interface BannerModel {
+    banner_img: string,
+    _id: string
+}
 const Banner = () => {
+    const { data } = useGetBannerQuery(undefined)
     return (
         <Carousel className="w-full container mx-auto relative mt-5" >
             <CarouselContent className="flex">
-                {images.map((img, index) => (
+                {data?.data.map((item: BannerModel, index: number) => (
                     <CarouselItem key={index} className="flex-shrink-0 w-full">
                         <div className="h-[400px]  md:h-[600px] lg:h-[700px] w-full rounded-md overflow-hidden">
-                            <Image src={img} unoptimized className="img-cover" height={600} width={1000} alt="banner" />
+                            <Image src={imageUrl(item?.banner_img)} className="img-cover" height={600} width={1000} alt="banner" />
                         </div>
                     </CarouselItem>
                 ))}

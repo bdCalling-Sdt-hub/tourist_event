@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { EventCardData } from './Data';
+import { EventData } from '@/components/HomePage/PopularEvents';
 // navbar
 interface Button {
     classNames: string | null;
@@ -24,7 +25,7 @@ interface HomePageProps {
 }
 
 interface EventCardProps {
-    item: EventCardData;
+    item: EventData;
 }
 
 interface MoreButtonProps {

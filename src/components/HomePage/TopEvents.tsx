@@ -103,14 +103,14 @@ const TopEvents = () => {
     ];
     return (
         <div className='container mx-auto'>
-            <h2 className='h2-black mb-5'>Top Event</h2>
+            <h2 className='h2-black mb-5'>Latest Event</h2>
             <div className='grid-4'>
-                {data?.map((item, i) => (
+                {/* {data?.map((item, i) => (
                     <EventCard
                         item={item}
                         key={i}
                     />
-                ))}
+                ))} */}
             </div>
             <Link href={'/'} className='button-blue whitespace-nowrap mx-auto mt-6'>
                 View All
