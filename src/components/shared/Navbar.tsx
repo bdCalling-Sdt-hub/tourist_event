@@ -24,7 +24,6 @@ const Navbar = () => {
     const [date, setDate] = React.useState<Date>()
     const [open, setOpen] = React.useState<boolean | undefined>(false);
     const router = useRouter()
-
     return (
         <Headroom>
             <div className='bg-blue-900 px-2 md:py-2'>

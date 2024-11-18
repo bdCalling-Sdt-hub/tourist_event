@@ -4,15 +4,43 @@ import loginImage from '@/Asset/login.png'
 import Image from 'next/image'
 import { Checkbox, Form, FormProps, Input } from 'antd'
 import Link from 'next/link'
+import { useLoginMutation } from '@/Redux/Apis/authapis'
+import { toast } from '@/hooks/use-toast'
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation'
 type FieldType = {
     email?: string;
     password?: string;
     remember?: string;
 };
 const loginPage = () => {
-    const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-        console.log('Success:', values);
-    };
+    const router = useRouter()
+    const [login] = useLoginMutation()
+    const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+        const { remember, ...otherData } = values
+        const data = {
+            ...otherData,
+        }
+        login(data).unwrap()
+            .then(result => {
+                Cookies.set('_token', result?.data?.accessToken)
+                if (!Cookies.get('_token')) {
+                    return toast({
+                        variant: 'destructive',
+                        title: "Please enable cookie to login this website"
+                    })
+                }
+                toast({
+                    description: result?.message || "Login successfully"
+                })
+                router.push('/')
+            }).catch(err => {
+                toast({
+                    variant: 'destructive',
+                    title: err?.data?.message || "something went wrong"
+                })
+            });
+    }
     return (
         <div className='mx-auto center-center h-screen w-full'>
             <div className='w-full h-full grid-2'>

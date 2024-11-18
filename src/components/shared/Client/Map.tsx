@@ -20,7 +20,6 @@ const Map = () => {
     }).addTo(map);
     const marker = L.marker([51.505, -0.09]).addTo(map);
     marker.bindPopup('Event Location').openPopup();
-
     return () => {
       map.remove();
     };
@@ -32,3 +31,4 @@ const Map = () => {
 };
 
 export default Map;
+

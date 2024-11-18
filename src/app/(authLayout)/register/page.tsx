@@ -4,19 +4,41 @@ import loginImage from '@/Asset/login.png'
 import Image from 'next/image'
 import { Checkbox, Form, FormProps, Input } from 'antd'
 import Link from 'next/link'
+import { useRegisterMutation } from '@/Redux/Apis/authapis'
+import { useToast } from '@/hooks/use-toast'
+import { useRouter } from 'next/navigation'
 type FieldType = {
-  username?: string;
+  name?: string;
   email?: string;
   password?: string;
   confirmPassword?: string;
   sendMail?: string;
-  phone?: string;
+  phone_number?: string;
 };
 
 const RegisterPage = () => {
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('Success:', values);
-  };
+  const { toast } = useToast()
+  const router = useRouter()
+  const [register, { isLoading }] = useRegisterMutation()
+  const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+    const { sendMail, ...otherData } = values
+    const data = {
+      ...otherData,
+      role: 'USER'
+    }
+    register(data).unwrap()
+      .then(result => {
+        toast({
+          description: result?.message || "Registered successfully please check your email"
+        })
+        router.push('/otp')
+      }).catch(err => {
+        toast({
+          variant: 'destructive',
+          title: err?.data?.message || "something went wrong"
+        })
+      });
+  }
   return (
     <div className='mx-auto center-center h-screen w-full'>
       <div className='w-full h-full grid-2'>
@@ -32,7 +54,7 @@ const RegisterPage = () => {
               autoComplete="off">
               <Form.Item<FieldType>
                 label="Username"
-                name="username"
+                name="name"
                 rules={[{ required: true, message: 'Please input your username!' }]}
               >
                 <Input className='h-[42px]' />
@@ -48,7 +70,7 @@ const RegisterPage = () => {
                 </Form.Item>
                 <Form.Item<FieldType>
                   label="Phone Number"
-                  name="phone"
+                  name="phone_number"
                   className='w-full'
                   rules={[{ required: true, message: 'Please input your Phone Number!' }]}
                 >
@@ -70,12 +92,12 @@ const RegisterPage = () => {
                 <Input.Password className='h-[42px]' />
               </Form.Item>
               <Form.Item<FieldType>
-                name="sendMail"
+                // name="sendMail"
                 valuePropName="checked"
               >
                 <Checkbox>Send emails featuring the best event in Tourist  Platform. </Checkbox>
               </Form.Item>
-              <button className='button-blue'>
+              <button disabled={isLoading} className='button-blue'>
                 Sign Up
               </button>
             </Form>
