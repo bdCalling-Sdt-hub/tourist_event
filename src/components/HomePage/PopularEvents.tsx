@@ -4,14 +4,19 @@ import Link from 'next/link';
 import EventCard from '../shared/EventCard';
 import { useGetPopularEventsQuery } from '@/Redux/Apis/eventApis';
 export interface EventData {
-    category: string;
+    category: {
+        name: string,
+        _id: string,
+    }
     date: string;
     event_image: string[];
     name: string;
     _id: string;
+    address: string
 }
 const PopularEvents = () => {
     const { data: events } = useGetPopularEventsQuery(undefined)
+    console.log(events?.data)
     return (
         <div className='container mx-auto'>
             <h2 className='h2-black mb-5'>Popular Event</h2>
