@@ -108,12 +108,12 @@ const PastEventsPage = () => {
             <Banner />
             <h2 className='h2-black mb-5 mt-10'>Past Events</h2>
             <div className='grid-4 mt-4'>
-                {data?.map((item, i) => (
+                {/* {data?.map((item, i) => (
                     <EventCard
                         item={item}
                         key={i}
                     />
-                ))}
+                ))} */}
             </div>
             <InfiniteScrollS />
         </div>

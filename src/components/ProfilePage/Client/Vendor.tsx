@@ -100,7 +100,7 @@ const Vendor = () => {
                 label={`Description`}
             // rules={[{ required: true, message: 'Description is required' }]}
             >
-                <Jodit />
+                {/* <Jodit /> */}
             </Form.Item>
             <Form.List name="social_link">
                 {(fields, { add, remove }) => (

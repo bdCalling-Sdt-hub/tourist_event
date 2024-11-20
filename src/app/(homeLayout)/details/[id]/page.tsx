@@ -1,32 +1,110 @@
+'use client'
+
 import Banner from '@/components/DetailsPage/client/Banner'
 import Map from '@/components/shared/Client/Map'
+import { useGetEventByIdQuery } from '@/Redux/Apis/eventApis'
+import { imageUrl } from '@/Utils/serverUrl'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 import React from 'react'
 
-const DetailsPage = () => {
+// Define a type for the event data (adapt this based on your API response structure)
+interface EventData {
+    address: string,
+    _id: string
+    vendor: {
+        profile_image: string,
+        name: string,
+        email: string,
+        _id: string
+    } | null
+    name: string
+    date: string // ISO date string
+    end_date: string // ISO date string
+    time: string
+    duration: string
+    category: {
+        _id: string
+        name: string
+        __v: number
+    }
+    option: string[]
+    social_media: {
+        name: string
+        link: string
+        _id: string
+    }[]
+    location: {
+        type: string
+        coordinates: [number, number]
+        _id: string
+    }
+    description: string
+    event_image: string[]
+    featured: boolean | null
+    favorites: string[]
+    status: string
+    createdAt: string
+    updatedAt: string,
+}
+
+const DetailsPage: React.FC = () => {
+    const params = useParams() // Use useParams to access the dynamic route parameters
+    const id = params?.id as string // Extract the 'id' parameter
+
+    // Fetch the event data based on id
+    const { data, isLoading, isError } = useGetEventByIdQuery(id)
+    const eventData = data?.data as EventData
+    console.log(eventData)
     return (
-        <div className='container mx-auto'>
-            <Banner />
+        <div className="container mx-auto">
+            <Banner
+                date={eventData?.date}
+                end_date={eventData?.end_date}
+                event_image={eventData?.event_image?.[0]}
+                location={eventData?.address}
+                name={eventData?.name}
+                time={eventData?.time}
+                social_media={eventData?.social_media}
+            />
             <div>
-                <Link href={`/details/author`} className='start-center gap-2 mt-4 cursor-pointer'>
-                    <Image src={'https://i.ibb.co.com/bHTrR2R/blank-profile-picture-973460-1280.webp'} alt='image' height={600} width={600} className='h-14 w-14 rounded-full' unoptimized />
-                    <div>
-                        <p className='uppercase text-gray font-bold'>siyam</p>
-                        <p className='uppercase text-gray'>siyamoffice0073@gmail.com</p>
-                    </div>
+                <Link
+                    href={`/details/author`}
+                    className="start-center gap-2 mt-4 cursor-pointer"
+                >
+                    <Image
+                        src={imageUrl(eventData?.vendor?.profile_image || "")}
+                        alt="Author Image"
+                        height={600}
+                        width={600}
+                        className="h-14 w-14 rounded-full object-cover"
+                    // unoptimized
+                    />
+                    <Link href={`/details/author?id=${eventData?.vendor?._id}`}>
+                        <p className="uppercase text-gray font-bold">
+                            {eventData?.vendor?.name || 'Unknown Author'}
+                        </p>
+                        <p className="uppercase text-gray">
+                            {eventData?.vendor?.email || 'No email provided'}
+                        </p>
+                    </Link>
                 </Link>
-                <p className='text-3xl mt-4'>Description:</p>
-                <div className='text-gray'>
-                    <strong>   Live Music at 5:00 PM</strong>
+                <p className="text-3xl mt-4">Description:</p>
+                <div className="text-gray">
+                    <strong>{eventData?.name || 'Event Name Unavailable'}</strong>
                     <br />
-                    We would like to invite you to taste, discover, and learn about more than 60 premium whiskey brands and cocktails–the best of Bourbon, American, Irish, Scotch, Rye, Single Malt, and more as part of our WhiskyX event in Austin! We’ve curated an unprecedented selection of innovative and world-class whiskies.
+                    <div
+                        dangerouslySetInnerHTML={{
+                            __html: eventData?.description || '',
+                        }}
+                    ></div>
                 </div>
             </div>
-            <div className='mt-10'>
-                <Map />
+            <div className="mt-10">
+                <Map location={eventData?.location} address={eventData?.address} />
             </div>
-        </div>
+        </div >
     )
 }
 

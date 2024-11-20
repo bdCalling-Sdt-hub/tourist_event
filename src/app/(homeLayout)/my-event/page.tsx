@@ -110,12 +110,12 @@ const MyEventPage = () => {
                 <AddEventButton />
             </div>
             <div className='grid-4'>
-                {data?.map((item, i) => (
+                {/* {data?.map((item, i) => (
                     <MyEvent
                         item={item}
                         key={i}
                     />
-                ))}
+                ))} */}
             </div>
             <div className='mt-3'>
                 <Pagination />

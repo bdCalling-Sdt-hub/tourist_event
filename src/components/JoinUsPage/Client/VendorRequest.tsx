@@ -29,7 +29,7 @@ type FieldType = {
     questions: string[];
     category: string;
 };
-interface CategoryType {
+export interface CategoryType {
     name: string,
     _id: string,
 }
@@ -73,7 +73,7 @@ const VendorRequest = () => {
 
     useEffect(() => {
         if (locationData) {
-            form.setFieldsValue({ location: locationData?.display_name })
+            form.setFieldsValue({ address: locationData?.display_name })
         }
 
     }, [form, locationData])

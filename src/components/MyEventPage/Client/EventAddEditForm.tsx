@@ -130,7 +130,7 @@ const EventAddEditForm = () => {
                     name="description"
                 // rules={[{ required: true, message: 'Please enter a description!' }]}
                 >
-                    <Jodit />
+                    {/* <Jodit /> */}
                 </Form.Item>
                 <Form.Item<FieldType>
                     name="featured"

@@ -106,12 +106,12 @@ const page = () => {
         <div className='container mx-auto mt-6'>
             <h2 className='h2-black mb-5'>Favorite Event</h2>
             <div className='grid-4'>
-                {data?.map((item, i) => (
+                {/* {data?.map((item, i) => (
                     <EventCard
                         item={item}
                         key={i}
                     />
-                ))}
+                ))} */}
             </div>
             <div className='mt-3'>
                 <Pagination />

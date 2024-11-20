@@ -108,12 +108,12 @@ const SearchPage = () => {
                 <SearchFields />
             </div>
             <div className='grid-4 mt-10'>
-                {data?.map((item, i) => (
+                {/* {data?.map((item, i) => (
                     <EventCard
                         item={item}
                         key={i}
                     />
-                ))}
+                ))} */}
             </div>
             <InfiniteScrollS />
         </div>

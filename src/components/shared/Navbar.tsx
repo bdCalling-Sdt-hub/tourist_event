@@ -21,11 +21,13 @@ import { CiCalendar, CiUser } from 'react-icons/ci'
 import { IoIosLogOut } from 'react-icons/io'
 import { CgWebsite } from 'react-icons/cg'
 import { useUser } from '@/Provider/UserContext'
+import useUpdateSearchParams from '@/Utils/SetParams'
 const Navbar = () => {
     const { user: data, } = useUser()
     const [date, setDate] = React.useState<Date>()
     const [open, setOpen] = React.useState<boolean | undefined>(false);
     const router = useRouter()
+    const updateSearchParams = useUpdateSearchParams();
     return (
         <Headroom>
             <div className='bg-blue-900 px-2 md:py-2'>
@@ -38,14 +40,20 @@ const Navbar = () => {
                                 <button
                                     className={`button-blue `}
                                 >
-                                    {date ? <div className='start-center gap-2'>{format(date, "PPP")}<RxCross2 onClick={() => setDate(undefined)} size={24} className='text-[var(--color-red-500)]' /> </div> : <>Event< MdDateRange /></>}
+                                    {date ? <div className='start-center gap-2'>{format(date, "PPP")}<RxCross2 onClick={() => {
+                                        updateSearchParams('date', '')
+                                        setDate(undefined)
+                                    }} size={24} className='text-[var(--color-red-500)]' /> </div> : <>Event< MdDateRange /></>}
                                 </button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0">
                                 <Calendar
                                     mode="single"
                                     selected={date}
-                                    onSelect={setDate}
+                                    onSelect={(date) => {
+                                        updateSearchParams('date', new Date(date ?? "")?.toISOString()?.split('T')?.[0])
+                                        setDate(date)
+                                    }}
                                     initialFocus
                                 />
                             </PopoverContent>
