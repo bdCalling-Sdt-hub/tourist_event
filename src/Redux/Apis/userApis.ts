@@ -4,7 +4,7 @@ const userApis = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getProfile: builder.query({
             query: () => ({
-                url: "auth/user/profile",
+                url: "auth/profile",
                 method: "GET",
             }),
         }),
@@ -16,7 +16,7 @@ const userApis = baseApi.injectEndpoints({
         }),
         editProfile: builder.mutation({
             query: (data) => ({
-                url: "auth/user/edit-profile",
+                url: "auth/edit-profile",
                 method: "PATCH",
                 body: data,
             }),

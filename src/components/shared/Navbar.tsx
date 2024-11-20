@@ -28,6 +28,7 @@ const Navbar = () => {
     const [open, setOpen] = React.useState<boolean | undefined>(false);
     const router = useRouter()
     const updateSearchParams = useUpdateSearchParams();
+    console.log(data)
     return (
         <Headroom>
             <div className='bg-blue-900 px-2 md:py-2'>
@@ -119,7 +120,7 @@ const Navbar = () => {
 
 
                         <div className='md:block hidden'>
-                            <DowerLinks />
+                            <DowerLinks data={data} />
                         </div>
                         <RiMenuUnfold2Fill
                             onClick={() => setOpen(true)}
@@ -142,7 +143,7 @@ const Navbar = () => {
                     <Link className='block md:hidden text-white m-1' href={`/past-event`}>
                         <FaList size={24} />
                     </Link>
-                    <DowerLinks />
+                    <DowerLinks data={data} />
 
                 </Drawer>
             </div >
@@ -153,15 +154,21 @@ const Navbar = () => {
 export default Navbar
 
 
-const DowerLinks = () => {
+const DowerLinks = ({ data }: any) => {
     return (
         <div className='md:end-center start-start md:flex-row flex-col gap-2'>
-            <Link className='button-blue card-shadow whitespace-nowrap' href={`/login`}>
-                Sign In
-            </Link>
-            <Link className='button-blue card-shadow whitespace-nowrap' href={`/register`}>
-                Sign Up
-            </Link>
+            {
+                !data?.data?.authId?.email && <>
+
+                    <Link className='button-blue card-shadow whitespace-nowrap' href={`/login`}>
+                        Sign In
+                    </Link>
+                    <Link className='button-blue card-shadow whitespace-nowrap' href={`/register`}>
+                        Sign Up
+                    </Link>
+                </>
+            }
+
             <Link className='button-blue card-shadow whitespace-nowrap' href={`/join-us`}>
                 Advertise With Us
             </Link>

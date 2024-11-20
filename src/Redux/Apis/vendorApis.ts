@@ -7,12 +7,21 @@ const vendorApis = baseApi.injectEndpoints({
             query: (data) => {
                 const token = localStorage.getItem('token'); // Get token from localStorage
                 return {
-                    url: 'auth/vendor/send-request',
-                    method: 'POST',
+                    url: 'vendor/send-vendor-request',
+                    method: 'PATCH',
                     body: data,
                     headers: {
-                        Authorization: token ? `Bearer ${JSON.parse(token)}` : '', // Send token if it exists
+                        Authorization: token ? `Bearer ${JSON.parse(token)}` : '', 
                     },
+                };
+            },
+        }),
+        vendorRequest: builder.mutation({
+            query: (data) => {
+                return {
+                    url: 'vendor/register',
+                    method: 'POST',
+                    body: data,
                 };
             },
         }),
@@ -20,12 +29,12 @@ const vendorApis = baseApi.injectEndpoints({
         // GET: Fetch vendor profile
         getProfile: builder.query({
             query: () => {
-                const token = localStorage.getItem('token'); // Get token from localStorage
+                const token = localStorage.getItem('token'); 
                 return {
                     url: 'vendor/profile',
                     method: 'GET',
                     headers: {
-                        Authorization: token ? `Bearer ${JSON.parse(token)}` : '', // Send token if it exists
+                        Authorization: token ? `Bearer ${JSON.parse(token)}` : '', 
                     },
                 };
             },
@@ -49,6 +58,7 @@ const vendorApis = baseApi.injectEndpoints({
 
 export const {
     useSendRequestMutation,
+    useVendorRequestMutation,
     useGetProfileQuery,
     useDeleteAccountMutation,
 } = vendorApis;

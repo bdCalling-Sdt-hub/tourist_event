@@ -16,6 +16,8 @@ interface ProfileData {
             cover_image: string;
             name: string;
             phone_number: string;
+            address: string,
+            banner: string,
         } | null;
     } | null;
     isLoading: boolean;

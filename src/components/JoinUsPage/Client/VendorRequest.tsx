@@ -7,11 +7,13 @@ const Jodit = dynamic(() => import("@/components/shared/Client/Jodit"), {
 })
 import { useUser } from '@/Provider/UserContext';
 import { useGetCategoryQuery } from '@/Redux/Apis/categoryApis';
-import { Form, FormProps, Input, Modal, Select } from 'antd';
+import { useVendorRequestMutation } from '@/Redux/Apis/vendorApis';
+import { Form, FormProps, Input, Modal, Select, Spin } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast';
 import { CiEdit, CiImageOn } from 'react-icons/ci';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import { FaLocationPin } from 'react-icons/fa6';
@@ -27,7 +29,15 @@ type FieldType = {
     confirmPassword?: string;
     sendMail?: string;
     questions: string[];
-    category: string;
+    category: string,
+    social_media: [
+        {
+            link: string,
+            name: string
+        }
+    ],
+    banner: File | null,
+    profile_image: File | null,
 };
 export interface CategoryType {
     name: string,
@@ -41,6 +51,7 @@ const predefinedQuestions = [
     { question: "What is the mission or vision of your organization?", placeholder: "Enter your organization's mission or vision statement" },
 ];
 const VendorRequest = () => {
+    const [request, { isLoading: sendingRequest }] = useVendorRequestMutation()
     const [form] = Form.useForm()
     const { user: data, } = useUser()
     const [profileImage, setProfileImage] = useState<File | null>(null)
@@ -53,22 +64,39 @@ const VendorRequest = () => {
     const [text, setText] = useState<string>('')
 
     const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-        const { desc, questions, ...otherValues } = values;
+        const { desc, questions, social_media, ...otherValues } = values;
         const qu: Array<{ question: string; answer: string | number }> = [];
         Object.keys(questions).forEach((key) => {
             //@ts-ignore
             qu.push({ question: key, answer: questions[key] });
         });
+        if (!coverImage || !profileImage) {
+            return toast.error(`Please Select ${coverImage ? 'Cover Image' : 'Business Logo'}`)
+        }
         const data = {
             ...otherValues,
-            question: qu,
+            questions: JSON.stringify(qu),
             description: text,
-            coverImage,
-            profileImage,
             latitude: locationData?.lat,
-            longitude:locationData?.lng
+            longitude: locationData?.lng,
+            social_media: JSON.stringify(social_media ?? []),
+            profile_image: profileImage ?? null,
+            banner: coverImage ?? null
         }
-        console.log('formateData:', data);
+        const formData = new FormData()
+        Object.keys(data)?.map((key) => {
+            formData.append(key, data[key as keyof typeof data])
+        })
+        request(formData).unwrap()
+            .then(res => {
+                toast.success(res?.data?.message || "Request sent please wait for admin approval")
+                form.resetFields()
+                setCoverImage(null)
+                setProfileImage(null)
+            }).catch(err => {
+                // console.log(err)
+                toast.error(err?.data?.message || 'Something Went Wrong')
+            })
     };
 
     useEffect(() => {
@@ -134,7 +162,7 @@ const VendorRequest = () => {
                     label={`Location`}
                     rules={[{ required: true, message: 'Location is required' }]}
                 >
-                    <Input disabled placeholder="location" className="h-[42px]" />
+                    <Input placeholder="location" className="h-[42px]" />
                 </Form.Item>
                 <button type="button" className="button-blue ml-auto absolute top-10 right-2" style={{
                     padding: '5px 5px'
@@ -276,7 +304,8 @@ const VendorRequest = () => {
             </Form.Item> */}
         </div>
         <button className="button-blue mx-auto">
-            Update Vendor Profile
+            {/* Update Vendor Profile */}
+            {sendingRequest ? <Spin size='small' /> : 'Send Request'}
         </button>
         <Modal
             onCancel={() => setOpen(false)}
