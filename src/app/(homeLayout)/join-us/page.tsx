@@ -1,11 +1,12 @@
 'use client'
 import VendorRequest from '@/components/JoinUsPage/Client/VendorRequest'
-import React from 'react'
-
+import { Suspense } from 'react'
 const JoinRequestPage = () => {
     return (
         <div className='container mx-auto'>
-            <VendorRequest />
+            <Suspense fallback={<div>Loading...</div>}>
+                <VendorRequest />
+            </Suspense>
         </div>
     )
 }

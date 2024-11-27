@@ -17,7 +17,6 @@ export interface EventData {
     address: string
 }
 const TopEvents = () => {
-    const updateSearchParams = useUpdateSearchParams();
     const searchParams = useSearchParams();
     const category = searchParams.get('category')
     const option = searchParams.get('option')

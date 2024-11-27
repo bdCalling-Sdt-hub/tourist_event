@@ -3,8 +3,9 @@ import Image from 'next/image'
 import React from 'react'
 import { FaFacebook, FaGoogle, FaInstagram, FaLocationDot, FaTiktok } from 'react-icons/fa6'
 import Link from 'next/link'
-import { BusinessProfile } from '@/app/(homeLayout)/details/author/page'
+
 import { imageUrl } from '@/Utils/serverUrl'
+import { BusinessProfile } from './AuthorPage'
 interface Props {
     vendor: BusinessProfile
 }

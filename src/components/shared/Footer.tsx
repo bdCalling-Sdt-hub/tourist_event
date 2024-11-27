@@ -3,8 +3,6 @@ import React from 'react'
 import logo from '@/Asset/logo.png'
 import Image from 'next/image'
 import Link from 'next/link'
-import ContactsButton from './Client/ContactsButton'
-import LanguageChange from './Client/LanguageChange'
 import { useUser } from '@/Provider/UserContext'
 import { DowerLinks } from './Navbar'
 const Footer = () => {
@@ -34,13 +32,13 @@ const Footer = () => {
                     <Link href={`/about`}>
                         About Us
                     </Link>
-                    <Link href={`/privacy`}>
+                    <Link href={`/terms`}>
                         Terms and Conditions
                     </Link>
-                    <Link href={`/terms`}>
+                    <Link href={`/privacy`}>
                         Privacy Policy
                     </Link>
-                    <Link href={``}>
+                    <Link href={`/faq`}>
                         FAQs
                     </Link>
                 </div>

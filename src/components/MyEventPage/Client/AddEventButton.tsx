@@ -6,6 +6,9 @@ import EventAddEditForm from './EventAddEditForm'
 
 const AddEventButton = () => {
     const [open, setOpen] = useState<boolean>(false)
+    const closeModal = () => {
+        setOpen(false)
+    }
     return (
         <>
             <button onClick={() => setOpen(true)} className='button-blue'>
@@ -18,7 +21,7 @@ const AddEventButton = () => {
                 footer={false}
                 width={800}
             >
-                <EventAddEditForm />
+                <EventAddEditForm selectedData={null} closeModal={() => closeModal()} />
             </Modal>
         </>
     )

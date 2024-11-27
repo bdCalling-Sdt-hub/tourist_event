@@ -10,55 +10,138 @@ import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
 import { FaUpload } from 'react-icons/fa';
 import { FaLocationPin } from 'react-icons/fa6';
-const { TextArea } = Input;
-
+import dayjs from 'dayjs';
+import toast from 'react-hot-toast';
+import { useCreateEventMutation, useUpdateEventMutation } from '@/Redux/Apis/eventApis';
 type FieldType = {
     name?: string;
     category?: string;
-    date?: string;
+    date?: string | Date;
     time?: string;
-    end_date?: string;
-    option?: string;
+    end_date?: string | Date;
+    option?: string[];
     social_media?: string;
-    location?: string;
+    address?: string;
     description?: string;
-    image?: any;
-    featured: string;
+    event_image?: any;
+    img?: any;
+    featured: string | Date;
     featuredDate: string;
-    renew: string;
-    renewDate: string;
+    recurrence: string;
+    recurrence_end: string | Date;
     tag: string[];
+    latitude: string;
+    longitude: string;
+    id: string;
 };
 
-const EventAddEditForm = () => {
-    const { user: data, } = useUser()
-    const [form] = Form.useForm()
-    const [Loading, setLoading] = useState<boolean>(false)
-    const [text, setText] = useState<string>('')
-    const [locationData, setLocationData] = useState<any>()
-    const [open, setOpen] = useState<boolean>(false)
-    const { data: category, isLoading } = useGetCategoryQuery(undefined)
-    const [renew, setRenew] = useState('unavailable')
-    const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-        console.log('Success:', values);
-    };
+const EventAddEditForm = ({ selectedData, closeModal }: { selectedData: any, closeModal: any }) => {
+    console.log(selectedData)
+    const { user: data } = useUser();
+    const [form] = Form.useForm();
+    const [Loading, setLoading] = useState<boolean>(false);
+    const [text, setText] = useState<string>('');
+    const [locationData, setLocationData] = useState<any>();
+    const [open, setOpen] = useState<boolean>(false);
+    const { data: category, isLoading } = useGetCategoryQuery(undefined);
+    const [renew, setRenew] = useState('unavailable');
     const [isFeatured, setIsFeatured] = useState<boolean>(false);
+    const [createEvent] = useCreateEventMutation();
+    const [updateEvent] = useUpdateEventMutation();
+
+    const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+        if (!selectedData && values?.img?.length <= 0) {
+            toast.error('Please select event image');
+        }
+        // values.event_image = values.event_image?.[0]?.originFileObj;
+        values.date = new Date(dayjs(values?.date).toDate().toISOString());
+        values.recurrence_end = dayjs(values?.recurrence_end).toDate().toISOString();
+        values.end_date = dayjs(values?.end_date).toDate().toISOString();
+        values.time = dayjs(values?.time).format('hh:mm A');
+        values.latitude = locationData?.lat;
+        values.longitude = locationData?.lng;
+        values.description = text;
+        // values.option = values?.tag;
+        if (isFeatured) {
+            values.featured = dayjs(values?.featuredDate).toDate().toISOString();
+        }
+        const { img, tag, ...otherFields } = values
+        const formData = new FormData();
+        Object.keys(otherFields)?.map(key => {
+            const value = otherFields[key as keyof typeof otherFields];
+            if (value) {
+                formData.append(key, value);
+            }
+        });
+        if (values?.tag) {
+            values?.tag?.map((item: any) => {
+                formData.append('option[]', item);
+            })
+            formData.append('event_image', values?.img?.[0]?.originFileObj)
+        }
+        formData.append('event_image', values?.img?.[0]?.originFileObj)
+        if (selectedData?._id) {
+            updateEvent({ id: selectedData._id, data: formData }).unwrap()
+                .then(res => {
+                    toast.success(res?.message || 'Event Create Successfully')
+                    closeModal()
+                }).catch(err => {
+                    toast.error(err?.data?.message || 'Something went wrong')
+                });
+        } else {
+            createEvent(formData).unwrap()
+                .then(res => {
+                    toast.success(res?.message || 'Event Updated Successfully')
+                    closeModal()
+                }).catch(err => {
+                    toast.error(err?.data?.message || 'Something went wrong')
+                });
+        }
+    };
+
     const handleFeaturedChange = (e: any) => {
         setIsFeatured(e.target.checked);
     };
 
     useEffect(() => {
+        if (selectedData) {
+            form.setFieldsValue({
+                name: selectedData?.name,
+                category: selectedData?.category?._id,
+                date: dayjs(selectedData?.date),
+                time: dayjs(selectedData?.time),
+                end_date: dayjs(selectedData?.end_date),
+                description: selectedData?.description,
+                address: selectedData?.address,
+                social_media: selectedData?.social_media,
+                tag: selectedData?.option,
+                recurrence: selectedData?.recurrence,
+                recurrence_end: dayjs(selectedData?.recurrence_end),
+                featured: selectedData.featured,
+                featuredDate: dayjs(selectedData?.featuredDate),
+                // img: imageUrl(selectedData?.event_image)
+            });
+            setText(selectedData?.description)
+            setLocationData({
+                lat: selectedData.latitude,
+                lng: selectedData.longitude,
+                display_name: selectedData.address,
+            });
+            setIsFeatured(!!selectedData.featured);
+        }
+    }, [selectedData]);
+    useEffect(() => {
         if (data?.data?.address) {
-            form.setFieldsValue({ location: data?.data?.address })
+            form.setFieldsValue({ address: data?.data?.address })
         }
     }, [form, data?.data])
     useEffect(() => {
         if (locationData) {
-            form.setFieldsValue({ location: locationData?.display_name })
+            form.setFieldsValue({ address: locationData?.display_name })
         }
-        // latitude: locationData?.lat,
-        // longitude: locationData?.lng,
+
     }, [form, locationData])
+
     return (
         <div className='p-4'>
             <p className='text-2xl text-center mb-2'>Add Event</p>
@@ -78,7 +161,7 @@ const EventAddEditForm = () => {
                     rules={[{ required: true, message: 'Please select a category!' }]}
                 >
                     <Select
-                        className="h-[42px]"
+                        className=""
                         placeholder="Select Category"
                         options={category?.data?.map((item: CategoryType) => ({ label: item?.name, value: item?._id })) || []}
                     />
@@ -134,7 +217,7 @@ const EventAddEditForm = () => {
 
                 <div className="relative">
                     <Form.Item<FieldType>
-                        name={`location`}
+                        name={`address`}
                         label={`Location`}
                         rules={[{ required: true, message: 'Location is required' }]}
                     >
@@ -172,8 +255,8 @@ const EventAddEditForm = () => {
                 </Form.Item>
 
                 <Form.Item<FieldType>
-                    label="Renew"
-                    name="renew"
+                    label="Recurrence"
+                    name="recurrence"
                     valuePropName="checked"
                 >
                     <Select
@@ -189,11 +272,12 @@ const EventAddEditForm = () => {
                 </Form.Item>
 
                 <Form.Item<FieldType>
-                    label={`Renew ${renew == 'unavailable' ? 'Unavailable' : renew == 'weekly' ? 'Week' : 'Date'} `}
-                    name="renewDate"
-                    rules={[{ required: isFeatured, message: 'Please select a featured date!' }]}
+                    label={`Recurrence ${renew == 'unavailable' ? 'Unavailable' : 'Until'} `}
+                    name="recurrence_end"
+                    rules={[{ required: renew != 'unavailable', message: 'Please select a featured date!' }]}
                 >
-                    {
+                    <DatePicker style={{ width: '100%' }} disabled={renew == 'unavailable'} />
+                    {/* {
                         renew == 'weekly' ? < Select
                             placeholder='please select day'
                             defaultValue={`Friday`}
@@ -206,13 +290,12 @@ const EventAddEditForm = () => {
                                 { label: 'Saturday', value: 'saturday' },
                                 { label: 'Sunday', value: 'sunday' }
                             ]}
-                        /> : <DatePicker style={{ width: '100%' }} disabled={renew == 'unavailable'} />
-                    }
+                        /> :''  } */}
                 </Form.Item>
 
                 <Form.Item<FieldType> className={`col-span-2`}
                     label="Image"
-                    name="image"
+                    name="img"
                     valuePropName="fileList"
                     getValueFromEvent={(e) => Array.isArray(e) ? e : e?.fileList}
                 >
@@ -225,17 +308,32 @@ const EventAddEditForm = () => {
                 </Form.Item>
 
                 <div className='col-span-2 center-center gap-2 w-full'>
-                    <button className='button-blue'>
-                        Save
+                    <button type="submit" className='button-blue'>
+                        {selectedData?._id ? 'Update' : 'Create'}
                     </button>
-                    <button style={{
-                        background: 'var(--color-blue-900)'
-                    }} className='button-blue'>
-                        Duplicate
-                    </button>
-                    <button style={{
-                        background: 'var(--color-red-500)'
-                    }} className='button-blue'>
+                    {/* {selectedData?._id && (
+                        <button
+                            type="button"
+                            className='button-blue'
+                            onClick={() => {
+                                // Duplicate logic
+                                const duplicateData = { ...selectedData, _id: undefined };
+                                form.setFieldsValue({
+                                    ...duplicateData,
+                                    name: duplicateData.name,
+                                });
+                                createEvent(duplicateData);
+                            }}
+                        >
+                            Duplicate
+                        </button>
+                    )} */}
+                    <button
+                        type="button"
+                        style={{ background: 'var(--color-red-500)' }}
+                        className='button-blue'
+                        onClick={() => form.resetFields()}
+                    >
                         Cancel
                     </button>
                 </div>

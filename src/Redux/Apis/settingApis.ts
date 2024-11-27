@@ -11,15 +11,15 @@ const settingApis = baseApi.injectEndpoints({
         }),
 
         // GET: Fetch 'Rules' information
-        getRules: builder.query({
+        getTerms: builder.query({
             query: () => ({
-                url: '/rules/get-rules',
+                url: 'rules/get-rules',
                 method: 'GET',
             }),
         }),
 
         // GET: Fetch 'Facts' information
-        getFacts: builder.query({
+        getPrivacy: builder.query({
             query: () => ({
                 url: 'rules/get-facts',
                 method: 'GET',
@@ -38,7 +38,7 @@ const settingApis = baseApi.injectEndpoints({
 
 export const {
     useGetAboutUsQuery,
-    useGetRulesQuery,
-    useGetFactsQuery,
+    useGetTermsQuery,
+    useGetPrivacyQuery,
     useGetFaqsQuery,
 } = settingApis;

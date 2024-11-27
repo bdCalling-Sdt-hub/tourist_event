@@ -1,6 +1,6 @@
 import Footer from '@/components/shared/Footer';
 import Navbar from '@/components/shared/Navbar';
-import React from 'react'
+import React, { Suspense } from 'react'
 
 const homeLayout = ({
     children,
@@ -9,7 +9,9 @@ const homeLayout = ({
 }>) => {
     return (
         <>
-            <Navbar />
+            <Suspense fallback={``}>
+                <Navbar />
+            </Suspense>
             <div className='min-h-[55vh]'>
                 {children}
             </div>

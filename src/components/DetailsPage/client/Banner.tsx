@@ -32,9 +32,11 @@ const Banner = ({ location, date, end_date, event_image, name, time, social_medi
                 </p>
                 <div className='flex justify-start items-center gap-2 mt-2 text-white'>
                     {
-                        social_media?.map(item => <Link href={item?.link}>
+                        social_media ? Array.isArray(social_media) ? social_media?.map(item => <Link href={item?.link}>
                             {item?.name == 'facebook' ? < FaFacebook /> : item?.name == 'website' ? <FaEarthAfrica /> : item?.name == 'instagram' ? <FaInstagram /> : <FaTiktok />}
-                        </Link>)
+                        </Link>) : <Link href={social_media}>
+                            <FaEarthAfrica />
+                        </Link> : <></>
                     }
                 </div>
             </div>

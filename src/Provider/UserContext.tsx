@@ -35,7 +35,7 @@ const UserContext = createContext<ProfileData | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const { data: user, isLoading, isFetching } = useGetProfileQuery(undefined);
-    console.log(user)
+
     // Structure the context value
     const contextValue: ProfileData = {
         user: user || null,

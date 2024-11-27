@@ -1,12 +1,13 @@
 
-'use client'
 import Profile from '@/components/ProfilePage/Client/Profile'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 const ProfilePage = () => {
     return (
         <div className='container mx-auto'>
-            <Profile />
+            <Suspense fallback={``}>
+                <Profile />
+            </Suspense>
         </div>
     )
 }

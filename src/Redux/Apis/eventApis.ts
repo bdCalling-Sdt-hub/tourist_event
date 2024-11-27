@@ -9,15 +9,25 @@ const eventApis = baseApi.injectEndpoints({
                 method: "POST",
                 body: data,
             }),
+            invalidatesTags: ['event']
         }),
 
         // PATCH: Update an event by ID
         updateEvent: builder.mutation({
-            query: (data) => ({
-                url: `/events/update/${data.id}`, // Dynamically add the event ID
+            query: ({ id, data }) => ({
+                url: `/events/update/${id}`, // Dynamically add the event ID
                 method: "PATCH",
                 body: data,
             }),
+            invalidatesTags: ['event']
+        }),
+        duplicateEvent: builder.mutation({
+            query: (_id) => ({
+                url: `/events/duplicate-events/${_id}`, // Dynamically add the event ID
+                method: "PATCH",
+                body: {},
+            }),
+            invalidatesTags: ['event']
         }),
 
         // GET: Get an event by its ID
@@ -26,17 +36,19 @@ const eventApis = baseApi.injectEndpoints({
                 url: `events/get/${id}`,
                 method: "GET",
             }),
+            providesTags:['event']
         }),
 
         // GET: Fetch events by category
         getEventsByCategory: builder.query({
-            query: ({ category, option, searchTerm, page,date }) => {
+            query: ({ category, option, searchTerm, page, date }) => {
                 return ({
                     url: `/events`,
                     method: "GET",
-                    params: { category, option, searchTerm, page,date }
+                    params: { category, option, searchTerm, page, date }
                 })
             },
+            providesTags:['event']
         }),
 
         // GET: Get featured events
@@ -45,6 +57,7 @@ const eventApis = baseApi.injectEndpoints({
                 url: "/events/featured_events",
                 method: "GET",
             }),
+            providesTags:['event']
         }),
 
         // PATCH: Save click data for an event
@@ -53,6 +66,7 @@ const eventApis = baseApi.injectEndpoints({
                 url: `/events/save-click/${eventId}`,
                 method: "PATCH",
             }),
+            invalidatesTags: ['event']
         }),
 
         // GET: Get popular events
@@ -61,6 +75,7 @@ const eventApis = baseApi.injectEndpoints({
                 url: "/events/popular-events",
                 method: "GET",
             }),
+            providesTags:['event']
         }),
 
         // GET: Fetch events by date
@@ -69,6 +84,7 @@ const eventApis = baseApi.injectEndpoints({
                 url: "/events/events_by_date",
                 method: "GET",
             }),
+            providesTags:['event']
         }),
 
         // GET: Fetch past events
@@ -77,6 +93,7 @@ const eventApis = baseApi.injectEndpoints({
                 url: "/events/events_by_past",
                 method: "GET",
             }),
+            providesTags:['event']
         }),
 
         // GET: Get user favorite events
@@ -85,6 +102,7 @@ const eventApis = baseApi.injectEndpoints({
                 url: "/events/user-favorites",
                 method: "GET",
             }),
+            providesTags:['event']
         }),
 
         // DELETE: Delete an event by ID
@@ -93,7 +111,19 @@ const eventApis = baseApi.injectEndpoints({
                 url: `/events/delete/${eventId}`,
                 method: "DELETE",
             }),
+            invalidatesTags: ['event']
         }),
+        getVendorEvent: builder.query({
+            query: ({ page }) => {
+                return ({
+                    url: `/events/my-event`,
+                    method: "GET",
+                    params: { page }
+                })
+            },
+            providesTags:['event']
+        }),
+
     }),
 });
 
@@ -109,4 +139,6 @@ export const {
     useGetPastEventsQuery,
     useGetUserFavoritesQuery,
     useDeleteEventMutation,
+    useGetVendorEventQuery,
+    useDuplicateEventMutation
 } = eventApis;

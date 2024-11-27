@@ -29,7 +29,7 @@ interface EventCardProps {
 }
 
 interface MoreButtonProps {
-    _id?: string | null
+    _id?:string | null | undefined
 }
 export type {
     Button,
