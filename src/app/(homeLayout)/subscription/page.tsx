@@ -1,73 +1,58 @@
+'use client'
 import BillingHistory from '@/components/Subscription/Client/BillingHistory'
+import { useGetPackagesQuery } from '@/Redux/Apis/packageApis'
+import { useCreatePaymentIntentMutation } from '@/Redux/Apis/paymentApis'
 import React from 'react'
+import toast from 'react-hot-toast'
 import { FaCheck } from 'react-icons/fa'
-
 const SubscriptionPage = () => {
-    const data = [
-        {
-            name: 'Free',
-            price: '$0',
-            benefits: [
-                'Business Name & Image',
-            ]
-        },
-        {
-            name: 'Basic',
-            price: '$15',
-            benefits: [
-                'Business Name & Image',
-                '3 Events/Specials',
-                'Contact Info & Location',
-                'Social Media & Website Link',
-            ]
-        },
-        {
-            name: 'Value',
-            price: '$45',
-            benefits: [
-                'Business Name & Image',
-                '10 Monthly Events/Specials',
-                '2 Featured Events',
-                'Contact Info & Location',
-                'Social Media & Website Link',
-            ]
-        },
-        {
-            name: 'Premium',
-            price: '$100',
-            benefits: [
-                'Business Name & Image',
-                'Unlimited Events',
-                '5 Featured Events',
-                'Contact Info & Location',
-                'Social Media & Website Links',
-            ]
-        },
-    ];
-
+    const [pay, { isLoading }] = useCreatePaymentIntentMutation()
+    const { data: packages } = useGetPackagesQuery(undefined)
     return (
         <div className='container mx-auto mt-6'>
             <BillingHistory />
             <h2 className='h3-black'>Subscription Packages</h2>
             <div className='grid-4 gap-4 mt-6'>
                 {
-                    data?.map(item => <div
+                    packages?.data?.packages && packages?.data?.packages?.map((item: any) => <div
                         style={{
-                            background: item?.name == 'Basic' ? 'var(--color-blue-300)' : 'var(--color-blue-200)'
+                            background: packages?.data?.userplan == item?._id ? 'var(--color-blue-300)' : 'var(--color-blue-200)'
                         }}
                         className='w-full h-full between-center gap-4 flex-col p-4 py-8 card-shadow rounded-md' key={item?.name}>
                         <div className='text-center'>
                             <h3 className='h3-black'>{item?.name}</h3>
                             <p className='text-lg'>{item?.price}</p>
                             {
-                                item?.benefits?.map(b => <p key={b} className='start-center gap-2 my-3'><FaCheck /> {b}</p>)
+                                // packages?.
                             }
+                            <p className='start-center gap-2 my-3'><FaCheck /> Business Name & Image </p>
+
+                            {item?.contactInfoLocation && (
+                                <p className='start-center gap-2 my-3'><FaCheck /> Contact Info & Location </p>
+                            )}
+
+                            {Number(item?.eventsOrSpecials) > 1 && (
+                                <p className='start-center gap-2 my-3'><FaCheck /> {Number(item?.eventsOrSpecials) >= 5000 ? "Unlimited Events" : `${item?.eventsOrSpecials} Events/Specials`}  </p>
+                            )}
+
+                            {Number(item?.featuredEvents) > 1 && (
+                                <p className='start-center gap-2 my-3'><FaCheck /> {item?.featuredEvents} Featured Events </p>
+                            )}
+
                         </div>
-                        <button className='button-blue' style={{
+                        <button onClick={() => {
+                            if (item?.price == 0) return
+                            pay(item?._id).unwrap()
+                                .then(res => {
+                                  window.location.href = res?.data?.url
+                                }).catch(err => {
+                                    toast.error(err?.data?.message)
+                                })
+                        }} className='button-blue' style={{
                             width: '100%'
                         }}>
                             {
-                                item?.name == 'Basic' ? 'Current Package' : 'Buy'
+                                packages?.data?.userplan == item?._id ? 'Current Package' : item?.price == 0 ? 'Free' : 'Buy'
                             }
                         </button>
                     </div>)

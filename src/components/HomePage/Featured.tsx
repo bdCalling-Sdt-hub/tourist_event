@@ -1,11 +1,24 @@
+'use client'
 import { Carousel } from 'antd'
 import Image from 'next/image'
 import React from 'react'
-import { FaLayerGroup } from 'react-icons/fa'
 import { FaLocationDot } from 'react-icons/fa6'
 import MoreButton from './Client/MoreButton'
-
+import { useGetFeaturedEventsQuery } from '@/Redux/Apis/eventApis'
+import { imageUrl } from '@/Utils/serverUrl'
+export interface EventData {
+    category: {
+        name: string,
+        _id: string,
+    }
+    date: string;
+    event_image: string[];
+    name: string;
+    _id: string;
+    address: string
+}
 const Featured = () => {
+    const { data: featured, isLoading } = useGetFeaturedEventsQuery(undefined)
     const images = [
         "https://i.ibb.co/gZnsjn6/Block-Back-3.png",
         "https://i.ibb.co/NsjK7ZS/Block-Back-2.png",
@@ -109,6 +122,7 @@ const Featured = () => {
             "name": "New Zealand"
         }
     ];
+    console.log('featured', featured)
     return (
         <div className='container mx-auto'>
             <h2 className='h2-black mb-5'>FEATURED</h2>
@@ -119,24 +133,23 @@ const Featured = () => {
                         autoplaySpeed={2000}
                     >
                         {
-                            images?.map(item => <div className='w-full h-[600px]' key={item}>
-                                <Image src={item} height={1800} width={2000} className='img-cover' alt='featured' unoptimized />
+                            featured?.data?.result?.slice(0, 3)?.map((item: EventData) => <div className='w-full h-[600px]' key={item?._id}>
+                                <Image src={imageUrl(item?.event_image?.[0])} height={1800} width={2000} className='img-cover' alt='featured' />
                             </div>)
                         }
                     </Carousel>
                 </div>
                 <div className='start-start gap-2 flex-col w-full h-[600px] overflow-y-scroll'>
                     {
-
-                        data?.map(item => <div className='start-start p-2 gap-2 bg-[var(--color-blue-200)] rounded-md w-full' key={item?.name}>
-                            <Image src={item?.image} className='h-20 w-20 rounded' alt='featured' unoptimized height={300} width={300} />
+                        featured?.data?.result?.map((item: EventData) => <div className='start-start p-2 gap-2 bg-[var(--color-blue-200)] rounded-md w-full relative' key={item?.name}>
+                            <Image src={imageUrl(item?.event_image?.[0])} className='h-20 w-20 rounded' alt='featured' height={300} width={300} />
                             <div className='p-3 text w-full'>
                                 <p className='mb-1'>{item?.name}</p>
                                 <span className='start-center gap-1 '>
                                     <FaLocationDot className='text-[var(--color-blue-500)]' />
-                                    {item?.location}
+                                    {item?.address}
                                 </span>
-                            <MoreButton _id={''} />
+                                <MoreButton _id={item?._id} />
                             </div>
                         </div>)
                     }

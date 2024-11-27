@@ -64,6 +64,9 @@ const VendorRequest = () => {
     const [text, setText] = useState<string>('')
 
     const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+        if (!locationData?.lng || !locationData?.lat) {
+           return toast.error('please select your location form location icon')
+        }
         const { desc, questions, social_media, ...otherValues } = values;
         const qu: Array<{ question: string; answer: string | number }> = [];
         Object.keys(questions).forEach((key) => {
@@ -81,7 +84,8 @@ const VendorRequest = () => {
             longitude: locationData?.lng,
             social_media: JSON.stringify(social_media ?? []),
             profile_image: profileImage ?? null,
-            banner: coverImage ?? null
+            banner: coverImage ?? null,
+            phone_number: otherValues?.phone
         }
         const formData = new FormData()
         Object.keys(data)?.map((key) => {
@@ -184,9 +188,9 @@ const VendorRequest = () => {
                 !data?.data?.authId?.email && <>
 
                     <Form.Item<FieldType>
-                        label="Username"
+                        label="Full Name"
                         name="username"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
+                        rules={[{ required: true, message: 'Please input your Full Name!' }]}
                     >
                         <Input className='h-[42px]' />
                     </Form.Item>
@@ -263,7 +267,13 @@ const VendorRequest = () => {
                                         name={[name, 'name']}
                                         rules={[{ required: true, message: 'Missing Medea Name' }]}
                                     >
-                                        <Select onChange={(value: string) => setSocial([...social, value])} className="h-[42px]" placeholder="Social Media Link" options={[
+                                        <Select onChange={(value: string) => {
+                                            const selectedField = form.getFieldValue('social_link')
+                                            if (selectedField) {
+                                                const media = selectedField?.map((item: any) => item?.name)
+                                                setSocial(media)
+                                            }
+                                        }} className="h-[42px]" placeholder="Social Media Link" options={[
                                             { label: 'Facebook', value: 'Facebook' },
                                             { label: 'Instagram', value: 'Instagram' },
                                             { label: 'TikTok', value: 'TikTok' },

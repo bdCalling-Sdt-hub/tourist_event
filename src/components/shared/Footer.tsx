@@ -1,10 +1,14 @@
+'use client'
 import React from 'react'
 import logo from '@/Asset/logo.png'
 import Image from 'next/image'
 import Link from 'next/link'
 import ContactsButton from './Client/ContactsButton'
 import LanguageChange from './Client/LanguageChange'
+import { useUser } from '@/Provider/UserContext'
+import { DowerLinks } from './Navbar'
 const Footer = () => {
+    const { user: data, } = useUser()
     return (
         <div className='bg-blue-900 p-3 py-10 mt-24'>
             <div style={{
@@ -41,8 +45,9 @@ const Footer = () => {
                     </Link>
                 </div>
                 <div className='w-full start-start flex-col gap-2'>
-                    <ContactsButton />
-                    <LanguageChange />
+                    <DowerLinks data={data} />
+                    {/* <ContactsButton /> */}
+                    {/* <LanguageChange /> */}
                 </div>
             </div>
         </div>

@@ -7,6 +7,7 @@ const userApis = baseApi.injectEndpoints({
                 url: "auth/profile",
                 method: "GET",
             }),
+            providesTags:['profile']
         }),
         getVendorProfile: builder.query({
             query: (id) => ({

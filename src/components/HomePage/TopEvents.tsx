@@ -3,8 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import EventCard from '../shared/EventCard';
 import { useGetEventsByCategoryQuery, useGetPopularEventsQuery } from '@/Redux/Apis/eventApis';
-import { useParams, useSearchParams } from 'next/navigation';
-import { Pagination } from 'antd';
+import { useSearchParams } from 'next/navigation';
 import useUpdateSearchParams from '@/Utils/SetParams';
 export interface EventData {
     category: {
@@ -26,7 +25,7 @@ const TopEvents = () => {
     const { data: events } = useGetEventsByCategoryQuery({ category: category || '', option: option || '', date: date || '' })
     return (
         <div className='container mx-auto'>
-            <h2 className='h2-black mb-5'>{`Event's`}</h2>
+            <h2 className='h2-black mb-5'>{`Upcoming Event's`}</h2>
             <div className='grid-4'>
                 {events?.data?.result?.map((item: EventData) => (
                     <EventCard
@@ -36,12 +35,9 @@ const TopEvents = () => {
                 ))}
             </div>
             <div className='flex justify-center items-center mt-6'>
-                <Pagination
-                    pageSize={events?.data?.meta?.limit || 0}
-                    onChange={(page) => updateSearchParams('page', page.toString())}
-                    showSizeChanger={false}
-                    total={events?.data?.meta?.total || 0}
-                />
+                <Link className='button-blue' href={`/search`} >
+                    More
+                </Link>
             </div>
         </div>
     );

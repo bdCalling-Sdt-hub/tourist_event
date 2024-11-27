@@ -30,7 +30,7 @@ const loginPage = () => {
                     return toast.error("Please enable cookie to login this website")
                 }
                 toast.success(result?.message || "Login successfully")
-                router.push('/')
+                window.location.href = '/';
             }).catch(err => {
                 toast.error(err?.data?.message || "something went wrong")
             });
@@ -78,8 +78,8 @@ const loginPage = () => {
                             </button>
                         </Form>
                         <p className='text-end text-sm mt-4'>
-                            Don’t have an account? <Link href={`/register`} className='text-[var(--color-red-500)] hover:text-[var(--color-blue-500)]'>
-                                Sign up
+                            Don’t have an account? <Link href={`/join-us`} className='text-[var(--color-red-500)] hover:text-[var(--color-blue-500)]'>
+                                Request for An account
                             </Link>
                         </p>
                     </div>

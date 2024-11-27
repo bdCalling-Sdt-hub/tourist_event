@@ -1,13 +1,10 @@
 'use client'
 
-import { Form, FormProps, Input, Modal, Select } from "antd"
-import Image from "next/image";
+import { Form, FormProps } from "antd"
 import { useEffect, useState } from "react";
-import { CiEdit, CiImageOn } from "react-icons/ci";
 import Vendor from "./Vendor";
 import PasswordChange from "./PasswordChange";
 import { useUser } from "@/Provider/UserContext";
-import { imageUrl } from "@/Utils/serverUrl";
 type FieldType = {
     name?: string;
     email?: string;
@@ -19,45 +16,45 @@ type FieldType = {
     profile_image: File | null
 };
 const Profile = () => {
-    const [form] = Form.useForm()
-    const { user: data, } = useUser()
-    const [profileImage, setProfileImage] = useState<File | null>(null)
-    const [coverImage, setCoverImage] = useState<File | null>(null)
-    const [Tab, setTab] = useState<string>('profile')
-    const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-        if (coverImage) {
-            values.banner = coverImage
-        }
-        if (profileImage) {
-            values.profile_image = profileImage
-        }
-        const formData = new FormData()
-        Object.keys(values).forEach((key) => {
-            const value = values[key as keyof typeof values];
-            if (value) {
-                formData.append(key, value);
-            }
-        })
-        formData?.forEach(element=>{
-            console.log(element)
-        })
-    };
-    useEffect(() => {
-        form.setFieldsValue({
-            name: data?.data?.name,
-            email: data?.data?.authId?.email,
-            phone_number: data?.data?.phone_number,
-            address: data?.data?.address
-        })
-    }, [data?.data])
-    const OptionArray = ['profile', 'vendor profile', 'change password']
+    // const [form] = Form.useForm()
+    // const { user: data, } = useUser()
+    // const [profileImage, setProfileImage] = useState<File | null>(null)
+    // const [coverImage, setCoverImage] = useState<File | null>(null)
+    const [Tab, setTab] = useState<string>('vendor profile')
+    // const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+    //     if (coverImage) {
+    //         values.banner = coverImage
+    //     }
+    //     if (profileImage) {
+    //         values.profile_image = profileImage
+    //     }
+    //     const formData = new FormData()
+    //     Object.keys(values).forEach((key) => {
+    //         const value = values[key as keyof typeof values];
+    //         if (value) {
+    //             formData.append(key, value);
+    //         }
+    //     })
+    //     formData?.forEach(element => {
+    //         console.log(element)
+    //     })
+    // };
+    // useEffect(() => {
+    //     form.setFieldsValue({
+    //         name: data?.data?.name,
+    //         email: data?.data?.authId?.email,
+    //         phone_number: data?.data?.phone_number,
+    //         address: data?.data?.address
+    //     })
+    // }, [data?.data])
+    const OptionArray = ['vendor profile', 'change password']//'profile',
     return (
         <div className="container mx-auto">
             <div className="center-center gap-2 mt-6">
                 {
                     OptionArray?.map(item => <button onClick={() => {
-                        setCoverImage(null)
-                        setProfileImage(null)
+                        // setCoverImage(null)
+                        // setProfileImage(null)
                         setTab(item)
                     }}
                         style={{
@@ -69,7 +66,7 @@ const Profile = () => {
                     </button>)
                 }
             </div>
-            {
+            {/* {
                 Tab == 'profile' && <Form
                     form={form}
                     onFinish={onFinish}
@@ -155,7 +152,7 @@ const Profile = () => {
                         Update Profile
                     </button>
                 </Form>
-            }
+            } */}
             {
                 Tab == 'vendor profile' && <Vendor />
             }

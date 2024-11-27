@@ -18,6 +18,14 @@ interface ProfileData {
             phone_number: string;
             address: string,
             banner: string,
+            _id: string,
+            description: string,
+            social_media: [
+                {
+                    link: string
+                    name: string,
+                }
+            ]
         } | null;
     } | null;
     isLoading: boolean;
@@ -27,7 +35,7 @@ const UserContext = createContext<ProfileData | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const { data: user, isLoading, isFetching } = useGetProfileQuery(undefined);
-
+    console.log(user)
     // Structure the context value
     const contextValue: ProfileData = {
         user: user || null,

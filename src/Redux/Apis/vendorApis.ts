@@ -10,11 +10,25 @@ const vendorApis = baseApi.injectEndpoints({
                     url: 'vendor/send-vendor-request',
                     method: 'PATCH',
                     body: data,
-                    headers: {
-                        Authorization: token ? `Bearer ${JSON.parse(token)}` : '', 
-                    },
+                    // headers: {
+                    //     Authorization: token ? `Bearer ${JSON.parse(token)}` : '', 
+                    // },
                 };
             },
+        }),
+        updateRequest: builder.mutation({
+            query: (data) => {
+                const token = localStorage.getItem('token'); 
+                return {
+                    url: 'vendor/update',
+                    method: 'PATCH',
+                    body: data,
+                    // headers: {
+                    //     Authorization: token ? `Bearer ${JSON.parse(token)}` : '', 
+                    // },
+                };
+            },
+            invalidatesTags:['profile']
         }),
         vendorRequest: builder.mutation({
             query: (data) => {
@@ -61,4 +75,5 @@ export const {
     useVendorRequestMutation,
     useGetProfileQuery,
     useDeleteAccountMutation,
+    useUpdateRequestMutation
 } = vendorApis;

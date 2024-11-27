@@ -1,7 +1,6 @@
 // src/Redux/baseApi.ts
 import { baseUrl } from '@/Utils/serverUrl';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { cookies } from 'next/headers';
 
 // Helper function to get the token
 const getToken = () => {
@@ -27,6 +26,7 @@ export const baseApi = createApi({
             return headers;
         },
     }),
+    tagTypes:['profile'],
     endpoints: (builder) => ({}),
 });
 export const fetchServerData = async (endpoint: string) => {

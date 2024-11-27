@@ -2,7 +2,6 @@
 import Banner from '@/components/HomePage/Banner';
 import Featured from '@/components/HomePage/Featured';
 import PopularEvents from '@/components/HomePage/PopularEvents';
-import TodaysEvent from '@/components/HomePage/TodaysEvent';
 import TopEvents from '@/components/HomePage/TopEvents';
 import { Metadata } from 'next';
 import React from 'react';
@@ -15,8 +14,8 @@ const Page = async () => {
     return (
         <>
             <Banner />
-            <div className='start-center flex-col gap-24'>
-                <TodaysEvent />
+            <div className='start-center flex-col gap-24 mt-24'>
+                {/* <TodaysEvent /> */}
                 <TopEvents />
                 <PopularEvents />
                 <Featured />

@@ -1,10 +1,12 @@
 'use client'
 import React from 'react';
 import { Table, Typography } from 'antd';
+import { usePaymentHistoryQuery } from '@/Redux/Apis/paymentApis';
 
 const { Text } = Typography;
 
 const BillingHistory: React.FC = () => {
+    const { data } = usePaymentHistoryQuery(undefined)
     const dataSource = [
         {
             key: '1',
@@ -46,7 +48,7 @@ const BillingHistory: React.FC = () => {
             key: 'date',
             render: (text: string) => (
                 <span>
-                    {text} 
+                    {text}
                 </span>
             ),
         },
@@ -61,7 +63,7 @@ const BillingHistory: React.FC = () => {
             key: 'package',
         },
     ];
-
+    console.log(data)
     return (
         <div style={{ maxWidth: 600, margin: 'auto' }}>
             <Text strong>BILLING HISTORY</Text>

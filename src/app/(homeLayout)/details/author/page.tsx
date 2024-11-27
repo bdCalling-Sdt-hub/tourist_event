@@ -49,11 +49,9 @@ const AuthorPage = () => {
     const searchParams = useSearchParams();
     const id = searchParams.get('id')
     const { data: vendorData } = useGetVendorProfileQuery(id)
-    // console.log(vendorData)
     const vendor = vendorData?.data?.result as BusinessProfile
     const events = vendorData?.data?.events as Event[]
     const featured = vendorData?.data?.featured as Event[]
-    console.log('vendor', featured)
     return (
         <div className='container mx-auto'>
             <Banner vendor={vendor} />
@@ -61,7 +59,7 @@ const AuthorPage = () => {
             <div dangerouslySetInnerHTML={{ __html: vendor?.description }}>
 
             </div>
-            <h2 className='h2-black mb-5 mt-10'>This Author Events</h2>
+            <h2 className='h2-black mb-5 mt-10'>Events</h2>
 
             <div className='grid-4 mt-10'>
                 {events?.map((item: Event,) => (

@@ -4,10 +4,10 @@ const paymentApis = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         // POST: Create payment intent
         createPaymentIntent: builder.mutation({
-            query: (data) => ({
-                url: 'payments/create_intent',
+            query: (id) => ({
+                url: `payments/checkout-session?packageId=${id}`,
                 method: 'POST',
-                body: data,
+                body: {},
             }),
         }),
 
@@ -19,10 +19,17 @@ const paymentApis = baseApi.injectEndpoints({
                 body: data,
             }),
         }),
+        paymentHistory: builder.query({
+            query: () => ({
+                url: '/payments/plan_history',
+                method: 'GET',
+            }),
+        }),
     }),
 });
 
 export const {
     useCreatePaymentIntentMutation,
     useSuccessPaymentIntentMutation,
+    usePaymentHistoryQuery
 } = paymentApis;

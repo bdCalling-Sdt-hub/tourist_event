@@ -1,8 +1,7 @@
 'use client'
 import React from 'react';
-import Link from 'next/link';
 import EventCard from '../shared/EventCard';
-import { useGetPopularEventsQuery } from '@/Redux/Apis/eventApis';
+import { useGetEventsByCategoryQuery } from '@/Redux/Apis/eventApis';
 export interface EventData {
     category: {
         name: string,
@@ -15,10 +14,11 @@ export interface EventData {
     address: string
 }
 const PopularEvents = () => {
-    const { data: events } = useGetPopularEventsQuery(undefined)
+    // console.log()
+    const { data: events } = useGetEventsByCategoryQuery({ category: '6746967ea29a6822d7fa1e5a' })
     return (
         <div className='container mx-auto'>
-            <h2 className='h2-black mb-5'>Popular Event</h2>
+            <h2 className='h2-black mb-5'>Promotions</h2>
             <div className='grid-4'>
                 {events?.data?.result?.map((item: EventData) => (
                     <EventCard
