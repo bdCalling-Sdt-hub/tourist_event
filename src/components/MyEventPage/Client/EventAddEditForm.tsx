@@ -38,6 +38,7 @@ type FieldType = {
 const EventAddEditForm = ({ selectedData, closeModal }: { selectedData: any, closeModal: any }) => {
     console.log(selectedData)
     const { user: data } = useUser();
+    console.log('user', data)
     const [form] = Form.useForm();
     const [Loading, setLoading] = useState<boolean>(false);
     const [text, setText] = useState<string>('');
@@ -131,9 +132,10 @@ const EventAddEditForm = ({ selectedData, closeModal }: { selectedData: any, clo
         }
     }, [selectedData]);
     useEffect(() => {
-        if (data?.data?.address) {
-            form.setFieldsValue({ address: data?.data?.address })
-        }
+        // if (data?.data?.address) {
+        //     form.setFieldsValue({ address: data?.data?.address })
+        // }
+        setLocationData({ lat: data?.data?.location_map?.coordinates?.[0], lng: data?.data?.location_map?.coordinates?.[1], display_name: data?.data?.address });
     }, [form, data?.data])
     useEffect(() => {
         if (locationData) {
@@ -263,7 +265,7 @@ const EventAddEditForm = ({ selectedData, closeModal }: { selectedData: any, clo
                         value={renew}
                         onChange={(value) => setRenew(value)}
                         options={[
-                            { label: 'Unavailable', value: 'unavailable' },
+                            { label: 'Unavailable', value: '' },
                             { label: 'Monthly', value: 'monthly' },
                             { label: 'Weekly', value: 'weekly' },
                             { label: 'Yearly', value: 'yearly' },
@@ -272,11 +274,11 @@ const EventAddEditForm = ({ selectedData, closeModal }: { selectedData: any, clo
                 </Form.Item>
 
                 <Form.Item<FieldType>
-                    label={`Recurrence ${renew == 'unavailable' ? 'Unavailable' : 'Until'} `}
+                    label={`Recurrence ${renew == '' ? 'Unavailable' : 'Until'} `}
                     name="recurrence_end"
-                    rules={[{ required: renew != 'unavailable', message: 'Please select a featured date!' }]}
+                    rules={[{ required: renew != '', message: 'Please select a featured date!' }]}
                 >
-                    <DatePicker style={{ width: '100%' }} disabled={renew == 'unavailable'} />
+                    <DatePicker style={{ width: '100%' }} disabled={renew == ''} />
                     {/* {
                         renew == 'weekly' ? < Select
                             placeholder='please select day'

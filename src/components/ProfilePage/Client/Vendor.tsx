@@ -63,7 +63,14 @@ const Vendor = () => {
         if (coverImage) {
             data.banner = coverImage
         }
+        const { social_link, ...otherFields } = values
         const formData = new FormData()
+        Object.keys(otherFields).map(key => {
+            const value = otherFields[key as keyof typeof otherFields]
+            if (value) {
+                formData.append(key, value)
+            }
+        })
         update(formData).unwrap()
             .then(res => {
                 toast.success(res.message)

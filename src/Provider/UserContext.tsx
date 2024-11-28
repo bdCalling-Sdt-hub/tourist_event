@@ -12,6 +12,9 @@ interface ProfileData {
                 role: string;
                 email: string;
             };
+            location_map: {
+                coordinates: string[]
+            },
             profile_image: string;
             cover_image: string;
             name: string;
