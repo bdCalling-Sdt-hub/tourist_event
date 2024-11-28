@@ -25,7 +25,7 @@ type FieldType = {
     description?: string;
     event_image?: any;
     img?: any;
-    featured: string | Date;
+    featured: string | Date | null;
     featuredDate: string;
     recurrence: string;
     recurrence_end: string | Date;
@@ -36,9 +36,7 @@ type FieldType = {
 };
 
 const EventAddEditForm = ({ selectedData, closeModal }: { selectedData: any, closeModal: any }) => {
-    console.log(selectedData)
     const { user: data } = useUser();
-    console.log('user', data)
     const [form] = Form.useForm();
     const [Loading, setLoading] = useState<boolean>(false);
     const [text, setText] = useState<string>('');
@@ -62,15 +60,16 @@ const EventAddEditForm = ({ selectedData, closeModal }: { selectedData: any, clo
         values.latitude = locationData?.lat;
         values.longitude = locationData?.lng;
         values.description = text;
-        // values.option = values?.tag;
         if (isFeatured) {
             values.featured = dayjs(values?.featuredDate).toDate().toISOString();
+        } else {
+            values.featured = null;
         }
-        const { img, tag, ...otherFields } = values
+        const { img, tag, featuredDate, ...otherFields } = values
         const formData = new FormData();
         Object.keys(otherFields)?.map(key => {
             const value = otherFields[key as keyof typeof otherFields];
-            if (value) {
+            if (value || value == null) {
                 formData.append(key, value);
             }
         });
