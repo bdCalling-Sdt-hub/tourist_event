@@ -15,7 +15,7 @@ export interface EventData {
 }
 const PopularEvents = () => {
     // console.log()
-    const { data: events } = useGetEventsByCategoryQuery({ category: '6746967ea29a6822d7fa1e5a' })
+    const { data: events } = useGetEventsByCategoryQuery({ category: '674800fd664e57bc675b1311' })
     return (
         <div className='container mx-auto'>
             <h2 className='h2-black mb-5'>Promotions</h2>

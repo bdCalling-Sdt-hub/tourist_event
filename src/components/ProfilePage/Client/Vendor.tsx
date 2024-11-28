@@ -63,7 +63,7 @@ const Vendor = () => {
         if (coverImage) {
             data.banner = coverImage
         }
-        const { social_link, ...otherFields } = values
+        const { social_link, ...otherFields } = data
         const formData = new FormData()
         Object.keys(otherFields).map(key => {
             const value = otherFields[key as keyof typeof otherFields]

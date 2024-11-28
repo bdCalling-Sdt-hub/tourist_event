@@ -45,7 +45,7 @@ const EventAddEditForm = ({ selectedData, closeModal }: { selectedData: any, clo
     const [locationData, setLocationData] = useState<any>();
     const [open, setOpen] = useState<boolean>(false);
     const { data: category, isLoading } = useGetCategoryQuery(undefined);
-    const [renew, setRenew] = useState('unavailable');
+    const [renew, setRenew] = useState('none');
     const [isFeatured, setIsFeatured] = useState<boolean>(false);
     const [createEvent] = useCreateEventMutation();
     const [updateEvent] = useUpdateEventMutation();
@@ -259,13 +259,13 @@ const EventAddEditForm = ({ selectedData, closeModal }: { selectedData: any, clo
                 <Form.Item<FieldType>
                     label="Recurrence"
                     name="recurrence"
-                    valuePropName="checked"
                 >
                     <Select
+                        defaultValue={renew}
                         value={renew}
                         onChange={(value) => setRenew(value)}
                         options={[
-                            { label: 'Unavailable', value: '' },
+                            { label: 'Unavailable', value: 'none' },
                             { label: 'Monthly', value: 'monthly' },
                             { label: 'Weekly', value: 'weekly' },
                             { label: 'Yearly', value: 'yearly' },
@@ -274,11 +274,11 @@ const EventAddEditForm = ({ selectedData, closeModal }: { selectedData: any, clo
                 </Form.Item>
 
                 <Form.Item<FieldType>
-                    label={`Recurrence ${renew == '' ? 'Unavailable' : 'Until'} `}
+                    label={`Recurrence ${renew == 'none' ? 'Unavailable' : 'Until'} `}
                     name="recurrence_end"
-                    rules={[{ required: renew != '', message: 'Please select a featured date!' }]}
+                    rules={[{ required: renew != 'none', message: 'Please select a featured date!' }]}
                 >
-                    <DatePicker style={{ width: '100%' }} disabled={renew == ''} />
+                    <DatePicker style={{ width: '100%' }} disabled={renew == 'none'} />
                     {/* {
                         renew == 'weekly' ? < Select
                             placeholder='please select day'
