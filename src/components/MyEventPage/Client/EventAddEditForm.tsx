@@ -62,14 +62,12 @@ const EventAddEditForm = ({ selectedData, closeModal }: { selectedData: any, clo
         values.description = text;
         if (isFeatured) {
             values.featured = dayjs(values?.featuredDate).toDate().toISOString();
-        } else {
-            values.featured = null;
         }
         const { img, tag, featuredDate, ...otherFields } = values
         const formData = new FormData();
         Object.keys(otherFields)?.map(key => {
             const value = otherFields[key as keyof typeof otherFields];
-            if (value || value == null) {
+            if (value) {
                 formData.append(key, value);
             }
         });
@@ -118,7 +116,7 @@ const EventAddEditForm = ({ selectedData, closeModal }: { selectedData: any, clo
                 recurrence: selectedData?.recurrence,
                 recurrence_end: dayjs(selectedData?.recurrence_end),
                 featured: selectedData.featured,
-                featuredDate: dayjs(selectedData?.featuredDate),
+                featuredDate: selectedData.featured ? dayjs(selectedData?.featured) : dayjs(selectedData?.featuredDate),
                 // img: imageUrl(selectedData?.event_image)
             });
             setText(selectedData?.description)

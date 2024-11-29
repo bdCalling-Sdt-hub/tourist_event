@@ -105,7 +105,7 @@ const Navbar = () => {
 
     return (
         <Headroom>
-            <div className='bg-blue-900 px-2 md:py-2'>
+            <div className='bg-blue-900 px-2 md:py-2 z-[50]'>
                 <div className='container mx-auto between-center'>
                     <div className='start-center  gap-6 '>
                         <Image onClick={() => router.push('/')} className='md:block hidden cursor-pointer w-28' src={logo} height={200} width={200} alt='logo' />
