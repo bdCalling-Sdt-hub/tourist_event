@@ -18,7 +18,7 @@ import { CiEdit, CiImageOn } from 'react-icons/ci';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import { FaLocationPin } from 'react-icons/fa6';
 type FieldType = {
-    username?: string;
+    business_name?: string;
     email?: string;
     phone?: string;
     address?: string;
@@ -154,7 +154,7 @@ const VendorRequest = () => {
 
         <div className=" mt-12">
             <Form.Item<FieldType>
-                name={`name`}
+                name={`business_name`}
                 label={`Business Name`}
                 rules={[{ required: true, message: 'Business Name is required' }]}
             >
@@ -189,7 +189,7 @@ const VendorRequest = () => {
 
                     <Form.Item<FieldType>
                         label="Full Name"
-                        name="username"
+                        name="name"
                         rules={[{ required: true, message: 'Please input your Full Name!' }]}
                     >
                         <Input className='h-[42px]' />

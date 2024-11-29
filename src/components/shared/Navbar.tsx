@@ -32,7 +32,7 @@ import { useSearchParams } from "next/navigation";
 import { Popover as Pops } from "antd";
 const Navbar = () => {
     const { user: data, } = useUser()
-    const [date, setDate] = React.useState<Date>()
+    const [date, setDate] = React.useState<Date[]>([]);
     const [open, setOpen] = React.useState<boolean | undefined>(false);
     const router = useRouter()
     const updateSearchParams = useUpdateSearchParams();
@@ -112,28 +112,47 @@ const Navbar = () => {
                         <Image onClick={() => router.push('/')} className='md:hidden block w-12 cursor-pointer' src={logo} height={400} width={600} alt='logo' />
                         <Popover>
                             <PopoverTrigger asChild>
-                                <button
-                                    className={`button-blue `}
-                                >
-                                    {date ? <div className='start-center gap-2'>{format(date, "PPP")}<RxCross2 onClick={() => {
-                                        updateSearchParams('date', '')
-                                        setDate(undefined)
-                                    }} size={24} className='text-[var(--color-red-500)]' /> </div> : <>Event< MdDateRange /></>}
+                                <button className="button-blue">
+                                    {date.length > 0 ? (
+                                        <div className="start-center gap-2">
+                                            {date.sort((a, b) => a.getTime() - b.getTime()).length === 1 ? (
+                                                format(date[0], "d MMM")
+                                            ) : (
+                                                <>
+                                                    {format(date[0], "d MMM")} - {format(date[date.length - 1], "d MMM")}
+                                                </>
+                                            )}
+                                            <RxCross2
+                                                onClick={() => {
+                                                    setDate([]);
+                                                }}
+                                                size={24}
+                                                className="text-[var(--color-red-500)]"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <>Event <MdDateRange /></>
+                                    )}
                                 </button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0">
                                 <Calendar
-                                    mode="single"
-                                    selected={date}
-                                    onSelect={(date) => {
-                                        // updateSearchParams('date', new Date(date ?? "")?.toISOString()?.split('T')?.[0])
+                                    mode="multiple" 
+                                    selected={date} 
+                                    onSelect={(dates) => {
+                                        setDate(dates || []);
+                                        const formattedDates = dates?.map(d => format(d, "dd-MM-yyyy")).join(',');
                                         const currentParams = new URLSearchParams(window.location.search);
-                                        currentParams.set('date', new Date(date ?? "")?.toISOString()?.split('T')?.[0]);
-                                        router.push(`/search?${currentParams.toString()}`)
-                                        setDate(date)
+                                        if (formattedDates) {
+                                            currentParams.set('date', formattedDates);
+                                        } else {
+                                            currentParams.delete('date'); 
+                                        }
+                                        router.push(`/search?${currentParams.toString()}`);
                                     }}
                                     initialFocus
                                 />
+
                             </PopoverContent>
                         </Popover>
                     </div>
