@@ -1,5 +1,5 @@
 // export const baseUrl = 'http://103.145.138.200:5000'
-export const baseUrl = 'https://159.65.187.252:6002'
+export const baseUrl = 'http://167.71.179.42:5000'
 export const imageUrl = (url: string) => {
     if (!url) {
         return ""
