@@ -24,7 +24,7 @@ const MyEventClient = () => {
                 ))}
             </div>
             <div className='mt-3'>
-                <Pagination />
+                <Pagination pageSize={vendorData?.data?.meta?.limit || 10} total={vendorData?.data?.meta?.total || 0} onChange={(page) => setPage(page)} />
             </div>
         </div>
     )
