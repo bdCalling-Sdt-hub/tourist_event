@@ -7,6 +7,7 @@ import { useGetFaqsQuery } from '@/Redux/Apis/settingApis';
 
 const FaqClientPage = () => {
     const { data } = useGetFaqsQuery(undefined)
+    console.log(data)
     const items: CollapseProps['items'] = data?.data?.map((item: any) => ({
         key: item?._id,
         label: item?.questions,

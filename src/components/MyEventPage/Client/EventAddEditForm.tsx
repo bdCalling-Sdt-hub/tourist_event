@@ -178,7 +178,7 @@ const EventAddEditForm = ({ selectedData, closeModal }: { selectedData: any, clo
                     name="time"
                     rules={[{ required: true, message: 'Please select the time!' }]}
                 >
-                    <TimePicker style={{ width: '100%' }} />
+                    <TimePicker use12Hours format="h:mm a" style={{ width: '100%' }} />
                 </Form.Item>
 
                 <Form.Item<FieldType>

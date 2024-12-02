@@ -44,12 +44,11 @@ export interface CategoryType {
     _id: string,
 }
 const predefinedQuestions = [
-    { question: "What is the name of your organization?", placeholder: "Enter your organization's name" },
-    { question: "What type of events does your organization host?", placeholder: "Describe the types of events you organize" },
-    { question: "Where is your organization located?", placeholder: "Enter your organization's location" },
-    { question: "How can attendees contact your organization?", placeholder: "Provide contact information (email, phone)" },
-    { question: "What is the mission or vision of your organization?", placeholder: "Enter your organization's mission or vision statement" },
+    { question: "What do you hope to achieve working with What's Up Jaco?", placeholder: "Enter your answer" },
+    { question: "What type of events or promotions do you plan to advertise?", placeholder: "Enter your answer" },
+    { question: "Do you have current or future interest in social media assistance?", placeholder: "Enter your answer" },
 ];
+const category = ['Cafe', 'Health & Wellness', 'Hotel', 'Non-Profit/Community', 'Restaurant/Bar', 'Sport Experiences', 'Shopping', 'Tours', 'Other']
 const VendorRequest = () => {
     const [request, { isLoading: sendingRequest }] = useVendorRequestMutation()
     const [form] = Form.useForm()
@@ -59,13 +58,12 @@ const VendorRequest = () => {
     const [Loading, setLoading] = useState<boolean>(false)
     const [locationData, setLocationData] = useState<any>()
     const [open, setOpen] = useState<boolean>(false)
-    const { data: category, isLoading } = useGetCategoryQuery(undefined)
     const [social, setSocial] = useState<Array<string>>([]);
     const [text, setText] = useState<string>('')
 
     const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
         if (!locationData?.lng || !locationData?.lat) {
-           return toast.error('please select your location form location icon')
+            return toast.error('please select your location form location icon')
         }
         const { desc, questions, social_media, ...otherValues } = values;
         const qu: Array<{ question: string; answer: string | number }> = [];
@@ -151,14 +149,13 @@ const VendorRequest = () => {
                 }} className="text-[var(--color-blue-900)] bg-[var(--color-white)] absolute left-[55%] cursor-pointer translate-x-[-44%] -bottom-10  rounded-full" />
             </label>
         </div>
-
         <div className=" mt-12">
             <Form.Item<FieldType>
                 name={`business_name`}
                 label={`Business Name`}
                 rules={[{ required: true, message: 'Business Name is required' }]}
             >
-                <Input placeholder="location" className="h-[42px]" />
+                <Input placeholder="business name" className="h-[42px]" />
             </Form.Item>
             <div className="relative">
                 <Form.Item<FieldType>
@@ -180,8 +177,8 @@ const VendorRequest = () => {
             >
                 <Select
                     className="h-[42px]"
-                    placeholder="Select Category"
-                    options={category?.data?.map((item: CategoryType) => ({ label: item?.name, value: item?._id })) || []}
+                    placeholder="Business Type"
+                    options={category?.map((item: string) => ({ label: item, value: item })) || []}
                 />
             </Form.Item>
             {
@@ -237,6 +234,7 @@ const VendorRequest = () => {
                     text={text} setText={setText}
                 />
             </Form.Item>
+            <p className='font-semibold mb-4'>The following questions & answers will not appear on your public profile</p>
             <Form.List name="questions">
                 {() => (
                     <>
@@ -285,7 +283,7 @@ const VendorRequest = () => {
                                         name={[name, 'link']}
                                         rules={[{ required: true, message: 'Missing link' }]}
                                     >
-                                        <Input className="h-[42px]" placeholder="Link" type="url" />
+                                        <Input className="h-[42px]" placeholder="https://www.instagram.com/yourbusiness" type="url" />
                                     </Form.Item>
                                     <FaMinus className="bg-[var(--color-red-500)] text-[var(--color-white)] rounded-full p-1 absolute right-2  top-2 cursor-pointer" size={24} onClick={() => remove(name)} />
                                 </div>

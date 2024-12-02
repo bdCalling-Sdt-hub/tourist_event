@@ -73,7 +73,7 @@ const GetCoordinateMap = ({ setLocationData, close_modal, setLoading }: PropsTyp
     const [marker, setMarker] = useState<any>(null);
 
     useEffect(() => {
-        const map = L.map('map').setView([coordinates?.lat?.toFixed(5) || 9.77673, coordinates?.lng?.toFixed(5) || 276.63574], 13);
+        const map = L.map('map').setView([coordinates?.lat?.toFixed(5) || 9.61541, coordinates?.lng?.toFixed(5) || 275.37130], 13);
         setMapInstance(map);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
