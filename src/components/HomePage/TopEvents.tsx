@@ -24,7 +24,7 @@ const TopEvents = () => {
     const { data: events } = useGetEventsByCategoryQuery({ category: category || '', option: option || '', date: date || '' })
     return (
         <div className='container mx-auto'>
-            <h2 className='h2-black mb-5'>{`Upcoming Event's`}</h2>
+            <h2 className='h2-black mb-5'>{`Upcoming Events`}</h2>
             <div className='grid-4'>
                 {events?.data?.result?.map((item: EventData) => (
                     <EventCard

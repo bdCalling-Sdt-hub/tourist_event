@@ -15,7 +15,7 @@ const Footer = () => {
             }} className='grid-3 container mx-auto'>
                 <div className='w-full start-start flex-col gap-2'>
                     <Image className='w-16' src={logo} height={100} width={200} alt='logo' unoptimized />
-                    <p style={{
+                    {/* <p style={{
                         color: 'var(--color-white)'
                     }} className='text-gray'>
                         From St. Mark's Church, 50m to the west and 100m to the north, gray colored house San José, San José, Desamparados 30508 - Costa Rica
@@ -25,10 +25,10 @@ const Footer = () => {
                     }} className='text-gray'>Phone: (405) 555-0128</p>
                     <p style={{
                         color: 'var(--color-white)'
-                    }} className='text-gray'>Mail: Matt@gmail.com</p>
+                    }} className='text-gray'>Mail: Matt@gmail.com</p> */}
                 </div>
                 <div className='w-full start-start flex-col gap-2'>
-                    <h4>Support</h4>
+                    {/* <h4>Support</h4> */}
                     <Link href={`/about`}>
                         About Us
                     </Link>

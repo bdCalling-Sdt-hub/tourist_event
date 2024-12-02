@@ -19,10 +19,9 @@ export interface EventData {
 }
 const Featured = () => {
     const { data: featured, isLoading } = useGetFeaturedEventsQuery(undefined)
-    console.log('featured', featured)
     return (
         <div className='container mx-auto'>
-            <h2 className='h2-black mb-5'>FEATURED</h2>
+            <h2 className='h2-black mb-5 lowercase'>FEATURED</h2>
             <div className='md:grid grid-cols-3 gap-16'>
                 <div className='col-span-2'>
                     <Carousel

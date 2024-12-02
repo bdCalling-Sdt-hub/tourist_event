@@ -28,9 +28,9 @@ const SearchPageClient = () => {
     const { data: events } = useGetEventsByCategoryQuery({ category: category || '', option: option || '', date: date || '', searchTerm: search || '' })
     return (
         <div className='container mx-auto mt-6'>
-            <div className='max-w-[600px] mx-auto'>
+            {/* <div className='max-w-[600px] mx-auto'>
                 <SearchFields />
-            </div>
+            </div> */}
             <div className='grid-4 mt-10'>
                 {events?.data?.result?.map((item: EventData,) => (
                     <EventCard

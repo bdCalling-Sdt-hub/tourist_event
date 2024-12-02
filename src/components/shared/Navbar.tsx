@@ -14,7 +14,7 @@ import { RxCross2 } from 'react-icons/rx'
 import Link from 'next/link'
 import { FaSearch } from 'react-icons/fa'
 import { RiMenuUnfold2Fill } from 'react-icons/ri'
-import { Drawer } from 'antd'
+import { Drawer, Input } from 'antd'
 import Headroom from "react-headroom";
 import { useRouter } from 'next/navigation'
 import { CiCalendar, CiUser } from 'react-icons/ci'
@@ -34,12 +34,13 @@ const Navbar = () => {
     const { user: data, } = useUser()
     const [date, setDate] = React.useState<Date[]>([]);
     const [open, setOpen] = React.useState<boolean | undefined>(false);
+    const [search, setSearch] = React.useState<string>('')
     const router = useRouter()
     const updateSearchParams = useUpdateSearchParams();
     const handleSignOut = () => {
         localStorage.removeItem('_token')
         Cookies.remove('_token')
-        window.location.href = '/login';
+        window.location.href = '/';
     }
     const searchParams = useSearchParams();
     const SelectedCategory = searchParams.get('cat')
@@ -106,10 +107,23 @@ const Navbar = () => {
     return (
         <Headroom>
             <div className='bg-blue-900 px-2 md:py-2 z-50'>
-                <div className='container mx-auto between-center'>
+                <div className='container mx-auto between-center z-50'>
                     <div className='start-center  gap-6 '>
                         <Image onClick={() => router.push('/')} className='md:block hidden cursor-pointer w-28' src={logo} height={200} width={200} alt='logo' />
                         <Image onClick={() => router.push('/')} className='md:hidden block w-12 cursor-pointer' src={logo} height={400} width={600} alt='logo' />
+                        <Input
+                            onChange={(e) => setSearch(e.target.value)}
+                            suffix={<button
+                                onClick={() => {
+                                    const currentParams = new URLSearchParams(window.location.search);
+                                    currentParams.set('search', search)
+                                    router.push(`/search?${currentParams.toString()}`)
+                                }}
+                            ><FaSearch /></button>} style={{
+                                borderRadius: '3px'
+                            }} placeholder='Search event' />
+                    </div>
+                    <div className='end-center gap-2 '>
                         <Popover>
                             <PopoverTrigger asChild>
                                 <button className="button-blue">
@@ -131,14 +145,14 @@ const Navbar = () => {
                                             />
                                         </div>
                                     ) : (
-                                        <>Event <MdDateRange /></>
+                                        <>Date <MdDateRange /></>
                                     )}
                                 </button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0">
                                 <Calendar
-                                    mode="multiple" 
-                                    selected={date} 
+                                    mode="multiple"
+                                    selected={date}
                                     onSelect={(dates) => {
                                         setDate(dates || []);
                                         const formattedDates = dates?.map(d => format(d, "dd-MM-yyyy")).join(',');
@@ -146,7 +160,7 @@ const Navbar = () => {
                                         if (formattedDates) {
                                             currentParams.set('date', formattedDates);
                                         } else {
-                                            currentParams.delete('date'); 
+                                            currentParams.delete('date');
                                         }
                                         router.push(`/search?${currentParams.toString()}`);
                                     }}
@@ -155,12 +169,10 @@ const Navbar = () => {
 
                             </PopoverContent>
                         </Popover>
-                    </div>
-                    <div className='end-center gap-2 '>
                         <div className='md:end-center gap-2 hidden'>
                             <Pops placement="bottom" title="" content={content}>
                                 <button className="button-blue whitespace-nowrap">
-                                    <FaFilter /> {SelectedCategory || 'All Event'}
+                                    <FaFilter /> {SelectedCategory || 'Category'}
                                 </button>
                             </Pops>
                             <Pops placement="bottom" title="" content={content2}>
@@ -169,9 +181,9 @@ const Navbar = () => {
                                 </button>
                             </Pops>
                         </div>
-                        <Link className='md:block hidden' href={`/search`}>
+                        {/* <Link className='md:block hidden' href={`/search`}>
                             <FaSearch size={24} />
-                        </Link>
+                        </Link> */}
                         {/* <Link className='md:block hidden' href={`/past-event`}>
                             <FaList size={24} />
                         </Link> */}
@@ -251,9 +263,10 @@ const Navbar = () => {
                     {/* <Link className='block md:hidden text-white m-1' href={`/past-event`}>
                         <FaList size={24} />
                     </Link> */}
+
                     <Pops className='my-2' placement="bottom" title="" content={content}>
                         <button className="button-blue whitespace-nowrap">
-                            <FaFilter /> {SelectedCategory || 'All Event'}
+                            <FaFilter /> {SelectedCategory || 'Category'}
                         </button>
                     </Pops>
                     <Pops placement="bottom" title="" content={content2}>

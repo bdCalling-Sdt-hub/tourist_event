@@ -8,6 +8,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import React from 'react'
+import { FaCalendar, FaFacebook, FaInstagram, FaTiktok } from 'react-icons/fa'
+import { FaEarthAfrica, FaLocationDot } from 'react-icons/fa6'
 interface EventData {
     address: string,
     _id: string
@@ -81,11 +83,29 @@ const DetailsPageClient = () => {
                         <p className="uppercase text-gray font-bold">
                             {eventData?.vendor?.name || 'Unknown Author'}
                         </p>
-                        <p className="uppercase text-gray">
+                        {/* <p className="uppercase text-gray">
                             {eventData?.vendor?.email || 'No email provided'}
-                        </p>
+                        </p> */}
                     </Link>
                 </Link>
+                <div  className=' start-start flex-col gap-1 max-w-[600px]'>
+                    {/* <p className='text-[var(--color-white)] text-lg md:text-xl lg:text-2xl'>Best Event in</p> */}
+                    <p className='text-3xl mt-8'>{eventData?.name}</p>
+                    <p style={{
+                    }} className='text flex justify-start items-center gap-2'><FaLocationDot /> {eventData?.address}</p>
+                    <p className='start-center bg-[var(--color-blue-500)] text-[var(--color-white)] w-fit p-1 px-4 mt-2 rounded-md gap-2'>
+                        <FaCalendar /> {eventData?.date?.split('T')?.[0]} at {eventData?.time} to {eventData?.end_date?.split('T')?.[0]}
+                    </p>
+                    <div className='flex justify-start items-center gap-2 mt-2 text-white'>
+                        {
+                            eventData?.social_media ? Array.isArray(eventData?.social_media) ? eventData?.social_media?.map(item => <Link href={item?.link}>
+                                {item?.name == 'facebook' ? < FaFacebook /> : item?.name == 'website' ? <FaEarthAfrica /> : item?.name == 'instagram' ? <FaInstagram /> : <FaTiktok />}
+                            </Link>) : <Link href={eventData?.social_media}>
+                                <FaEarthAfrica />
+                            </Link> : <></>
+                        }
+                    </div>
+                </div>
                 <p className="text-3xl mt-4">Description:</p>
                 <div className="text-gray">
                     <strong>{eventData?.name || 'Event Name Unavailable'}</strong>

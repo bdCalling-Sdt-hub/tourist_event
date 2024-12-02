@@ -23,7 +23,7 @@ const Featured = ({ data }: Props) => {
     const images = data?.slice(0, 4)?.map(item => item?.event_image?.[0])
     return (
         <div className='container mx-auto'>
-            <h2 className='h2-black mb-5'>FEATURED</h2>
+            <h2 className='h2-black mb-5 lowercase'>FEATURED</h2>
             <div className='md:grid grid-cols-3 gap-16'>
                 <div className='col-span-2'>
                     <Carousel

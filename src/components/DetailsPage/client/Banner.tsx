@@ -21,7 +21,9 @@ const Banner = ({ location, date, end_date, event_image, name, time, social_medi
     return (
         <div className='h-[400px] relative md:h-[600px] w-full rounded-md overflow-hidden mt-5'>
             <Image src={imageUrl(event_image)} alt='banner' height={600} width={1200} unoptimized className='img-cover' />
-            <div className='absolute top-[50%] translate-y-[-50%] md:left-8 left-4 pr-4 md:pr-0 start-start flex-col gap-1 max-w-[600px]'>
+            <div style={{
+                display:'none'
+            }} className='absolute top-[50%] translate-y-[-50%] md:left-8 left-4 pr-4 md:pr-0 start-start flex-col gap-1 max-w-[600px]'>
                 {/* <p className='text-[var(--color-white)] text-lg md:text-xl lg:text-2xl'>Best Event in</p> */}
                 <p className='h1-white'>{name}</p>
                 <p style={{
