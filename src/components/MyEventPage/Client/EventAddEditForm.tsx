@@ -53,16 +53,16 @@ const EventAddEditForm = ({ selectedData, closeModal }: { selectedData: any, clo
             toast.error('Please select event image');
         }
         // values.event_image = values.event_image?.[0]?.originFileObj;
-        values.date = new Date(dayjs(values?.date).toDate().toISOString());
-        values.recurrence_end = dayjs(values?.recurrence_end).toDate().toISOString();
-        values.end_date = dayjs(values?.end_date).toDate().toISOString();
+        values.date = new Date(dayjs(values?.date)?.toDate()?.toISOString());
+        values.recurrence_end = dayjs(values?.recurrence_end)?.toDate()?.toISOString();
+        values.end_date = dayjs(values?.end_date)?.toDate()?.toISOString();
         values.time = dayjs(values?.time).format('hh:mm A');
         values.latitude = locationData?.lat;
         values.longitude = locationData?.lng;
         values.description = text;
         values.recurrence = renew
         if (isFeatured) {
-            values.featured = dayjs(values?.featuredDate).toDate().toISOString();
+            values.featured = dayjs(values?.featuredDate)?.toDate()?.toISOString();
         }
         const { img, tag, featuredDate, ...otherFields } = values
         const formData = new FormData();
