@@ -17,6 +17,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Google Analytics Script */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-T1RWXJ9B4T"
+        ></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-T1RWXJ9B4T');
+          `}
+        </script>
+      </head>
       <body
         className={` antialiased`}
       >

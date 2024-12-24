@@ -5,7 +5,7 @@ const Jodit = dynamic(() => import("@/components/shared/Client/Jodit"))
 import { CategoryType } from '@/components/JoinUsPage/Client/VendorRequest';
 import { useUser } from '@/Provider/UserContext';
 import { useGetCategoryQuery } from '@/Redux/Apis/categoryApis';
-import { Form, FormProps, Input, DatePicker, TimePicker, Select, Button, Upload, Modal, Checkbox } from 'antd';
+import { Form, FormProps, Input, DatePicker, TimePicker, Select, Upload, Modal, Checkbox } from 'antd';
 import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
 import { FaUpload } from 'react-icons/fa';
@@ -60,6 +60,7 @@ const EventAddEditForm = ({ selectedData, closeModal }: { selectedData: any, clo
         values.latitude = locationData?.lat;
         values.longitude = locationData?.lng;
         values.description = text;
+        values.recurrence = renew
         if (isFeatured) {
             values.featured = dayjs(values?.featuredDate).toDate().toISOString();
         }

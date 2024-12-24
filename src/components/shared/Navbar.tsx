@@ -67,7 +67,7 @@ const Navbar = () => {
     ];
     const content = useMemo(() => {
         return (
-            <div className="bg-blue-900 p-2 rounded-sm flex flex-col gap-1">
+            <div className="bg-blue-900 p-2 rounded-sm flex flex-col gap-1 z-50">
                 {Options.map((item: any) => (
                     <button
                         onClick={() => {
@@ -105,12 +105,18 @@ const Navbar = () => {
     );
 
     return (
-        <Headroom>
-            <div className='bg-blue-900 px-2 md:py-2 z-50'>
-                <div className='container mx-auto between-center z-50'>
+        <Headroom style={{
+            zIndex:100
+        }}>
+            <div style={{
+                zIndex:100
+            }} className='bg-blue-900 px-2 md:py-2 '>
+                <div style={{
+                    zIndex:100
+                }} className='container mx-auto between-center '>
                     <div className='start-center  gap-6 '>
-                        <Image onClick={() => router.push('/')} className='md:block hidden cursor-pointer w-28' src={logo} height={200} width={200} alt='logo' />
-                        <Image onClick={() => router.push('/')} className='md:hidden block w-12 cursor-pointer' src={logo} height={400} width={600} alt='logo' />
+                        <Image onClick={() => router.push('/')} className='md:block hidden cursor-pointer w-28 -my-2' src={logo} height={200} width={200} alt='logo' />
+                        <Image onClick={() => router.push('/')} className='md:hidden block w-12 cursor-pointer -my-2' src={logo} height={400} width={600} alt='logo' />
                         <Input
                             onChange={(e) => setSearch(e.target.value)}
                             suffix={<button

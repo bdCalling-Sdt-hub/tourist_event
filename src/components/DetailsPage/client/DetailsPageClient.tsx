@@ -68,7 +68,7 @@ const DetailsPageClient = () => {
             />
             <div>
                 <Link
-                    href={`/details/author`}
+                    href={`/details/author?id=${eventData?.vendor?._id}`}
                     className="start-center gap-2 mt-4 cursor-pointer"
                 >
                     <Image
