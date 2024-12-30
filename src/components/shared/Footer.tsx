@@ -12,9 +12,9 @@ const Footer = () => {
             <div style={{
                 justifyContent: 'start',
                 alignItems: 'start'
-            }} className='grid-3 container mx-auto'>
+            }} className='grid-2 container mx-auto'>
                 <div className='w-full start-start flex-col gap-2'>
-                    <Image className='w-16' src={logo} height={100} width={200} alt='logo' unoptimized />
+                    <Image className='h-44' src={logo} height={100} width={200} alt='logo' unoptimized />
                     {/* <p style={{
                         color: 'var(--color-white)'
                     }} className='text-gray'>

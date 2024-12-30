@@ -14,7 +14,7 @@ import { RxCross2 } from 'react-icons/rx'
 import Link from 'next/link'
 import { FaSearch } from 'react-icons/fa'
 import { RiMenuUnfold2Fill } from 'react-icons/ri'
-import { Drawer, Input } from 'antd'
+import { Drawer, Input, Modal } from 'antd'
 import Headroom from "react-headroom";
 import { useRouter } from 'next/navigation'
 import { CiCalendar, CiUser } from 'react-icons/ci'
@@ -30,11 +30,17 @@ import { FaFilter } from "react-icons/fa";
 import { CategoryType } from "../JoinUsPage/Client/VendorRequest";
 import { useSearchParams } from "next/navigation";
 import { Popover as Pops } from "antd";
+import EventAddEditForm from '../MyEventPage/Client/EventAddEditForm'
+import { BsCalendar2Event } from "react-icons/bs";
 const Navbar = () => {
     const { user: data, } = useUser()
     const [date, setDate] = React.useState<Date[]>([]);
     const [open, setOpen] = React.useState<boolean | undefined>(false);
     const [search, setSearch] = React.useState<string>('')
+    const [openEvent, setOpenEvent] = React.useState<boolean>(false)
+    const closeModal = () => {
+        setOpenEvent(false)
+    }
     const router = useRouter()
     const updateSearchParams = useUpdateSearchParams();
     const handleSignOut = () => {
@@ -106,13 +112,13 @@ const Navbar = () => {
 
     return (
         <Headroom style={{
-            zIndex:100
+            zIndex: 1000
         }}>
             <div style={{
-                zIndex:100
+                zIndex: 100
             }} className='bg-blue-900 px-2 md:py-2 '>
                 <div style={{
-                    zIndex:100
+                    zIndex: 1000
                 }} className='container mx-auto between-center '>
                     <div className='start-center  gap-6 '>
                         <Image onClick={() => router.push('/')} className='md:block hidden cursor-pointer w-28 -my-2' src={logo} height={200} width={200} alt='logo' />
@@ -201,7 +207,7 @@ const Navbar = () => {
                                         <Image src={data?.data?.profile_image ? imageUrl(data?.data?.profile_image) : `https://i.ibb.co.com/bHTrR2R/blank-profile-picture-973460-1280.webp`} height={40} width={40} className='h-10 w-10 rounded-full' alt='profile' />
                                     </button>
                                 </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0">
+                                <PopoverContent className="w-auto p-0 mt-8">
                                     <div className='rounded-md p-2 bg-[var(--color-white)] min-w-[300px] max-w-[500px] w-full'>
                                         <div style={{
                                             background: data?.data?.banner ? `url(${imageUrl(data?.data?.banner)})` : 'url(https://i.ibb.co.com/MVcwBWm/1600w-1-NYTq34-QR6-I.webp)'
@@ -212,6 +218,9 @@ const Navbar = () => {
                                             <Link href={`/profile`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
                                                 <CiUser size={20} /> Profile
                                             </Link>
+                                            <button onClick={() => setOpenEvent(true)} className='start-center gap-2 w-full hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
+                                                <BsCalendar2Event size={20} /> Add Event
+                                            </button>
                                             {/* <Link href={`/favorite`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
                                             <MdFavoriteBorder size={20} />Favorites
                                         </Link> */}
@@ -221,7 +230,7 @@ const Navbar = () => {
                                                         <CgWebsite size={20} />My Landing Page
                                                     </Link>
                                                     <Link href={`/my-event`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
-                                                        <CiCalendar size={20} /> My Event
+                                                        <CiCalendar size={20} /> My Events
                                                     </Link>
                                                     {/* <Link href={`/subscription`} className='start-center gap-2 hover:bg-[var(--color-blue-200)] p-2 rounded-md'>
                                                         <MdOutlinePlaylistAddCheck size={20} />My subscription
@@ -283,6 +292,15 @@ const Navbar = () => {
                     {/* <DowerLinks data={data} /> */}
 
                 </Drawer>
+                <Modal
+                    open={openEvent}
+                    centered
+                    onCancel={() => setOpenEvent(false)}
+                    footer={false}
+                    width={800}
+                >
+                    <EventAddEditForm selectedData={null} closeModal={() => closeModal()} />
+                </Modal>
             </div >
         </Headroom>
     )

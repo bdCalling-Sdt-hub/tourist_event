@@ -2,9 +2,8 @@
 import React from 'react';
 import Link from 'next/link';
 import EventCard from '../shared/EventCard';
-import { useGetEventsByCategoryQuery, useGetPopularEventsQuery } from '@/Redux/Apis/eventApis';
+import { useGetEventsByCategoryQuery } from '@/Redux/Apis/eventApis';
 import { useSearchParams } from 'next/navigation';
-import useUpdateSearchParams from '@/Utils/SetParams';
 export interface EventData {
     category: {
         name: string,

@@ -7,8 +7,14 @@ import EventCard from '@/components/shared/EventCard'
 import { useGetVendorProfileQuery } from '@/Redux/Apis/userApis'
 import { useSearchParams } from 'next/navigation'
 import { FaLocationDot } from 'react-icons/fa6'
-import { Link } from 'lucide-react'
 import { FaFacebook, FaGoogle, FaInstagram, FaTiktok } from 'react-icons/fa'
+import Link from 'next/link'
+import dynamic from 'next/dynamic'
+const AuthorLocation = dynamic(()=>import('./AuthorLocation'), {
+    ssr: false
+})
+import { Empty } from 'antd'
+// import AuthorLocation from './AuthorLocation'
 
 interface LocationMap {
     type: string;
@@ -65,8 +71,8 @@ const AuthorPageClient = () => {
 
     return (
         <div className='container mx-auto'>
-                <Banner vendor={vendor} />
-                <div className=' start-start flex-col gap-1 max-w-[600px]'>
+            <Banner vendor={vendor} />
+            <div className=' start-start flex-col gap-1 max-w-[600px]'>
                 {/* <p className='text-[var(--color-white)] text-lg md:text-xl lg:text-2xl'>Best Event in</p> */}
                 <p className='text-3xl my-2 '>{vendor?.business_name}</p>
                 {/* <p style={{
@@ -100,19 +106,33 @@ const AuthorPageClient = () => {
 
                 </div>
             </div>
-                <p className='text-3xl mt-4'>Description:</p>
-                <div dangerouslySetInnerHTML={{ __html: vendor?.description }}></div>
-                <h2 className='h2-black mb-5 mt-10'>Events</h2>
+            <p className='text-3xl mt-4'>Description:</p>
+            <div dangerouslySetInnerHTML={{ __html: vendor?.description }}></div>
+            <h2 className='h2-black mb-5 mt-10'>Past Events</h2>
 
-                <div className='grid-4 mt-10'>
-                    {events?.map((item: Event) => (
+            <div className='grid-4 mt-10'>
+                {
+                    events?.length > 0 ? events?.map((item: Event) => (
                         <EventCard item={item} key={item?._id} />
-                    ))}
-                </div>
+                    )) :
+                        <>
+                            {[...Array(4).keys()].map(item => <Empty key={item} />)}
+                        </>
+                }
+            </div>
 
-                <div className='mt-4'>
-                    <Featured data={featured} />
-                </div>
+            <div className='mt-4'>
+                {
+                    featured?.length > 0 ? < Featured data={featured} /> :
+                        <>
+                            <h2 className='h2-black mb-5 lowercase'>FEATURED</h2>
+                            <Empty />
+                        </>
+                }
+            </div>
+            <Suspense fallback={``} >
+                <AuthorLocation location={vendor?.location_map} address={vendor?.address} />
+            </Suspense>
         </div>
     )
 }

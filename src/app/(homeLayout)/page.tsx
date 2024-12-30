@@ -3,6 +3,7 @@ import Banner from '@/components/HomePage/Banner';
 import Featured from '@/components/HomePage/Featured';
 import PopularEvents from '@/components/HomePage/PopularEvents';
 import TopEvents from '@/components/HomePage/TopEvents';
+import { Spin } from 'antd';
 import { Metadata } from 'next';
 import React, { Suspense } from 'react';
 export const metadata: Metadata = {
@@ -13,13 +14,19 @@ export const metadata: Metadata = {
 const Page = async () => {
     return (
         <>
-            <Banner />
+            <Suspense fallback={<Spin />}>
+                <Banner />
+            </Suspense>
             <div className='start-center flex-col gap-24 mt-24'>
-                <Suspense fallback={``}>
+                <Suspense fallback={<Spin />}>
                     <TopEvents />
                 </Suspense>
-                <PopularEvents />
-                <Featured />
+                <Suspense fallback={<Spin />}>
+                    <PopularEvents />
+                </Suspense>
+                <Suspense fallback={<Spin />}>
+                    <Featured />
+                </Suspense>
             </div>
         </>
     );
