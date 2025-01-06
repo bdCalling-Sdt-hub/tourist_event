@@ -1,37 +1,35 @@
-'use client'
-import React from 'react';
-import EventCard from '../shared/EventCard';
-import { useGetEventsByCategoryQuery } from '@/Redux/Apis/eventApis';
+"use client";
+import React from "react";
+import EventCard from "../shared/EventCard";
+import { useGetEventsByCategoryQuery } from "@/Redux/Apis/eventApis";
 export interface EventData {
-    category: {
-        name: string,
-        _id: string,
-    }
-    date: string;
-    event_image: string[];
+  category: {
     name: string;
     _id: string;
-    address: string
+  };
+  date: string;
+  event_image: string[];
+  name: string;
+  _id: string;
+  address: string;
 }
 const PopularEvents = () => {
-    // console.log()
-    const { data: events } = useGetEventsByCategoryQuery({ category: '674800fd664e57bc675b1311' })
-    return (
-        <div className='container mx-auto'>
-            <h2 className='h2-black mb-5'>Promotions</h2>
-            <div className='grid-4'>
-                {events?.data?.result?.map((item: EventData) => (
-                    <EventCard
-                        item={item}
-                        key={item?._id}
-                    />
-                ))}
-            </div>
-            {/* <Link href={'/'} className='button-blue whitespace-nowrap mx-auto mt-6'>
+  const { data: events } = useGetEventsByCategoryQuery({
+    category: "674800fd664e57bc675b1311",
+  });
+  return (
+    <div className="container mx-auto">
+      <h2 className="h2-black mb-5">Promotions</h2>
+      <div className="grid-4">
+        {events?.data?.result?.map((item: EventData) => (
+          <EventCard item={item} key={item?._id} />
+        ))}
+      </div>
+      {/* <Link href={'/'} className='button-blue whitespace-nowrap mx-auto mt-6'>
                 View All
             </Link> */}
-        </div>
-    );
+    </div>
+  );
 };
 
-export default PopularEvents
+export default PopularEvents;
