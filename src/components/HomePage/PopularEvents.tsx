@@ -15,7 +15,7 @@ export interface EventData {
 }
 const PopularEvents = () => {
   const { data: events } = useGetEventsByCategoryQuery({
-    category: "674800fd664e57bc675b1311",
+    category: "677ba67ac2771b3198bcbf2c",
   });
   return (
     <div className="container mx-auto">
