@@ -467,14 +467,14 @@ export const DowerLinks = ({ data }: any) => {
                     </Link> */}
         </>
       )}
-      {data?.data?.authId?.role != "VENDOR" && (
-        <Link
-          className="button-blue card-shadow whitespace-nowrap"
-          href={data?.data?.authId ? `/profile` : `/join-us`}
-        >
-          {data?.data?.authId ? `Profile` : `Advertise With Us`}
-        </Link>
-      )}
+      {/* {data?.data?.authId?.role != "VENDOR" && ( */}
+      <Link
+        className="button-blue card-shadow whitespace-nowrap"
+        href={data?.data?.authId ? `/profile` : `/join-us`}
+      >
+        {data?.data?.authId ? `Profile` : `Advertise With Us`}
+      </Link>
+      {/* )} */}
     </div>
   );
 };
