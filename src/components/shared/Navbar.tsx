@@ -470,9 +470,9 @@ export const DowerLinks = ({ data }: any) => {
       {data?.data?.authId?.role != "VENDOR" && (
         <Link
           className="button-blue card-shadow whitespace-nowrap"
-          href={`/join-us`}
+          href={data?.data?.authId ? `/profile` : `/join-us`}
         >
-          Advertise With Us
+          {data?.data?.authId ? `Profile` : `Advertise With Us`}
         </Link>
       )}
     </div>
