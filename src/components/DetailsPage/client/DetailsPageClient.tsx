@@ -19,6 +19,7 @@ interface EventData {
     profile_image: string;
     name: string;
     email: string;
+    business_name: string;
     _id: string;
   } | null;
   name: string;
@@ -56,6 +57,7 @@ const DetailsPageClient = () => {
   const id = params?.id as string;
   const { data, isLoading } = useGetEventByIdQuery(id);
   const eventData = data?.data as EventData;
+  console.log(eventData);
   return isLoading ? (
     <Spiner />
   ) : (
@@ -84,7 +86,7 @@ const DetailsPageClient = () => {
           />
           <Link href={`/details/author?id=${eventData?.vendor?._id}`}>
             <p className="uppercase text-gray font-bold">
-              {eventData?.vendor?.name || "Unknown Author"}
+              {eventData?.vendor?.business_name || "Unknown Author"}
             </p>
             {/* <p className="uppercase text-gray">
                             {eventData?.vendor?.email || 'No email provided'}
@@ -100,8 +102,9 @@ const DetailsPageClient = () => {
           <p className="start-center bg-[var(--color-blue-500)] text-[var(--color-white)] w-fit p-1 px-4 mt-2 rounded-md gap-2">
             <FaCalendar />
             {/* {eventData?.date?.split("T")?.[0]} */}
-            {moment(eventData?.date).format("MMMM Do")} at {eventData?.time} to{" "}
-            {moment(eventData?.end_date).format("MMMM Do")}
+            {moment(eventData?.date).format("MMMM Do")} at {eventData?.time}
+            {/* to{" "}
+            {moment(eventData?.end_date).format("MMMM Do")} */}
           </p>
           <div className="flex justify-start items-center gap-2 mt-2 text-white">
             {eventData?.social_media ? (
