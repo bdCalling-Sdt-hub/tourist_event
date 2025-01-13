@@ -29,6 +29,7 @@ import {
   useCreateEventMutation,
   useUpdateEventMutation,
 } from "@/Redux/Apis/eventApis";
+import moment from "moment";
 type FieldType = {
   name?: string;
   category?: string;
@@ -129,14 +130,14 @@ const EventAddEditForm = ({
   const handleFeaturedChange = (e: any) => {
     setIsFeatured(e.target.checked);
   };
-
+  // console.log();
   useEffect(() => {
     if (selectedData) {
       form.setFieldsValue({
         name: selectedData?.name,
         category: selectedData?.category?._id,
         date: dayjs(selectedData?.date),
-        time: dayjs(selectedData?.time),
+        time: moment(selectedData?.time, "h:mm A"),
         end_date: dayjs(selectedData?.end_date),
         description: selectedData?.description,
         address: selectedData?.address,
