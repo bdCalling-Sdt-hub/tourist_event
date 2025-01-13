@@ -57,7 +57,6 @@ const DetailsPageClient = () => {
   const id = params?.id as string;
   const { data, isLoading } = useGetEventByIdQuery(id);
   const eventData = data?.data as EventData;
-  console.log(eventData);
   return isLoading ? (
     <Spiner />
   ) : (
@@ -134,7 +133,7 @@ const DetailsPageClient = () => {
         </div>
         <p className="text-3xl mt-4">Description:</p>
         <div className="text-gray">
-          <strong>{eventData?.name || "Event Name Unavailable"}</strong>
+          {/* <strong>{eventData?.name || "Event Name Unavailable"}</strong> */}
           <br />
           <div
             dangerouslySetInnerHTML={{

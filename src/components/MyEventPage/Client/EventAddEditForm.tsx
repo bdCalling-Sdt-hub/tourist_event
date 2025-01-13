@@ -82,8 +82,8 @@ const EventAddEditForm = ({
       ?.toISOString();
     values.end_date = dayjs(values?.end_date)?.toDate()?.toISOString();
     values.time = dayjs(values?.time).format("hh:mm A");
-    values.latitude = locationData?.lat;
-    values.longitude = locationData?.lng;
+    values.latitude = locationData?.lng;
+    values.longitude = locationData?.lat;
     values.description = text;
     values.recurrence = renew;
     if (isFeatured) {
