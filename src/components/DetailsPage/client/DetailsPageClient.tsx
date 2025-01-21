@@ -8,10 +8,10 @@ import Image from "next/image";
 import moment from "moment";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import React from "react";
 import { FaCalendar, FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 import { FaEarthAfrica, FaLocationDot } from "react-icons/fa6";
 import Spiner from "@/components/shared/Client/Spiner";
+
 interface EventData {
   address: string;
   _id: string;
@@ -80,11 +80,16 @@ const DetailsPageClient = () => {
             alt="Author Image"
             height={600}
             width={600}
-            className="h-14 w-14 rounded-full object-cover"
+            className="h-24 w-24 rounded-full object-cover"
             // unoptimized
           />
           <Link href={`/details/author?id=${eventData?.vendor?._id}`}>
-            <p className="uppercase text-gray font-bold">
+            <p
+              className="uppercase text-gray font-bold"
+              style={{
+                fontSize: "26px",
+              }}
+            >
               {eventData?.vendor?.business_name || "Unknown Author"}
             </p>
             {/* <p className="uppercase text-gray">

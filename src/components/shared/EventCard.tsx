@@ -1,44 +1,60 @@
-import Image from 'next/image'
-import React from 'react'
-import { FaLayerGroup } from 'react-icons/fa'
-import { FaLocationDot } from 'react-icons/fa6'
-import { EventCardProps } from '@/InterFaces/Props'
-import MoreButton from '../HomePage/Client/MoreButton'
-import { imageUrl } from '@/Utils/serverUrl'
+import Image from "next/image";
+import React from "react";
+import { FaLayerGroup } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
+import { EventCardProps } from "@/InterFaces/Props";
+import MoreButton from "../HomePage/Client/MoreButton";
+import { imageUrl } from "@/Utils/serverUrl";
+import moment from "moment";
+//moment().format('MMMM Do YYYY, h:mm:ss a')
 
 const EventCard = ({ item }: EventCardProps) => {
-    return (
-        <div className='w-full h-full bg-[var(--color-white)] card-shadow rounded-md relative'>
-            <div className='w-full h-[300px] rounded-md overflow-hidden relative'>
-            <span className={`text-white ${ new Date(item?.date)?.toISOString()?.split("T")?.[0] == new Date()?.toISOString()?.split("T")?.[0]?'bg-red-600':'bg-red-400'} p-2 py-1 absolute z-30 right-1 top-1 rounded-md`}>{
-                    new Date(item?.date)?.toISOString()?.split("T")?.[0] == new Date()?.toISOString()?.split("T")?.[0] ? 'Today' : new Date(item?.date)?.toISOString()?.split("T")?.[0]
-                }</span>
-                <Image src={imageUrl(item?.event_image?.[0])} alt='image' height={600} width={600} className='img-cover' />
-                <div className='p-3 text-white absolute top-[50%] translate-y-[-50%] bg-black w-full h-full flex justify-center items-start flex-col bg-opacity-60'>
-                    {/* <FavoriteButton
+  return (
+    <div className="w-full h-full bg-[var(--color-white)] card-shadow rounded-md relative">
+      <div className="w-full h-[300px] rounded-md overflow-hidden relative">
+        <span
+          className={`text-white ${
+            new Date(item?.date)?.toISOString()?.split("T")?.[0] ==
+            new Date()?.toISOString()?.split("T")?.[0]
+              ? "bg-red-600"
+              : "bg-red-400"
+          } p-2 py-1 absolute z-30 right-1 top-1 rounded-md`}
+        >
+          {new Date(item?.date)?.toISOString()?.split("T")?.[0] ==
+          new Date()?.toISOString()?.split("T")?.[0]
+            ? "Today"
+            : moment(item?.date).format("MMMM Do")}
+        </span>
+        <Image
+          src={imageUrl(item?.event_image?.[0])}
+          alt="image"
+          height={600}
+          width={600}
+          className="img-cover"
+        />
+        <div className="p-3 text-white absolute top-[50%] translate-y-[-50%] bg-black w-full h-full flex justify-center items-start flex-col bg-opacity-60">
+          {/* <FavoriteButton
                     icon={item?.favorite ? <MdFavorite /> : <MdFavoriteBorder />}
                     favorite={item?.favorite}
                     _id={null}
                 /> */}
-                    <span className='start-center gap-3 '>
-                        <FaLayerGroup />
-                        {item?.category?.name}
-                    </span>
-                    <p className='mt-1 text-xl font-semibold'>{item?.name}</p>
-                    <hr className='w-full h-[1px] my-2' />
-                    <span className='start-start gap-3 '>
-                        <FaLocationDot className='text-white' />
-                        {item?.address}
-                    </span>
-                </div>
-        
-            </div>
-            <MoreButton _id={item?._id} />
-            {/* <div className='w-full h-full bg-black absolute'>
-            </div> */}
+          <span className="start-center gap-3 ">
+            <FaLayerGroup />
+            {item?.category?.name}
+          </span>
+          <p className="mt-1 text-xl font-semibold">{item?.name}</p>
+          <hr className="w-full h-[1px] my-2" />
+          <span className="start-start gap-3 ">
+            <FaLocationDot className="text-white" />
+            {item?.address}
+          </span>
         </div>
-    )
+      </div>
+      <MoreButton _id={item?._id} />
+      {/* <div className='w-full h-full bg-black absolute'>
+            </div> */}
+    </div>
+  );
+};
 
-}
-
-export default EventCard
+export default EventCard;
