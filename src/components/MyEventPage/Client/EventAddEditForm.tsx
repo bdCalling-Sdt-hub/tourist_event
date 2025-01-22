@@ -311,8 +311,9 @@ const EventAddEditForm = ({
             onChange={(value) => setRenew(value)}
             options={[
               { label: "Unavailable", value: "none" },
-              { label: "Monthly", value: "monthly" },
+              { label: "Daily", value: "daily" },
               { label: "Weekly", value: "weekly" },
+              { label: "Monthly", value: "monthly" },
               { label: "Yearly", value: "yearly" },
             ]}
           />
