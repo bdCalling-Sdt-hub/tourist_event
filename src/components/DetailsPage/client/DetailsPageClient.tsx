@@ -11,6 +11,9 @@ import { useParams } from "next/navigation";
 import { FaCalendar, FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 import { FaEarthAfrica, FaLocationDot } from "react-icons/fa6";
 import Spiner from "@/components/shared/Client/Spiner";
+import { Switch } from "antd";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 interface EventData {
   address: string;
@@ -44,6 +47,7 @@ interface EventData {
     _id: string;
   };
   description: string;
+  spanishDescription: string;
   event_image: string[];
   featured: boolean | null;
   favorites: Number;
@@ -55,6 +59,7 @@ interface EventData {
 const DetailsPageClient = () => {
   const params = useParams();
   const id = params?.id as string;
+  const [english, setEnglish] = useState(true);
   const { data, isLoading } = useGetEventByIdQuery(id);
   const eventData = data?.data as EventData;
   return isLoading ? (
@@ -136,13 +141,27 @@ const DetailsPageClient = () => {
             )}
           </div>
         </div>
-        <p className="text-3xl mt-4">Description:</p>
+        <div className="flex justify-start items-center gap-3">
+          <p className="text-3xl mt-4">Description:</p>
+          <Switch
+            style={{
+              marginBottom: "-22px",
+            }}
+            onChange={(value) => setEnglish(value)}
+            checkedChildren="english"
+            unCheckedChildren="spanish"
+            defaultChecked
+          />
+        </div>
         <div className="text-gray">
           {/* <strong>{eventData?.name || "Event Name Unavailable"}</strong> */}
           <br />
+          {/* spanishDescription */}
           <div
             dangerouslySetInnerHTML={{
-              __html: eventData?.description || "",
+              __html: english
+                ? eventData?.description
+                : eventData?.spanishDescription || "",
             }}
           ></div>
         </div>

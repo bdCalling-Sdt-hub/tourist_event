@@ -40,6 +40,7 @@ type FieldType = {
   social_media?: string;
   address?: string;
   description?: string;
+  spanishDescription: string;
   event_image?: any;
   img?: any;
   featured: string | Date | null;
@@ -63,6 +64,7 @@ const EventAddEditForm = ({
   const [form] = Form.useForm();
   const [Loading, setLoading] = useState<boolean>(false);
   const [text, setText] = useState<string>("");
+  const [textS, setTextS] = useState<string>("");
   const [locationData, setLocationData] = useState<any>();
   const [open, setOpen] = useState<boolean>(false);
   const { data: category, isLoading } = useGetCategoryQuery(undefined);
@@ -85,6 +87,7 @@ const EventAddEditForm = ({
     values.latitude = locationData?.lng;
     values.longitude = locationData?.lat;
     values.description = text;
+    values.spanishDescription = textS;
     values.recurrence = renew;
     if (isFeatured) {
       values.featured = dayjs(values?.featuredDate)?.toDate()?.toISOString();
@@ -130,7 +133,6 @@ const EventAddEditForm = ({
   const handleFeaturedChange = (e: any) => {
     setIsFeatured(e.target.checked);
   };
-  // console.log();
   useEffect(() => {
     if (selectedData) {
       form.setFieldsValue({
@@ -140,6 +142,7 @@ const EventAddEditForm = ({
         time: moment(selectedData?.time, "h:mm A"),
         end_date: dayjs(selectedData?.end_date),
         description: selectedData?.description,
+        spanishDescription: selectedData?.spanishDescription,
         address: selectedData?.address,
         social_media: selectedData?.social_media,
         tag: selectedData?.option,
@@ -152,6 +155,7 @@ const EventAddEditForm = ({
         // img: imageUrl(selectedData?.event_image)
       });
       setText(selectedData?.description);
+      setTextS(selectedData?.spanishDescription);
       setLocationData({
         lat: selectedData.latitude,
         lng: selectedData.longitude,
@@ -288,6 +292,16 @@ const EventAddEditForm = ({
         >
           <Jodit text={text} setText={setText} />
         </Form.Item>
+
+        <Form.Item<FieldType>
+          className={`col-span-2`}
+          label="Spanish Description"
+          name="spanishDescription"
+          // rules={[{ required: true, message: 'Please enter a description!' }]}
+        >
+          <Jodit text={textS} setText={setTextS} />
+        </Form.Item>
+
         <Form.Item<FieldType> name="featured" valuePropName="checked">
           <Checkbox onChange={handleFeaturedChange}>
             Make this Featured{" "}
