@@ -42,7 +42,11 @@ const EventCard = ({ item }: EventCardProps) => {
             <FaLayerGroup />
             {item?.category?.name}
           </span>
+
           <p className="mt-1 text-xl font-semibold">{item?.name}</p>
+          <span className="start-center gap-3 text-xs font-bold">
+            {item?.vendor?.business_name}
+          </span>
           <hr className="w-full h-[1px] my-2" />
           <span className="start-start gap-3 ">
             <FaLocationDot className="text-white" />

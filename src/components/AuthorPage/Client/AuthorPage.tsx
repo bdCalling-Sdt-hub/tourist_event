@@ -57,6 +57,9 @@ export interface Event {
   name: string;
   _id: string;
   address: string;
+  vendor: {
+    business_name: string;
+  };
 }
 
 const AuthorPageClient = () => {

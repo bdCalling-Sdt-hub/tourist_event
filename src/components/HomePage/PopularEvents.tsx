@@ -14,6 +14,9 @@ export interface EventData {
   name: string;
   _id: string;
   address: string;
+  vendor: {
+    business_name: string;
+  };
 }
 const PopularEvents = () => {
   const { data: events, isLoading } = useGetEventsByCategoryQuery({
