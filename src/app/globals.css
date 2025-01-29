@@ -172,6 +172,23 @@ body {
 .jodit-ui-group.jodit-ui-group_separated_true.jodit-ui-group_group_other.jodit-ui-group_size_middle {
   display: none;
 }
+
+.VIpgJd-ZVi9od-l4eHX-hSRGPd {
+  display: none !important;
+}
+.goog-te-combo {
+  padding: 10px;
+  cursor: pointer;
+}
+.VIpgJd-ZVi9od-ORHb-OEVmcd {
+  visibility: hidden !important;
+}
+/* .skiptranslate {
+  display: none !important;
+} */
+.antialiased {
+  top: 0 !important;
+}
 /*
 .jodit-ui-group:last-child {
   display: none;

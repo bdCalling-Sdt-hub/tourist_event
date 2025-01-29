@@ -41,6 +41,7 @@ const Navbar = () => {
   const closeModal = () => {
     setOpenEvent(false);
   };
+
   const router = useRouter();
   const updateSearchParams = useUpdateSearchParams();
   const handleSignOut = () => {
