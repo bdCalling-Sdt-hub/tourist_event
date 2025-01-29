@@ -293,14 +293,14 @@ const EventAddEditForm = ({
           <Jodit text={text} setText={setText} />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        {/* <Form.Item<FieldType>
           className={`col-span-2`}
           label="Spanish Description"
           name="spanishDescription"
           // rules={[{ required: true, message: 'Please enter a description!' }]}
         >
           <Jodit text={textS} setText={setTextS} />
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item<FieldType> name="featured" valuePropName="checked">
           <Checkbox onChange={handleFeaturedChange}>

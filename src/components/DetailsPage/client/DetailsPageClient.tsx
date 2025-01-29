@@ -11,8 +11,6 @@ import { useParams } from "next/navigation";
 import { FaCalendar, FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 import { FaEarthAfrica, FaLocationDot } from "react-icons/fa6";
 import Spiner from "@/components/shared/Client/Spiner";
-import { Switch } from "antd";
-import toast from "react-hot-toast";
 import { useState } from "react";
 
 interface EventData {
@@ -143,7 +141,7 @@ const DetailsPageClient = () => {
         </div>
         <div className="flex justify-start items-center gap-3">
           <p className="text-3xl mt-4">Description:</p>
-          <Switch
+          {/* <Switch
             style={{
               marginBottom: "-22px",
             }}
@@ -151,7 +149,7 @@ const DetailsPageClient = () => {
             checkedChildren="english"
             unCheckedChildren="spanish"
             defaultChecked
-          />
+          /> */}
         </div>
         <div className="text-gray">
           {/* <strong>{eventData?.name || "Event Name Unavailable"}</strong> */}
