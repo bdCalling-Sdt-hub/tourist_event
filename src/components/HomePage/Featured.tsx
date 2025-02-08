@@ -1,12 +1,13 @@
 "use client";
 import { Carousel, Empty } from "antd";
 import Image from "next/image";
-import React from "react";
+import React, { use } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import MoreButton from "./Client/MoreButton";
 import { useGetFeaturedEventsQuery } from "@/Redux/Apis/eventApis";
 import { imageUrl } from "@/Utils/serverUrl";
 import Spiner from "../shared/Client/Spiner";
+import { useRouter } from "next/navigation";
 export interface EventData {
   category: {
     name: string;
@@ -19,6 +20,7 @@ export interface EventData {
   address: string;
 }
 const Featured = () => {
+  const router = useRouter();
   const { data: featured, isLoading } = useGetFeaturedEventsQuery(undefined);
   return (
     <>
@@ -36,7 +38,11 @@ const Featured = () => {
                   {featured?.data?.result
                     ?.slice(0, 3)
                     ?.map((item: EventData) => (
-                      <div className="w-full h-[600px]" key={item?._id}>
+                      <div
+                        onClick={() => router.push(`/details/${item?._id}`)}
+                        className="w-full h-[600px] cursor-pointer"
+                        key={item?._id}
+                      >
                         <Image
                           src={imageUrl(item?.event_image?.[0])}
                           height={1800}
@@ -65,7 +71,7 @@ const Featured = () => {
                       <p className="mb-1">{item?.name}</p>
                       <span className="start-center gap-1 ">
                         <FaLocationDot className="text-[var(--color-blue-500)]" />
-                        {item?.address}
+                        {item?.address?.slice(0, 45)}...
                       </span>
                       <MoreButton _id={item?._id} />
                     </div>

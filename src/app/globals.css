@@ -177,8 +177,10 @@ body {
   display: none !important;
 }
 .goog-te-combo {
-  padding: 10px;
+  padding: 14px;
   cursor: pointer;
+
+  width: 280px !important;
 }
 .VIpgJd-ZVi9od-ORHb-OEVmcd {
   visibility: hidden !important;
