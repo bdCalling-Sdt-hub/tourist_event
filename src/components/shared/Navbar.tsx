@@ -280,7 +280,7 @@ const Navbar = () => {
                             <FaList size={24} />
                         </Link> */}
             {/* @ts-ignore */}
-            {data?.data?.authId?.email && (
+            {
               <Popover>
                 <PopoverTrigger asChild>
                   <button>
@@ -376,7 +376,7 @@ const Navbar = () => {
                   </div>
                 </PopoverContent>
               </Popover>
-            )}
+            }
 
             <div className="md:block hidden">
               {/* <DowerLinks data={data} /> */}

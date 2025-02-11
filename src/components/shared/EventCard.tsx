@@ -38,20 +38,20 @@ const EventCard = ({ item }: EventCardProps) => {
                     favorite={item?.favorite}
                     _id={null}
                 /> */}
-          <span className="start-center gap-3 ">
+          <span className="start-center text-lg gap-3">
             <FaLayerGroup />
             {item?.category?.name}
           </span>
 
-          <p className="mt-1 text-xl font-semibold">{item?.name}</p>
-          <span className="start-center gap-3 text-xs font-bold">
+          <p className="mt-1 text-3xl font-semibold my-2">{item?.name}</p>
+          <span className="start-center gap-3 text-base font-bold">
             {item?.vendor?.business_name}
           </span>
-          <hr className="w-full h-[1px] my-2" />
+          {/* <hr className="w-full h-[1px] my-2" />
           <span className="start-start gap-3 ">
             <FaLocationDot className="text-white" />
             {item?.address}
-          </span>
+          </span> */}
         </div>
       </div>
       <MoreButton _id={item?._id} />
