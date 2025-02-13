@@ -27,12 +27,14 @@ const SearchPageClient = () => {
   const search = searchParams.get("search");
   const category = searchParams.get("category");
   const option = searchParams.get("option");
+  const page = searchParams.get("page");
   const date = searchParams.get("date");
   const { data: events } = useGetEventsByCategoryQuery({
     category: category || "",
     option: option || "",
     date: date || "",
     searchTerm: search || "",
+    page: page || 1,
   });
   return (
     <div className="container mx-auto mt-6">
