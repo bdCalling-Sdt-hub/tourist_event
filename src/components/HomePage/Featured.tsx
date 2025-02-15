@@ -38,23 +38,21 @@ const Featured = () => {
             <div className="md:grid grid-cols-3 gap-16">
               <div className="col-span-2">
                 <Carousel autoplay autoplaySpeed={2000}>
-                  {featured?.data?.result
-                    ?.slice(0, 3)
-                    ?.map((item: EventData) => (
-                      <div
-                        onClick={() => router.push(`/details/${item?._id}`)}
-                        className="w-full h-[600px] cursor-pointer"
-                        key={item?._id}
-                      >
-                        <Image
-                          src={imageUrl(item?.event_image?.[0])}
-                          height={1800}
-                          width={2000}
-                          className="img-cover"
-                          alt="featured"
-                        />
-                      </div>
-                    ))}
+                  {featured?.data?.result?.map((item: EventData) => (
+                    <div
+                      onClick={() => router.push(`/details/${item?._id}`)}
+                      className="w-full h-[600px] cursor-pointer"
+                      key={item?._id}
+                    >
+                      <Image
+                        src={imageUrl(item?.event_image?.[0])}
+                        height={1800}
+                        width={2000}
+                        className="img-cover"
+                        alt="featured"
+                      />
+                    </div>
+                  ))}
                 </Carousel>
               </div>
               <div className="start-start gap-2 flex-col w-full h-[600px] overflow-y-scroll">
