@@ -110,7 +110,6 @@ const Navbar = () => {
       ))}
     </div>
   );
-
   return (
     <Headroom
       style={{
@@ -211,16 +210,27 @@ const Navbar = () => {
             </Pops>
             <Popover>
               <PopoverTrigger asChild>
-                <button className="md:button-blue flex justify-center items-center gap-1 bg-[var(--color-blue-500)] py-[2px] px-2 rounded-md">
+                <button className="md:button-blue flex justify-center items-center gap-1 bg-[var(--color-blue-500)] py-[2px] px-2 rounded-md max-w-[150px] overflow-hidden relative">
                   {date.length > 0 ? (
-                    <div className="start-center gap-2">
+                    <div
+                      className={`start-center gap-2 ${
+                        date.sort((a, b) => a.getTime() - b.getTime())
+                          .length === 1
+                          ? "text-sm"
+                          : "text-[12px]"
+                      }`}
+                    >
                       {date.sort((a, b) => a.getTime() - b.getTime()).length ===
                       1 ? (
                         format(date[0], "d MMM")
                       ) : (
                         <>
-                          {format(date[0], "d MMM")} -{" "}
-                          {format(date[date.length - 1], "d MMM")}
+                          {date
+                            .sort((a, b) => a.getTime() - b.getTime())
+                            .map((item: any) => format(item, "d"))
+                            .join(",")}
+                          {/* {format(date[0], "d MMM")} -{" "}
+                          {format(date[date.length - 1], "d MMM")} */}
                         </>
                       )}
                       <RxCross2
@@ -228,7 +238,7 @@ const Navbar = () => {
                           setDate([]);
                         }}
                         size={24}
-                        className="text-[var(--color-red-500)]"
+                        className="text-[var(--color-red-500)] absolute right-0"
                       />
                     </div>
                   ) : (
@@ -246,7 +256,8 @@ const Navbar = () => {
                     setDate(dates || []);
                     const formattedDates = dates
                       ?.map((d) => format(d, "dd-MM-yyyy"))
-                      .join(",");
+                      .join(",")
+                      ?.toString();
                     const currentParams = new URLSearchParams(
                       window.location.search
                     );
@@ -280,7 +291,7 @@ const Navbar = () => {
                             <FaList size={24} />
                         </Link> */}
             {/* @ts-ignore */}
-            {
+            {data?.data?.email && (
               <Popover>
                 <PopoverTrigger asChild>
                   <button>
@@ -376,7 +387,7 @@ const Navbar = () => {
                   </div>
                 </PopoverContent>
               </Popover>
-            }
+            )}
 
             <div className="md:block hidden">
               {/* <DowerLinks data={data} /> */}

@@ -29,6 +29,7 @@ const SearchPageClient = () => {
   const option = searchParams.get("option");
   const page = searchParams.get("page");
   const date = searchParams.get("date");
+  console.log(date);
   const { data: events } = useGetEventsByCategoryQuery({
     category: category || "",
     option: option || "",
