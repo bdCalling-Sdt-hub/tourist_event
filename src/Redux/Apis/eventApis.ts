@@ -36,19 +36,19 @@ const eventApis = baseApi.injectEndpoints({
                 url: `events/get/${id}`,
                 method: "GET",
             }),
-            providesTags:['event']
+            providesTags: ['event']
         }),
 
         // GET: Fetch events by category
         getEventsByCategory: builder.query({
-            query: ({ category, option, searchTerm, page, date }) => {
+            query: ({ category, option, searchTerm, page, date, upcoming }) => {
                 return ({
                     url: `/events`,
                     method: "GET",
-                    params: { category, option, searchTerm, page, date }
+                    params: { category, option, searchTerm, page, date, upcoming }
                 })
             },
-            providesTags:['event']
+            providesTags: ['event']
         }),
 
         // GET: Get featured events
@@ -57,7 +57,7 @@ const eventApis = baseApi.injectEndpoints({
                 url: "/events/featured_events",
                 method: "GET",
             }),
-            providesTags:['event']
+            providesTags: ['event']
         }),
 
         // PATCH: Save click data for an event
@@ -75,7 +75,7 @@ const eventApis = baseApi.injectEndpoints({
                 url: "/events/popular-events",
                 method: "GET",
             }),
-            providesTags:['event']
+            providesTags: ['event']
         }),
 
         // GET: Fetch events by date
@@ -84,7 +84,7 @@ const eventApis = baseApi.injectEndpoints({
                 url: "/events/events_by_date",
                 method: "GET",
             }),
-            providesTags:['event']
+            providesTags: ['event']
         }),
 
         // GET: Fetch past events
@@ -93,7 +93,7 @@ const eventApis = baseApi.injectEndpoints({
                 url: "/events/events_by_past",
                 method: "GET",
             }),
-            providesTags:['event']
+            providesTags: ['event']
         }),
 
         // GET: Get user favorite events
@@ -102,7 +102,7 @@ const eventApis = baseApi.injectEndpoints({
                 url: "/events/user-favorites",
                 method: "GET",
             }),
-            providesTags:['event']
+            providesTags: ['event']
         }),
 
         // DELETE: Delete an event by ID
@@ -121,7 +121,7 @@ const eventApis = baseApi.injectEndpoints({
                     params: { page }
                 })
             },
-            providesTags:['event']
+            providesTags: ['event']
         }),
 
     }),

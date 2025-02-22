@@ -29,6 +29,7 @@ const TopEvents = () => {
     category: category || "",
     option: option || "",
     date: date || "",
+    upcoming: "upcoming",
   });
   return (
     <>
