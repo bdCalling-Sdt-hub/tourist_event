@@ -60,6 +60,7 @@ const DetailsPageClient = () => {
   const [english, setEnglish] = useState(true);
   const { data, isLoading } = useGetEventByIdQuery(id);
   const eventData = data?.data as EventData;
+  console.log(eventData);
   return isLoading ? (
     <Spiner />
   ) : (
@@ -112,6 +113,10 @@ const DetailsPageClient = () => {
             {moment(eventData?.date).format("MMMM Do")} at {eventData?.time}
             {/* to{" "}
             {moment(eventData?.end_date).format("MMMM Do")} */}
+          </p>
+          <p className="mt-2">
+            <strong>End date</strong>{" "}
+            {moment(eventData?.end_date).format("MMMM Do")}
           </p>
           <div className="flex justify-start items-center gap-2 mt-2 text-white">
             {eventData?.social_media ? (
