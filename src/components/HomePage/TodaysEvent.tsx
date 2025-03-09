@@ -10,8 +10,8 @@ import { useSearchParams } from "next/navigation";
 const TodaysEvent = () => {
   const updateSearchParams = useUpdateSearchParams();
   const searchParams = useSearchParams();
-  const SelectedCategory = searchParams.get('cat')
-  const option = searchParams.get('option')
+  const SelectedCategory = searchParams.get("cat");
+  const option = searchParams.get("option");
   const { data: category, isLoading } = useGetCategoryQuery(undefined);
   const Options = useMemo(() => {
     if (!category?.data || !Array.isArray(category?.data)) {
@@ -39,8 +39,8 @@ const TodaysEvent = () => {
         {Options.map((item: any) => (
           <button
             onClick={() => {
-              updateSearchParams("category", item.value)
-              updateSearchParams("cat", item.label)
+              updateSearchParams("category", item.value);
+              updateSearchParams("cat", item.label);
             }}
             className="hover:bg-[var(--color-blue-500)] p-1 rounded-sm"
             key={item.value}
@@ -73,12 +73,12 @@ const TodaysEvent = () => {
         <div className="end-center gap-2">
           <Popover placement="bottom" title="" content={content}>
             <button className="button-blue whitespace-nowrap">
-              <FaFilter /> {SelectedCategory || 'All Event'}
+              <FaFilter /> {SelectedCategory || "All Event"}
             </button>
           </Popover>
           <Popover placement="bottom" title="" content={content2}>
             <button className="button-blue whitespace-nowrap">
-              <FaFilter /> {option || 'Tags'}
+              <FaFilter /> {option || "Tags"}
             </button>
           </Popover>
         </div>

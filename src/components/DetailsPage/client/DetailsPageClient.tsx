@@ -116,7 +116,7 @@ const DetailsPageClient = () => {
           </p>
           <p className="mt-2">
             <strong>End date</strong>{" "}
-            {moment(eventData?.end_date).format("MMMM Do")}
+            {moment(eventData?.end_date).format("MMMM Do")} at {eventData?.time}
           </p>
           <div className="flex justify-start items-center gap-2 mt-2 text-white">
             {eventData?.social_media ? (

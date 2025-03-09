@@ -3,7 +3,7 @@ const GetCoordinateMap = dynamic(
   () => import("@/components/shared/Client/GetCoordinateMap"),
   {
     ssr: false,
-  }
+  },
 );
 const Jodit = dynamic(() => import("@/components/shared/Client/Jodit"), {
   ssr: false,
@@ -37,7 +37,7 @@ type FieldType = {
     {
       link: string;
       name: string;
-    }
+    },
   ];
   banner: File | null;
   profile_image: File | null;
@@ -96,7 +96,7 @@ const VendorRequest = () => {
     });
     if (!coverImage || !profileImage) {
       return toast.error(
-        `Please Select ${coverImage ? "Cover Image" : "Business Logo"}`
+        `Please Select ${coverImage ? "Cover Image" : "Business Logo"}`,
       );
     }
     const data = {
@@ -118,7 +118,7 @@ const VendorRequest = () => {
       .unwrap()
       .then((res) => {
         toast.success(
-          res?.data?.message || "Request sent please wait for admin approval"
+          res?.data?.message || "Request sent please wait for admin approval",
         );
         form.resetFields();
         setCoverImage(null);
@@ -378,7 +378,7 @@ const VendorRequest = () => {
                             form.getFieldValue("social_link");
                           if (selectedField) {
                             const media = selectedField?.map(
-                              (item: any) => item?.name
+                              (item: any) => item?.name,
                             );
                             setSocial(media);
                           }

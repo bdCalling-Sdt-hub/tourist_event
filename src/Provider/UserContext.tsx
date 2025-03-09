@@ -27,7 +27,7 @@ interface ProfileData {
         {
           link: string;
           name: string;
-        }
+        },
       ];
     } | null;
   } | null;
@@ -73,7 +73,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
           borderRadius: "5px",
           cursor: "pointer",
           fontSize: "14px",
-          zIndex: 10003, 
+          zIndex: 10003,
         }}
         expires={150}
       >
@@ -85,7 +85,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
             width: "100%",
             height: "100%",
             backgroundColor: "rgba(0, 0, 0, 0.2)",
-            zIndex: 10000000, 
+            zIndex: 10000000,
             pointerEvents: "none",
           }}
         ></div>

@@ -152,7 +152,7 @@ const Navbar = () => {
                 <button
                   onClick={() => {
                     const currentParams = new URLSearchParams(
-                      window.location.search
+                      window.location.search,
                     );
                     currentParams.set("search", search);
                     router.push(`/search?${currentParams.toString()}`);
@@ -179,7 +179,7 @@ const Navbar = () => {
                       <button
                         onClick={() => {
                           const currentParams = new URLSearchParams(
-                            window.location.search
+                            window.location.search,
                           );
                           currentParams.set("search", search);
                           router.push(`/search?${currentParams.toString()}`);
@@ -259,7 +259,7 @@ const Navbar = () => {
                       .join(",")
                       ?.toString();
                     const currentParams = new URLSearchParams(
-                      window.location.search
+                      window.location.search,
                     );
                     if (formattedDates) {
                       currentParams.set("date", formattedDates);

@@ -1,74 +1,83 @@
-'use client'
-import React from 'react'
-import loginImage from '@/Asset/login.png'
-import Image from 'next/image'
-import { Form, FormProps, Input } from 'antd'
-import { useActivateUserMutation } from '@/Redux/Apis/authapis'
-import toast from 'react-hot-toast'
-import Cookies from 'js-cookie';
-import { useRouter } from 'next/navigation'
+"use client";
+import React from "react";
+import loginImage from "@/Asset/login.png";
+import Image from "next/image";
+import { Form, FormProps, Input } from "antd";
+import { useActivateUserMutation } from "@/Redux/Apis/authapis";
+import toast from "react-hot-toast";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 type FieldType = {
-    otp?: string;
+  otp?: string;
 };
 
 const OtpPage = () => {
-    const router = useRouter()
-    const [activeUser] = useActivateUserMutation()
-    const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-        toast.dismiss()
-        const data = {
-            activation_code: values?.otp,
-            userEmail: localStorage.getItem('email')
+  const router = useRouter();
+  const [activeUser] = useActivateUserMutation();
+  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
+    toast.dismiss();
+    const data = {
+      activation_code: values?.otp,
+      userEmail: localStorage.getItem("email"),
+    };
+    activeUser(data)
+      .unwrap()
+      .then((result) => {
+        Cookies.set("_token", result?.data?.accessToken);
+        localStorage.setItem("_token", result?.data?.accessToken);
+        if (!Cookies.get("_token")) {
+          return toast.error("Please enable cookie to login this website");
         }
-        activeUser(data).unwrap()
-            .then(result => {
-                Cookies.set('_token', result?.data?.accessToken)
-                localStorage.setItem('_token', result?.data?.accessToken)
-                if (!Cookies.get('_token')) {
-                    return toast.error("Please enable cookie to login this website")
-                }
-                toast.success(result?.message || "Account Active Successfully")
-                router.push('/')
-            }).catch(err => {
-                toast.error(err?.data?.message || "something went wrong")
-            });
-    };
-    const onChange = (text: string) => {
-
-    };
-    const sharedProps = {
-        onChange,
-    };
-    return (
-        <div className='mx-auto center-center h-screen w-full'>
-            <div className='w-full h-full grid-2'>
-                <Image src={loginImage} height={600} width={1000} alt='login image' className='img-contain hidden md:block' />
-                <div className='flex justify-center items-start h-full w-full flex-col bg-[var(--color-blue-200)] p-4'>
-                    <div className='max-w-[600px] w-full mx-auto'>
-                        <p className='text-3xl font-bold mb-2'>Check your email</p>
-                        <p className='text-gray'>We send a OTP code for verify your email to contact@dscode...com
-                            enter 5 digit code that mentioned in the email.</p>
-                        <Form
-                            layout='vertical'
-                            initialValues={{ remember: true }}
-                            onFinish={onFinish}
-                            autoComplete="off">
-                            <Form.Item<FieldType>
-                                label="Verification Code"
-                                name="otp"
-                                rules={[{ required: true, message: 'Please input your Email!' }]}
-                            >
-                                <Input.OTP length={6} className='h-[42px]'{...sharedProps} />
-                            </Form.Item>
-                            <button className='button-blue'>
-                                Verify Otp
-                            </button>
-                        </Form>
-                    </div>
-                </div>
-            </div>
+        toast.success(result?.message || "Account Active Successfully");
+        router.push("/");
+      })
+      .catch((err) => {
+        toast.error(err?.data?.message || "something went wrong");
+      });
+  };
+  const onChange = (text: string) => {};
+  const sharedProps = {
+    onChange,
+  };
+  return (
+    <div className="mx-auto center-center h-screen w-full">
+      <div className="w-full h-full grid-2">
+        <Image
+          src={loginImage}
+          height={600}
+          width={1000}
+          alt="login image"
+          className="img-contain hidden md:block"
+        />
+        <div className="flex justify-center items-start h-full w-full flex-col bg-[var(--color-blue-200)] p-4">
+          <div className="max-w-[600px] w-full mx-auto">
+            <p className="text-3xl font-bold mb-2">Check your email</p>
+            <p className="text-gray">
+              We send a OTP code for verify your email to contact@dscode...com
+              enter 5 digit code that mentioned in the email.
+            </p>
+            <Form
+              layout="vertical"
+              initialValues={{ remember: true }}
+              onFinish={onFinish}
+              autoComplete="off"
+            >
+              <Form.Item<FieldType>
+                label="Verification Code"
+                name="otp"
+                rules={[
+                  { required: true, message: "Please input your Email!" },
+                ]}
+              >
+                <Input.OTP length={6} className="h-[42px]" {...sharedProps} />
+              </Form.Item>
+              <button className="button-blue">Verify Otp</button>
+            </Form>
+          </div>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default OtpPage
+export default OtpPage;

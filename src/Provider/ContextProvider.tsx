@@ -25,7 +25,7 @@ const ContextProvider: React.FC<ContextProviderProps> = ({ children }) => {
             //   .InlineLayout.SIMPLE,
             includedLanguages: "en,es,fr,de,zh-CN,ar,hi,pt,ru,ja",
           },
-          "google_translate_element"
+          "google_translate_element",
         );
       }
     };

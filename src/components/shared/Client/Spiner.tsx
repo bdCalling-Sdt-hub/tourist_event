@@ -4,7 +4,7 @@ import React from "react";
 const Spiner = () => {
   return (
     <div className="flex justify-center items-center h-[30vh] flex-col">
-      <Spin size="large"/>
+      <Spin size="large" />
     </div>
   );
 };

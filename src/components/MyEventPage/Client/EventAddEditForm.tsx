@@ -2,7 +2,7 @@ const GetCoordinateMap = dynamic(
   () => import("@/components/shared/Client/GetCoordinateMap"),
   {
     ssr: false,
-  }
+  },
 );
 const Jodit = dynamic(() => import("@/components/shared/Client/Jodit"));
 import { CategoryType } from "@/components/JoinUsPage/Client/VendorRequest";
@@ -79,7 +79,7 @@ const EventAddEditForm = ({
       toast.error("Please select event image");
     }
     // values.event_image = values.event_image?.[0]?.originFileObj;
-    values.date = new Date(dayjs(values?.date)?.toDate()?.toISOString());
+    values.date = dayjs(values?.date).toDate().toISOString();
     values.recurrence_end = dayjs(values?.recurrence_end)
       ?.toDate()
       ?.toISOString();

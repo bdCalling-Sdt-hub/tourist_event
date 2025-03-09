@@ -42,7 +42,7 @@ export interface BusinessProfile {
           link: string;
           name: string;
           _id: string;
-        }
+        },
       ]
     | null;
 }
@@ -93,46 +93,44 @@ const AuthorPageClient = () => {
           <FaLocationDot /> {vendor?.address}
         </p>
         <div className="flex justify-start items-center gap-2 mt-3">
-          {
-            //Website TikTok Instagram Facebook
-            vendor?.social_media?.map((item) => (
-              <>
-                {item?.name === "Facebook" ? (
-                  <Link
-                    key={item?._id}
-                    className="text-[var(--color-white)] bg-[var(--color-blue-500)] p-2 rounded-full"
-                    href={item?.link}
-                  >
-                    <FaFacebook size={20} />
-                  </Link>
-                ) : item?.name === "Website" ? (
-                  <Link
-                    key={item?._id}
-                    className="text-[var(--color-white)] bg-[var(--color-blue-500)] p-2 rounded-full"
-                    href={item?.link}
-                  >
-                    <FaGoogle size={20} />
-                  </Link>
-                ) : item?.name === "Instagram" ? (
-                  <Link
-                    key={item?._id}
-                    className="text-[var(--color-white)] bg-[var(--color-blue-500)] p-2 rounded-full"
-                    href={item?.link}
-                  >
-                    <FaInstagram size={20} />
-                  </Link>
-                ) : (
-                  <Link
-                    key={item?._id}
-                    className="text-[var(--color-white)] bg-[var(--color-blue-500)] p-2 rounded-full"
-                    href={item?.link}
-                  >
-                    <FaTiktok size={20} />
-                  </Link>
-                )}
-              </>
-            ))
-          }
+          {//Website TikTok Instagram Facebook
+          vendor?.social_media?.map((item) => (
+            <>
+              {item?.name === "Facebook" ? (
+                <Link
+                  key={item?._id}
+                  className="text-[var(--color-white)] bg-[var(--color-blue-500)] p-2 rounded-full"
+                  href={item?.link}
+                >
+                  <FaFacebook size={20} />
+                </Link>
+              ) : item?.name === "Website" ? (
+                <Link
+                  key={item?._id}
+                  className="text-[var(--color-white)] bg-[var(--color-blue-500)] p-2 rounded-full"
+                  href={item?.link}
+                >
+                  <FaGoogle size={20} />
+                </Link>
+              ) : item?.name === "Instagram" ? (
+                <Link
+                  key={item?._id}
+                  className="text-[var(--color-white)] bg-[var(--color-blue-500)] p-2 rounded-full"
+                  href={item?.link}
+                >
+                  <FaInstagram size={20} />
+                </Link>
+              ) : (
+                <Link
+                  key={item?._id}
+                  className="text-[var(--color-white)] bg-[var(--color-blue-500)] p-2 rounded-full"
+                  href={item?.link}
+                >
+                  <FaTiktok size={20} />
+                </Link>
+              )}
+            </>
+          ))}
         </div>
       </div>
       <p className="text-3xl mt-4">Description:</p>

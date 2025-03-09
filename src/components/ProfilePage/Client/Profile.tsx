@@ -1,72 +1,75 @@
-'use client'
+"use client";
 
-import { Form, FormProps } from "antd"
+import { Form, FormProps } from "antd";
 import { useEffect, useState } from "react";
 import Vendor from "./Vendor";
 import PasswordChange from "./PasswordChange";
 import { useUser } from "@/Provider/UserContext";
 type FieldType = {
-    name?: string;
-    email?: string;
-    phone_number?: string;
-    address?: string;
-    location?: string;
-    desc?: string;
-    banner: File | null
-    profile_image: File | null
+  name?: string;
+  email?: string;
+  phone_number?: string;
+  address?: string;
+  location?: string;
+  desc?: string;
+  banner: File | null;
+  profile_image: File | null;
 };
 const Profile = () => {
-    // const [form] = Form.useForm()
-    // const { user: data, } = useUser()
-    // const [profileImage, setProfileImage] = useState<File | null>(null)
-    // const [coverImage, setCoverImage] = useState<File | null>(null)
-    const [Tab, setTab] = useState<string>('vendor profile')
-    // const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    //     if (coverImage) {
-    //         values.banner = coverImage
-    //     }
-    //     if (profileImage) {
-    //         values.profile_image = profileImage
-    //     }
-    //     const formData = new FormData()
-    //     Object.keys(values).forEach((key) => {
-    //         const value = values[key as keyof typeof values];
-    //         if (value) {
-    //             formData.append(key, value);
-    //         }
-    //     })
-    //     formData?.forEach(element => {
-    //         console.log(element)
-    //     })
-    // };
-    // useEffect(() => {
-    //     form.setFieldsValue({
-    //         name: data?.data?.name,
-    //         email: data?.data?.authId?.email,
-    //         phone_number: data?.data?.phone_number,
-    //         address: data?.data?.address
-    //     })
-    // }, [data?.data])
-    const OptionArray = ['vendor profile', 'change password']//'profile',
-    return (
-        <div className="container mx-auto">
-            <div className="center-center gap-2 mt-6">
-                {
-                    OptionArray?.map(item => <button onClick={() => {
-                        // setCoverImage(null)
-                        // setProfileImage(null)
-                        setTab(item)
-                    }}
-                        style={{
-                            background: Tab == item ? '' : 'var(--color-white)',
-                            color: Tab == item ? '' : 'var(--color-blue-900)'
-                        }}
-                        key={item} className="button-blue">
-                        {item}
-                    </button>)
-                }
-            </div>
-            {/* {
+  // const [form] = Form.useForm()
+  // const { user: data, } = useUser()
+  // const [profileImage, setProfileImage] = useState<File | null>(null)
+  // const [coverImage, setCoverImage] = useState<File | null>(null)
+  const [Tab, setTab] = useState<string>("vendor profile");
+  // const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+  //     if (coverImage) {
+  //         values.banner = coverImage
+  //     }
+  //     if (profileImage) {
+  //         values.profile_image = profileImage
+  //     }
+  //     const formData = new FormData()
+  //     Object.keys(values).forEach((key) => {
+  //         const value = values[key as keyof typeof values];
+  //         if (value) {
+  //             formData.append(key, value);
+  //         }
+  //     })
+  //     formData?.forEach(element => {
+  //         console.log(element)
+  //     })
+  // };
+  // useEffect(() => {
+  //     form.setFieldsValue({
+  //         name: data?.data?.name,
+  //         email: data?.data?.authId?.email,
+  //         phone_number: data?.data?.phone_number,
+  //         address: data?.data?.address
+  //     })
+  // }, [data?.data])
+  const OptionArray = ["vendor profile", "change password"]; //'profile',
+  return (
+    <div className="container mx-auto">
+      <div className="center-center gap-2 mt-6">
+        {OptionArray?.map((item) => (
+          <button
+            onClick={() => {
+              // setCoverImage(null)
+              // setProfileImage(null)
+              setTab(item);
+            }}
+            style={{
+              background: Tab == item ? "" : "var(--color-white)",
+              color: Tab == item ? "" : "var(--color-blue-900)",
+            }}
+            key={item}
+            className="button-blue"
+          >
+            {item}
+          </button>
+        ))}
+      </div>
+      {/* {
                 Tab == 'profile' && <Form
                     form={form}
                     onFinish={onFinish}
@@ -153,14 +156,10 @@ const Profile = () => {
                     </button>
                 </Form>
             } */}
-            {
-                Tab == 'vendor profile' && <Vendor />
-            }
-            {
-                Tab == 'change password' && <PasswordChange />
-            }
-        </div>
-    )
-}
+      {Tab == "vendor profile" && <Vendor />}
+      {Tab == "change password" && <PasswordChange />}
+    </div>
+  );
+};
 
-export default Profile
+export default Profile;

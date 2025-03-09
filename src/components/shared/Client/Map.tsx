@@ -26,14 +26,14 @@ const Map = ({ location, address }: Props) => {
   useEffect(() => {
     const map = L.map("map").setView(
       location?.coordinates || [51.505, -0.09],
-      18
+      18,
     );
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
     const marker = L.marker(location?.coordinates || [51.505, -0.09]).addTo(
-      map
+      map,
     );
     marker.bindPopup(address || "Event Location").openPopup();
     return () => {
