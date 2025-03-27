@@ -5,8 +5,6 @@ import { EventCardProps } from "@/InterFaces/Props";
 import MoreButton from "../HomePage/Client/MoreButton";
 import { imageUrl } from "@/Utils/serverUrl";
 import moment from "moment";
-import dayjs from "dayjs";
-//moment().format('MMMM Do YYYY, h:mm:ss a')
 
 const EventCard = ({ item }: EventCardProps) => {
   // console.log({
