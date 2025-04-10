@@ -24,10 +24,10 @@ const EventCard = ({ item }: EventCardProps) => {
               : "bg-red-400"
           } p-2 py-1 absolute z-30 right-1 top-1 rounded-md`}
         >
-          {moment(item?.date).format("MMMM Do") ==
-          moment(new Date()).format("MMMM Do")
+          {new Date(item?.date)?.toISOString()?.split("T")?.[0] ==
+          new Date()?.toISOString()?.split("T")?.[0]
             ? "Today"
-            : moment(item?.date).format("MMMM Do")}
+            : new Date(item?.date)?.toISOString()?.split("T")?.[0]}
         </span>
         <Image
           src={imageUrl(item?.event_image?.[0])}

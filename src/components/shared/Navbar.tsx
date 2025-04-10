@@ -254,10 +254,20 @@ const Navbar = () => {
                   selected={date}
                   onSelect={(dates) => {
                     setDate(dates || []);
+                    // const formattedDates = dates
+                    //   ?.map((d) => format(d, "dd-MM-yyyy"))
+                    //   .join(",")
+                    //   ?.toString();
                     const formattedDates = dates
+                      ?.map((d) => {
+                        const date = new Date(d);
+                        date.setDate(date.getDate() + 1);
+                        return date.toISOString().split("T")[0];
+                      })
                       ?.map((d) => format(d, "dd-MM-yyyy"))
-                      .join(",")
+                      ?.join(",")
                       ?.toString();
+                    console.log(formattedDates);
                     const currentParams = new URLSearchParams(
                       window.location.search,
                     );

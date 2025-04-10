@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { baseApi } from "../baseApi";
 
 const eventApis = baseApi.injectEndpoints({
