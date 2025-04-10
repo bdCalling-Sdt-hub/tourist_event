@@ -42,7 +42,7 @@ const eventApis = baseApi.injectEndpoints({
 
     // GET: Fetch events by category
     getEventsByCategory: builder.query({
-      query: ({ category, option, searchTerm, page, date, upcoming, defaultDate = dayjs(new Date()).toDate().toISOString() }) => {
+      query: ({ category, option, searchTerm, page, date, upcoming, defaultDate = new Date()?.toISOString() }) => {
         return {
           url: `/events`,
           method: "GET",
