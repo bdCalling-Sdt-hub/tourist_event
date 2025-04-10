@@ -109,14 +109,15 @@ const DetailsPageClient = () => {
           </p>
           <p className="start-center bg-[var(--color-blue-500)] text-[var(--color-white)] w-fit p-1 px-4 mt-2 rounded-md gap-2">
             <FaCalendar />
-            {/* {eventData?.date?.split("T")?.[0]} */}
-            {moment(eventData?.date).format("MMMM Do")} at {eventData?.time}
+            {eventData?.date?.split("T")?.[0]}
+            {/* {moment(eventData?.date).format("MMMM Do")} at {eventData?.time} */}
             {/* to{" "}
             {moment(eventData?.end_date).format("MMMM Do")} */}
           </p>
           <p className="mt-2">
-            <strong>End date</strong>{" "}
-            {moment(eventData?.end_date).format("MMMM Do")} at {eventData?.time}
+            <strong>End date</strong> {eventData?.end_date?.split("T")?.[0]} at{" "}
+            {eventData?.time}
+            {/* {moment(eventData?.end_date).format("MMMM Do")} at {eventData?.time} */}
           </p>
           <div className="flex justify-start items-center gap-2 mt-2 text-white">
             {eventData?.social_media ? (
